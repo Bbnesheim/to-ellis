@@ -485,6 +485,20 @@
       margin: 0 auto;
     }
 
+    .ai-footer-newsletter-header-{{ ai_gen_id }}.ai-footer-newsletter-header--mobile-right {
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .ai-footer-newsletter-header-{{ ai_gen_id }}.ai-footer-newsletter-header--mobile-right .ai-footer-newsletter-copy-{{ ai_gen_id }} {
+      text-align: right;
+    }
+
+    .ai-footer-newsletter-header-{{ ai_gen_id }}.ai-footer-newsletter-header--mobile-right .ai-footer-newsletter-logo-{{ ai_gen_id }},
+    .ai-footer-newsletter-header-{{ ai_gen_id }}.ai-footer-newsletter-header--mobile-right .ai-footer-newsletter-logo-placeholder-{{ ai_gen_id }} {
+      margin-left: auto;
+    }
+
     .ai-footer-left-section-{{ ai_gen_id }},
     .ai-footer-right-section-{{ ai_gen_id }} {
       padding: 20px;
@@ -528,6 +542,15 @@
       <div class="ai-footer-left-section-{{ ai_gen_id }}">
         {% if block.settings.show_newsletter %}
           <div class="ai-footer-newsletter-{{ ai_gen_id }}">
+            {% assign mobile_alignment_class = '' %}
+            {% case block.settings.newsletter_logo_mobile_alignment %}
+              {% when 'center' %}
+                {% assign mobile_alignment_class = ' ai-footer-newsletter-header--mobile-center' %}
+              {% when 'right' %}
+                {% assign mobile_alignment_class = ' ai-footer-newsletter-header--mobile-right' %}
+            {% endcase %}
+
+            <div class="ai-footer-newsletter-header-{{ ai_gen_id }}{{ mobile_alignment_class }}">
             <div class="ai-footer-newsletter-header-{{ ai_gen_id }}{% if block.settings.newsletter_logo_mobile_alignment == 'center' %} ai-footer-newsletter-header--mobile-center{% endif %}">
               {% if block.settings.newsletter_logo %}
                 <img
@@ -765,6 +788,10 @@
         {
           "value": "center",
           "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
         }
       ],
       "default": "left"
