@@ -551,6 +551,7 @@
             {% endcase %}
 
             <div class="ai-footer-newsletter-header-{{ ai_gen_id }}{{ mobile_alignment_class }}">
+            <div class="ai-footer-newsletter-header-{{ ai_gen_id }}{% if block.settings.newsletter_logo_mobile_alignment == 'center' %} ai-footer-newsletter-header--mobile-center{% endif %}">
               {% if block.settings.newsletter_logo %}
                 <img
                   src="{{ block.settings.newsletter_logo | image_url: width: 200}}"
