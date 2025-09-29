@@ -1,0 +1,98 @@
+.collection-list {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.collection-list-title {
+  margin: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .collection-list:not(.slider) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .section-collection-list .page-width {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .section-collection-list .collection-list:not(.slider) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.collection-list__item:only-child {
+  max-width: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width: 749px) {
+  .slider.collection-list--1-items {
+    padding-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .slider.collection-list--1-items,
+  .slider.collection-list--2-items,
+  .slider.collection-list--3-items,
+  .slider.collection-list--4-items {
+    padding-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .collection-list__item a:hover {
+    box-shadow: none;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .collection-list.slider .collection-list__item {
+    max-width: 100%;
+  }
+}
+
+.collection-list-view-all {
+  margin-top: 2rem;
+}
+
+/* Collection list: underline under text only (no markup change) */
+.section-collection-list .card__information .full-unstyled-link {
+  position: relative;
+  display: inline-block;   /* shrink-wrap to text */
+  padding-right: 1.1em;    /* keeps arrow outside the underline width */
+  text-decoration: none;
+  line-height: 1.15;       /* (optional) tighten so baseline is predictable */
+}
+
+/* keep the arrow in the reserved space */
+.section-collection-list .card__information .full-unstyled-link .icon-wrap {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translateY(10%);
+}
+
+/* anchor the underline just *below* the link box */
+.section-collection-list .card__information .full-unstyled-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;                          /* <-- below the element */
+  transform: translate(-50%, 2px) scaleX(0);  /* push 2px further down */
+  width: 100%;                        /* equals text width (arrow excluded) */
+  height: 1px;
+  background: currentColor;
+  transform-origin: center;
+  transition: transform 220ms ease;
+  pointer-events: none;
+}
+
+.section-collection-list .card__information .full-unstyled-link:hover::after,
+.section-collection-list .card__information .full-unstyled-link:focus-visible::after {
+  transform: translate(-50%, 2px) scaleX(1);
+}

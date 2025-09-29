@@ -1,0 +1,300 @@
+{% doc %}
+  @prompt
+    Create a customizable logo banner section for the bottom of the page that includes: a logo image upload option, adjustable border settings (width, style, color), customizable background color picker, responsive design that works on all devices, and proper spacing and alignment controls. The banner should be similar to the Lacoste-style banner shown in the reference image with clean typography and professional appearance., logo should cover almost the whole page, Layout Minimum height do not work
+    Increase the logo width, Custom Vertical padding
+    Horizontal padding
+    for mobile
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-logo-banner-{{ ai_gen_id }} {
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    border-top-width: {{ block.settings.border_width }}px;
+    border-top-style: {{ block.settings.border_style }};
+    border-top-color: {{ block.settings.border_color }};
+    padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
+    display: flex;
+    justify-content: {{ block.settings.alignment }};
+    align-items: center;
+    min-height: {{ block.settings.min_height }}px;
+    box-sizing: border-box;
+  }
+
+  .ai-logo-banner__container-{{ ai_gen_id }} {
+    max-width: {{ settings.page_width }}px;
+    width: 100%;
+    display: flex;
+    justify-content: {{ block.settings.alignment }};
+    align-items: center;
+    min-height: inherit;
+  }
+
+  .ai-logo-banner__logo-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: inherit;
+  }
+
+  .ai-logo-banner__logo-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-logo-banner__placeholder-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}%;
+    max-width: 100%;
+    min-height: {{ block.settings.min_height | minus: block.settings.padding_vertical | minus: block.settings.padding_vertical }}px;
+    background-color: #f4f4f4;
+    border: 2px dashed #cccccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .ai-logo-banner__placeholder-{{ ai_gen_id }} svg {
+    width: 80px;
+    height: 80px;
+    opacity: 0.5;
+  }
+
+  .ai-logo-banner__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-logo-banner-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_vertical_mobile }}px {{ block.settings.padding_horizontal_mobile }}px;min-height: {{ block.settings.min_height_mobile }}px;
+    }
+
+    .ai-logo-banner__logo-{{ ai_gen_id }} {
+      width: {{ block.settings.logo_width_mobile }}%;}
+
+    .ai-logo-banner__placeholder-{{ ai_gen_id }} {
+      width: {{ block.settings.logo_width_mobile }}%;
+      min-height: {{ block.settings.min_height_mobile | minus: block.settings.padding_vertical_mobile | minus: block.settings.padding_vertical_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-logo-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-logo-banner__container-{{ ai_gen_id }}">
+    <div class="ai-logo-banner__logo-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.logo %}
+        <img
+          src="{{ block.settings.logo | image_url: width: 2000 }}"
+          alt="{{ block.settings.logo.alt | default: shop.name | escape }}"
+          class="ai-logo-banner__logo-{{ ai_gen_id }}"
+          width="{{ block.settings.logo.width }}"
+          height="{{ block.settings.logo.height }}"loading="lazy"
+        >
+      {% else %}
+        <div class="ai-logo-banner__placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}<div class="ai-logo-banner__empty-state-{{ ai_gen_id }}">
+            Add your logo
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Logo banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 60,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Logo width",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "logo_width_mobile",
+      "min": 80,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Logo width on mobile",
+      "default": 98
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Logo alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "range",
+      "id": "min_height_mobile",
+      "min": 60,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height on mobile",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding on mobile",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal padding on mobile",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Border"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "select",
+      "id": "border_style",
+      "label": "Border style",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid"
+        },
+        {
+          "value": "dashed",
+          "label": "Dashed"
+        },
+        {
+          "value": "dotted",
+          "label": "Dotted"
+        },
+        {
+          "value": "double",
+          "label": "Double"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e0e0e0"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo banner"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

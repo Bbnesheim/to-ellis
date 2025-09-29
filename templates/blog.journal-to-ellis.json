@@ -1,0 +1,192 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "disabled": true,
+      "settings": {
+        "layout": "collage",
+        "show_image": true,
+        "image_height": "medium",
+        "show_date": true,
+        "show_author": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "17563885029473bb74": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9785b9f_MF7R8p": {
+          "type": "journal",
+          "settings": {
+            "enable_animation": true,
+            "animation_type": "book_entrance",
+            "animation_duration": 1.2,
+            "animation_delay": 0.3,
+            "animation_easing": "ease-out",
+            "content_animation_duration": 0.8,
+            "element_animation_duration": 0.6,
+            "stagger_delay": 0.2,
+            "typing_duration": 3,
+            "hover_effects": true,
+            "book_spine_effect": true,
+            "spine_width": 20,
+            "spine_offset": 25,
+            "spine_color": "#6f2634",
+            "page_lines": false,
+            "line_spacing": 28,
+            "line_color": "#f9f8f7",
+            "line_opacity": 10,
+            "blog_title": "THE CONSIDERED DRESS",
+            "show_date": true,
+            "blog_date": "08. July 2025",
+            "blog_excerpt": "<p>I began with a whisper-thin thread and a question: what does it feel like to dress like a love letter to yourself?</p>",
+            "signature_text": "With love,",
+            "signature_alignment": "left",
+            "show_signature_logo": true,
+            "signature_logo": "shopify://shop_images/Asset_2.svg",
+            "signature_logo_size": 60,
+            "signature_logo_spacing": 15,
+            "text_block_1": "<p>That question became sketches at the kitchen table, pins in a pincushion, seams pressed open at midnight. It became this brand.</p>",
+            "text_1_alignment": "left",
+            "text_block_2": "<p>I started <strong>To Ellis</strong> because I could not find dresses that felt both delicate and dependable, pieces with real intention in their lines, not just decoration. I wanted fabrics that move like light, cuts that hold you without holding you back, and details that don’t shout for attention yet are impossible to ignore once you notice them: a measured pleat at the waist, a bow that knows when to stop, a neckline that frames a laugh as well as a necklace.</p>",
+            "text_2_alignment": "left",
+            "text_block_3": "<p>I design for moments that deserve to be kept: busy mornings, unplanned evenings, promises kept to yourself. I believe a dress should earn its place in your life the way a good friend does, by showing up and fitting beautifully. That means fewer styles, better made. It means silk that drapes with grace, cotton that breathes, and silhouettes that skim, not squeeze; V-neck and boat neck lines that flatter in different moods; lengths that meet you where you live; room for growth and softness, including pieces that carry you through motherhood without asking you to compromise your taste.</p>",
+            "text_3_alignment": "left",
+            "text_block_4": "<p><strong>WHAT DO I HOPE TO ACHIEVE?</strong><br/>Clothes that feel like permission: to be gentle and strong at once. A house style that is recognisable not by a logo shouting from afar, but by the quiet logic of its construction: those fine waist tucks, the soft architecture of a sleeve, the ribbon’s restrained flourish. I want you to look at a garment and know, without reading a label, <em>that must be To Ellis.</em></p>",
+            "text_4_alignment": "left",
+            "text_block_5": "<p><strong>WHAT INSPIRES ME?</strong><br/>The calm parts of theatre: the hush before the curtain rises; the way fabric holds light and lets it go. The discipline of couture seam lines. The kindness of heirloom pieces. The little rituals: tissue paper that sighs open, a bow untied with care, a tag that says <em>To: You / From: Ellis</em>. I design in black and white and let a hint of pastel walk in quietly, the way a memory does. And when winter comes, I lean into deep wine, forest, and navy, shades that feel like candlelight against the skin.</p><p><strong>Where I see a gap in the market is precisely here:</strong> dresses that are considered. Too often it’s either trend or stiff tradition: feathers or boardroom. I wanted the middle ground where a garment is poetic without being precious, modern without being cold, feminine without apology. Pieces you can style a hundred ways, pieces that photograph beautifully yet live better off-camera.</p><p>My promise is craft you can feel. Patterns refined until they disappear into comfort. Hems that hang true. Finishings you don’t notice because they simply work. Packaging that keeps the experience intact: a box you’ll want to keep, tissue like a cloud, a ribbon you might tie in your hair later. Not spectacle. You are the event.</p><p>This is a small brand with a big intention: to make fewer things, and let each one matter. If a dress leaves my hands, it does so because I believe it will become yours, truly yours, in the wearing and the years.</p><p>If you’ve read this far, perhaps you were meant to be here. Consider this your note tucked into the lining: remember how beautiful it is to belong to yourself.</p>",
+            "text_5_alignment": "left",
+            "heading_font": "cormorant_n6",
+            "body_font": "cormorant_n4",
+            "title_size": 36,
+            "date_size": 16,
+            "excerpt_size": 18,
+            "body_size": 16,
+            "signature_size": 18,
+            "line_height": 160,
+            "mobile_title_size": 28,
+            "mobile_excerpt_size": 16,
+            "mobile_body_size": 18,
+            "mobile_signature_size": 16,
+            "background_color": "rgba(0,0,0,0)",
+            "background_gradient": "linear-gradient(46deg, rgba(249, 248, 247, 0) 13%, rgba(249, 248, 247, 0) 86%)",
+            "content_background": "#f9f8f780",
+            "title_color": "#121826",
+            "date_color": "#8a8a8a",
+            "excerpt_color": "#121826",
+            "body_color": "#121826",
+            "signature_color": "#121826",
+            "border_color": "#f1f5f9",
+            "content_width": 850,
+            "page_padding": 40,
+            "content_padding": 60,
+            "mobile_padding": 20,
+            "mobile_content_padding": 30,
+            "header_spacing": 40,
+            "title_spacing": 15,
+            "date_spacing": 20,
+            "excerpt_spacing": 30,
+            "paragraph_spacing": 25,
+            "signature_spacing": 50,
+            "header_alignment": "center",
+            "content_shadow": true,
+            "content_border_radius": 8,
+            "show_header_border": true,
+            "show_signature_border": true,
+            "background_image": "shopify://shop_images/donald-giannatti-L6_wCVK2e40-unsplash.jpg",
+            "background_size": "auto",
+            "background_position_x": 0,
+            "background_position_y": 50,
+            "background_attachment": "scroll",
+            "background_scale": 100,
+            "background_image_opacity": 30,
+            "background_blur": 0,
+            "texture_opacity": 15,
+            "decorative_element": "shopify://shop_images/Asset_5.svg",
+            "show_decorative_top": true,
+            "show_decorative_bottom": false,
+            "decorative_size": 180,
+            "decorative_opacity": 95,
+            "decorative_spacing": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9785b9f_MF7R8p"
+      ],
+      "settings": {}
+    },
+    "featured_blog_WbicrL": {
+      "type": "featured-blog",
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "blog": "",
+        "post_limit": 3,
+        "heading": "Blog posts",
+        "heading_size": "h1",
+        "columns_desktop": 3,
+        "show_view_all": true,
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "slideshow_krBhmn": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_axFeMC": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/fruzsina-kiss-0_-yD4HGbtU-unsplash.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "READ ABOUT OUR STORY",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "DISCOVER JOURNAL",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-right",
+            "text_alignment": "right",
+            "text_alignment_mobile": "right",
+            "color_scheme": "scheme-2"
+          }
+        }
+      },
+      "block_order": [
+        "slide_axFeMC"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "medium",
+        "slider_visual": "counter",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": true,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "17563885029473bb74",
+    "featured_blog_WbicrL",
+    "slideshow_krBhmn"
+  ]
+}
