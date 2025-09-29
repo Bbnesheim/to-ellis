@@ -471,6 +471,20 @@
       gap: 8px;
     }
 
+    .ai-footer-newsletter-header-{{ ai_gen_id }}.ai-footer-newsletter-header--mobile-center {
+      align-items: center;
+      text-align: center;
+    }
+
+    .ai-footer-newsletter-header-{{ ai_gen_id }}.ai-footer-newsletter-header--mobile-center .ai-footer-newsletter-copy-{{ ai_gen_id }} {
+      text-align: center;
+    }
+
+    .ai-footer-newsletter-header-{{ ai_gen_id }}.ai-footer-newsletter-header--mobile-center .ai-footer-newsletter-logo-{{ ai_gen_id }},
+    .ai-footer-newsletter-header-{{ ai_gen_id }}.ai-footer-newsletter-header--mobile-center .ai-footer-newsletter-logo-placeholder-{{ ai_gen_id }} {
+      margin: 0 auto;
+    }
+
     .ai-footer-left-section-{{ ai_gen_id }},
     .ai-footer-right-section-{{ ai_gen_id }} {
       padding: 20px;
@@ -514,7 +528,7 @@
       <div class="ai-footer-left-section-{{ ai_gen_id }}">
         {% if block.settings.show_newsletter %}
           <div class="ai-footer-newsletter-{{ ai_gen_id }}">
-            <div class="ai-footer-newsletter-header-{{ ai_gen_id }}">
+            <div class="ai-footer-newsletter-header-{{ ai_gen_id }}{% if block.settings.newsletter_logo_mobile_alignment == 'center' %} ai-footer-newsletter-header--mobile-center{% endif %}">
               {% if block.settings.newsletter_logo %}
                 <img
                   src="{{ block.settings.newsletter_logo | image_url: width: 200}}"
@@ -737,6 +751,23 @@
       "unit": "px",
       "label": "Newsletter logo size",
       "default": 120
+    },
+    {
+      "type": "select",
+      "id": "newsletter_logo_mobile_alignment",
+      "label": "Mobile newsletter logo alignment",
+      "info": "Controls the placement of the newsletter logo and copy on screens smaller than 750px.",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
     },
     {
       "type": "text",
