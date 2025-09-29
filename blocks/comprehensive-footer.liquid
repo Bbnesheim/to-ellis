@@ -16,6 +16,7 @@
 
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign newsletter_alignment = block.settings.newsletter_header_alignment | default: 'center' %}
 
 {% style %}
   .ai-footer-{{ ai_gen_id }} {
@@ -98,8 +99,10 @@
   .ai-footer-newsletter-header-{{ ai_gen_id }} {
     display: flex;
     align-items: center;
+    justify-content: {% if newsletter_alignment == 'center' %}center{% else %}flex-start{% endif %};
     gap: 16px;
     margin-bottom: 8px;
+    text-align: {{ newsletter_alignment }};
   }
 
   .ai-footer-newsletter-logo-{{ ai_gen_id }} {
@@ -467,8 +470,10 @@
 
     .ai-footer-newsletter-header-{{ ai_gen_id }} {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: {% if newsletter_alignment == 'center' %}center{% else %}flex-start{% endif %};
+      justify-content: {% if newsletter_alignment == 'center' %}center{% else %}flex-start{% endif %};
       gap: 8px;
+      text-align: {{ newsletter_alignment }};
     }
 
     .ai-footer-left-section-{{ ai_gen_id }},
@@ -743,6 +748,22 @@
       "id": "newsletter_copy",
       "label": "Newsletter copy",
       "default": "Stay updated with our latest news and offers"
+    },
+    {
+      "type": "select",
+      "id": "newsletter_header_alignment",
+      "label": "Newsletter header alignment",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ]
     },
     {
       "type": "text",
