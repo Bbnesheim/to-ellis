@@ -589,9 +589,25 @@
 
       <div class="ai-footer-right-section-{{ ai_gen_id }}">
         <div class="ai-footer-nav-section-{{ ai_gen_id }}">
-          <div class="ai-footer-nav-column-{{ ai_gen_id }}">
-            <h3 class="ai-footer-nav-title-{{ ai_gen_id }}">{{ block.settings.nav_1_title }}</h3>
-            <ul class="ai-footer-nav-list-{{ ai_gen_id }}">
+          <div class="ai-footer-nav-column-{{ ai_gen_id }} ai-footer-accordion-{{ ai_gen_id }}">
+            <button
+              class="ai-footer-accordion__trigger-{{ ai_gen_id }}"
+              type="button"
+              aria-expanded="{% if block.settings.mobile_use_accordions %}false{% else %}true{% endif %}"
+              aria-controls="acc-panel-about-{{ ai_gen_id }}"
+            >
+              <span class="ai-footer-accordion__label-{{ ai_gen_id }} ai-footer-nav-title-{{ ai_gen_id }}">{{ block.settings.nav_1_title }}</span>
+              <span class="ai-footer-accordion__chevron-{{ ai_gen_id }}" aria-hidden="true">▾</span>
+            </button>
+
+            <div
+              id="acc-panel-about-{{ ai_gen_id }}"
+              class="ai-footer-accordion__panel-{{ ai_gen_id }}"
+              role="region"
+              {% if block.settings.mobile_use_accordions %}hidden{% endif %}
+              data-open="{% if block.settings.mobile_use_accordions %}false{% else %}true{% endif %}"
+            >
+              <ul class="ai-footer-nav-list-{{ ai_gen_id }}">
               {% if block.settings.nav_1_link_1_text != blank %}
                 <li><a href="{{ block.settings.nav_1_link_1_url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ block.settings.nav_1_link_1_text }}</a></li>
               {% endif %}
@@ -609,41 +625,92 @@
               {% endif %}
             </ul>
           </div>
+        </div>
 
-          <div class="ai-footer-nav-column-{{ ai_gen_id }}">
-            <h3 class="ai-footer-nav-title-{{ ai_gen_id }}">{{ block.settings.categories_title }}</h3>
-            <ul class="ai-footer-nav-list-{{ ai_gen_id }}">
-              {% for collection in collections %}
-                {% if forloop.index <= block.settings.categories_limit %}<li><a href="{{ collection.url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ collection.title }}</a></li>
+          <div class="ai-footer-nav-column-{{ ai_gen_id }} ai-footer-accordion-{{ ai_gen_id }}">
+            <button
+              class="ai-footer-accordion__trigger-{{ ai_gen_id }}"
+              type="button"
+              aria-expanded="{% if block.settings.mobile_use_accordions %}false{% else %}true{% endif %}"
+              aria-controls="acc-panel-cats-{{ ai_gen_id }}"
+            >
+              <span class="ai-footer-accordion__label-{{ ai_gen_id }} ai-footer-nav-title-{{ ai_gen_id }}">{{ block.settings.categories_title }}</span>
+              <span class="ai-footer-accordion__chevron-{{ ai_gen_id }}" aria-hidden="true">▾</span>
+            </button>
+
+            <div
+              id="acc-panel-cats-{{ ai_gen_id }}"
+              class="ai-footer-accordion__panel-{{ ai_gen_id }}"
+              role="region"
+              {% if block.settings.mobile_use_accordions %}hidden{% endif %}
+              data-open="{% if block.settings.mobile_use_accordions %}false{% else %}true{% endif %}"
+            >
+              <ul class="ai-footer-nav-list-{{ ai_gen_id }}">
+                {% for collection in collections %}
+                  {% if forloop.index <= block.settings.categories_limit %}<li><a href="{{ collection.url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ collection.title }}</a></li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+
+          <div class="ai-footer-nav-column-{{ ai_gen_id }} ai-footer-accordion-{{ ai_gen_id }}">
+            <button
+              class="ai-footer-accordion__trigger-{{ ai_gen_id }}"
+              type="button"
+              aria-expanded="{% if block.settings.mobile_use_accordions %}false{% else %}true{% endif %}"
+              aria-controls="acc-panel-help-{{ ai_gen_id }}"
+            >
+              <span class="ai-footer-accordion__label-{{ ai_gen_id }} ai-footer-nav-title-{{ ai_gen_id }}">{{ block.settings.nav_2_title }}</span>
+              <span class="ai-footer-accordion__chevron-{{ ai_gen_id }}" aria-hidden="true">▾</span>
+            </button>
+
+            <div
+              id="acc-panel-help-{{ ai_gen_id }}"
+              class="ai-footer-accordion__panel-{{ ai_gen_id }}"
+              role="region"
+              {% if block.settings.mobile_use_accordions %}hidden{% endif %}
+              data-open="{% if block.settings.mobile_use_accordions %}false{% else %}true{% endif %}"
+            >
+              <ul class="ai-footer-nav-list-{{ ai_gen_id }}">
+                {% if block.settings.nav_2_link_1_text != blank %}
+                  <li><a href="{{ block.settings.nav_2_link_1_url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ block.settings.nav_2_link_1_text }}</a></li>
                 {% endif %}
-              {% endfor %}
-            </ul>
+                {% if block.settings.nav_2_link_2_text != blank %}
+                  <li><a href="{{ block.settings.nav_2_link_2_url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ block.settings.nav_2_link_2_text }}</a></li>
+                {% endif %}
+                {% if block.settings.nav_2_link_3_text != blank %}
+                  <li><a href="{{ block.settings.nav_2_link_3_url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ block.settings.nav_2_link_3_text }}</a></li>
+                {% endif %}
+                {% if block.settings.nav_2_link_4_text != blank %}
+                  <li><a href="{{ block.settings.nav_2_link_4_url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ block.settings.nav_2_link_4_text }}</a></li>
+                {% endif %}
+                {% if block.settings.nav_2_link_5_text != blank %}
+                  <li><a href="{{ block.settings.nav_2_link_5_url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ block.settings.nav_2_link_5_text }}</a></li>
+                {% endif %}
+              </ul>
+            </div>
           </div>
 
-          <div class="ai-footer-nav-column-{{ ai_gen_id }}">
-            <h3 class="ai-footer-nav-title-{{ ai_gen_id }}">{{ block.settings.nav_2_title }}</h3>
-            <ul class="ai-footer-nav-list-{{ ai_gen_id }}">
-              {% if block.settings.nav_2_link_1_text != blank %}
-                <li><a href="{{ block.settings.nav_2_link_1_url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ block.settings.nav_2_link_1_text }}</a></li>
-              {% endif %}
-              {% if block.settings.nav_2_link_2_text != blank %}
-                <li><a href="{{ block.settings.nav_2_link_2_url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ block.settings.nav_2_link_2_text }}</a></li>
-              {% endif %}
-              {% if block.settings.nav_2_link_3_text != blank %}
-                <li><a href="{{ block.settings.nav_2_link_3_url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ block.settings.nav_2_link_3_text }}</a></li>
-              {% endif %}
-              {% if block.settings.nav_2_link_4_text != blank %}
-                <li><a href="{{ block.settings.nav_2_link_4_url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ block.settings.nav_2_link_4_text }}</a></li>
-              {% endif %}
-              {% if block.settings.nav_2_link_5_text != blank %}
-                <li><a href="{{ block.settings.nav_2_link_5_url }}" class="ai-footer-nav-link-{{ ai_gen_id }}">{{ block.settings.nav_2_link_5_text }}</a></li>
-              {% endif %}
-            </ul>
-          </div>
+          <div class="ai-footer-social-column-{{ ai_gen_id }} ai-footer-accordion-{{ ai_gen_id }}">
+            <button
+              class="ai-footer-accordion__trigger-{{ ai_gen_id }}"
+              type="button"
+              aria-expanded="{% if block.settings.mobile_use_accordions %}false{% else %}true{% endif %}"
+              aria-controls="acc-panel-social-{{ ai_gen_id }}"
+            >
+              <span class="ai-footer-accordion__label-{{ ai_gen_id }} ai-footer-social-title-{{ ai_gen_id }}">{{ block.settings.social_title }}</span>
+              <span class="ai-footer-accordion__chevron-{{ ai_gen_id }}" aria-hidden="true">▾</span>
+            </button>
 
-          <div class="ai-footer-social-column-{{ ai_gen_id }}">
-            <h3 class="ai-footer-social-title-{{ ai_gen_id }}">{{ block.settings.social_title }}</h3>
-            <div class="ai-footer-social-links-{{ ai_gen_id }}">
+            <div
+              id="acc-panel-social-{{ ai_gen_id }}"
+              class="ai-footer-accordion__panel-{{ ai_gen_id }}"
+              role="region"
+              {% if block.settings.mobile_use_accordions %}hidden{% endif %}
+              data-open="{% if block.settings.mobile_use_accordions %}false{% else %}true{% endif %}"
+            >
+              <div class="ai-footer-social-links-{{ ai_gen_id }}">
               {% if block.settings.instagram_url != blank %}
                 <a href="{{ block.settings.instagram_url }}" class="ai-footer-social-link-{{ ai_gen_id }}" target="_blank" rel="noopener">
                   <div class="ai-footer-social-icon-{{ ai_gen_id }}">
@@ -673,7 +740,7 @@
               {% if block.settings.youtube_url != blank %}
                 <a href="{{ block.settings.youtube_url }}" class="ai-footer-social-link-{{ ai_gen_id }}" target="_blank" rel="noopener">
                   <div class="ai-footer-social-icon-{{ ai_gen_id }}">
-                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.808 12l-6.263 3.568z"/></svg>
                   </div>
                   <span class="ai-footer-social-text-{{ ai_gen_id }}">{{ block.settings.youtube_text }}</span>
                 </a>
@@ -686,9 +753,62 @@
                   <span class="ai-footer-social-text-{{ ai_gen_id }}">{{ block.settings.tise_text }}</span>
                 </a>
               {% endif %}
+              </div>
             </div>
           </div>
         </div>
+
+        {% if block.settings.mobile_use_accordions %}
+        {% style %}
+@media (max-width: 749px) {
+  #shopify-section-{{ section.id }} .ai-footer-nav-section-{{ ai_gen_id }} {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .ai-footer-accordion-{{ ai_gen_id }} {
+    border-top: 1px solid {{ block.settings.vertical_border_color }};
+  }
+
+  #shopify-section-{{ section.id }} .ai-footer-accordion__trigger-{{ ai_gen_id }} {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    min-height: 48px;
+    background: transparent;
+    border: 0;
+    font-size: {{ block.settings.nav_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .ai-footer-accordion__chevron-{{ ai_gen_id }} {
+    transition: transform .25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ai-footer-accordion__panel-{{ ai_gen_id }} {
+    overflow: hidden;
+    transition: grid-template-rows .25s ease, padding .25s ease;
+    display: grid;
+    grid-template-rows: 0fr;
+    padding: 0 0 0 0;
+  }
+  #shopify-section-{{ section.id }} .ai-footer-accordion__panel-{{ ai_gen_id }}[data-open="true"] {
+    grid-template-rows: 1fr;
+    padding: 6px 0 12px 0;
+  }
+  #shopify-section-{{ section.id }} .ai-footer-accordion__panel-{{ ai_gen_id }} > * {
+    min-height: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ai-footer-accordion__trigger-{{ ai_gen_id }}[aria-expanded="true"] .ai-footer-accordion__chevron-{{ ai_gen_id }}{
+    transform: rotate(180deg);
+  }
+}
+        {% endstyle %}
+        {% endif %}
 
         {% if block.settings.show_payment_icons %}
           <div class="ai-footer-payment-section-{{ ai_gen_id }}">
@@ -713,6 +833,91 @@
     </div>
   </div>
 </footer>
+
+{% if block.settings.mobile_use_accordions %}
+<script>
+(() => {
+  const root = document.getElementById('shopify-section-{{ section.id }}');
+  if (!root) return;
+
+  const triggers = root.querySelectorAll('.ai-footer-accordion__trigger-{{ ai_gen_id }}');
+  const panels = root.querySelectorAll('.ai-footer-accordion__panel-{{ ai_gen_id }}');
+
+  if (!triggers.length || !panels.length) return;
+
+  function closeAll(exceptId) {
+    panels.forEach((p) => {
+      if (!exceptId || p.id !== exceptId) {
+        p.setAttribute('data-open', 'false');
+        p.hidden = true;
+      }
+    });
+    triggers.forEach((t) => {
+      const controls = t.getAttribute('aria-controls');
+      if (!exceptId || controls !== exceptId) {
+        t.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  function setDesktopState() {
+    panels.forEach((p) => {
+      p.hidden = false;
+      p.setAttribute('data-open', 'true');
+    });
+    triggers.forEach((t) => t.setAttribute('aria-expanded', 'true'));
+  }
+
+  const mql = window.matchMedia('(max-width: 749px)');
+
+  const applyState = () => {
+    if (mql.matches) {
+      closeAll(null);
+    } else {
+      setDesktopState();
+    }
+  };
+
+  applyState();
+
+  triggers.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!mql.matches) return;
+
+      const id = btn.getAttribute('aria-controls');
+      const panel = root.querySelector('#' + CSS.escape(id));
+      if (!panel) return;
+
+      const isOpen = panel.getAttribute('data-open') === 'true';
+      if (isOpen) {
+        panel.setAttribute('data-open', 'false');
+        panel.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        closeAll(id);
+        panel.hidden = false;
+        requestAnimationFrame(() => panel.setAttribute('data-open', 'true'));
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  const handleChange = (e) => {
+    if (e.matches) {
+      closeAll(null);
+    } else {
+      setDesktopState();
+    }
+  };
+
+  if (typeof mql.addEventListener === 'function') {
+    mql.addEventListener('change', handleChange);
+  } else if (typeof mql.addListener === 'function') {
+    mql.addListener(handleChange);
+  }
+})();
+</script>
+{% endif %}
 
 {% schema %}
 {
@@ -1335,6 +1540,12 @@
       "id": "payment_icon_background",
       "label": "Payment icon background",
       "default": "#FFFFFF"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_use_accordions",
+      "label": "Use dropdown accordions on mobile",
+      "default": true
     },
     {
       "type": "header",
