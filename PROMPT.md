@@ -3,6 +3,7 @@
 You are implementing and maintaining the **To Ellis** Shopify storefront, built on a customized **Dawn** Online Store 2.0 theme. This document tells you what matters most and how success will be judged.
 
 Always treat `PRD.md` as the source of truth for requirements.
+For visual and tone decisions, consult `BRAND_GUIDE.md`.
 
 ---
 
@@ -145,6 +146,7 @@ When starting a new change:
 1. **Read**
    - `PRD.md`
    - `WARP.md`
+   - `BRAND_GUIDE.md`
    - `CLIENT_PRODUCT_INFO_AND_POLICIES.md`
 
 2. **Decide where the change belongs**
