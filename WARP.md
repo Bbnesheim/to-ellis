@@ -2,6 +2,17 @@
 
 This file provides guidance to WARP (warp.dev) when working with code in this repository.
 
+## Getting Started (Docs to read first)
+
+Before making changes, skim these project docs in this repo:
+
+- `PRD.md` – what the store must do and contain.
+- `PROMPT.md` – implementation priorities and acceptance tests.
+- `AGENT_WORKFLOW.md` – how different agents/roles should work.
+- `CLIENT_PRODUCT_INFO_AND_POLICIES.md` – client product descriptions and policy outline.
+
+Once you understand those, use the commands below to run and validate the theme.
+
 ## Commands & Development Workflow
 
 This repo is a standalone Shopify theme (Dawn-derived) with no custom build system or test harness inside the repo. Development is done via the Shopify CLI and the online theme editor.
