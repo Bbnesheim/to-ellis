@@ -53,7 +53,6 @@
             "signature_text": "With love,",
             "signature_alignment": "left",
             "show_signature_logo": true,
-            "signature_logo": "shopify://shop_images/Asset_2.svg",
             "signature_logo_size": 60,
             "signature_logo_spacing": 15,
             "text_block_1": "<p>That question became sketches at the kitchen table, pins in a pincushion, seams pressed open at midnight. It became this brand.</p>",
@@ -103,7 +102,6 @@
             "content_border_radius": 8,
             "show_header_border": true,
             "show_signature_border": true,
-            "background_image": "shopify://shop_images/donald-giannatti-L6_wCVK2e40-unsplash.jpg",
             "background_size": "auto",
             "background_position_x": 0,
             "background_position_y": 50,
@@ -129,6 +127,7 @@
     },
     "featured_blog_WbicrL": {
       "type": "featured-blog",
+      "disabled": true,
       "name": "t:sections.featured-blog.presets.name",
       "settings": {
         "blog": "",
@@ -150,8 +149,8 @@
       "blocks": {
         "slide_axFeMC": {
           "type": "slide",
+          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/fruzsina-kiss-0_-yD4HGbtU-unsplash.jpg",
             "image_overlay_opacity": 0,
             "heading": "READ ABOUT OUR STORY",
             "heading_size": "h1",
