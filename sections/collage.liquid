@@ -19,7 +19,7 @@
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient isolate">
-  <div class="page-width section-{{ section.id }}-padding">
+  <div class="page-width page-width--collage section-{{ section.id }}-padding">
     {%- if section.settings.heading != blank -%}
       <h2 class="collage-wrapper-title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         {{ section.settings.heading }}
@@ -99,7 +99,9 @@
                 show_secondary_image: block.settings.second_image,
                 extend_height: true,
                 placeholder_image: placeholder_image,
-                skip_styles: skip_card_product_styles
+                skip_styles: skip_card_product_styles,
+                is_collage_product: true,
+                section_id: section.id
               %}
               {% assign skip_card_product_styles = true %}
             {%- when 'collection' -%}

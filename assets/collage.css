@@ -7,6 +7,14 @@
   display: grid;
 }
 
+@media screen and (min-width: 990px) {
+  /* Slightly narrower page width for collage so the large image scales down as a whole
+     and keep collage height under ~850px on desktop */
+  .page-width--collage {
+    max-width: 95rem;
+  }
+}
+
 .collage__item > * {
   width: 100%;
 }
@@ -76,6 +84,14 @@
     grid-column-start: 3;
   }
 
+  /* Make the two smaller collage items square on desktop */
+  .collage__item--left:nth-child(3n - 1) .ratio::before,
+  .collage__item--left:nth-child(3n) .ratio::before,
+  .collage__item--right:nth-child(3n - 2) .ratio::before,
+  .collage__item--right:nth-child(3n - 1) .ratio::before {
+    padding-bottom: 100% !important;
+  }
+
   .collage__item--left:nth-child(3n - 1):last-child {
     grid-row: span 2;
   }
@@ -116,6 +132,51 @@
   border-radius: var(--border-radius);
   border: var(--border-width) solid rgba(var(--color-foreground), var(--border-opacity));
   padding: var(--image-padding);
+}
+
+/* Collage-specific product card styling */
+.collage-product-card-wrapper .card__heading {
+  font-size: clamp(3.4rem, 3.6vw, 5rem);
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.collage-product-card-wrapper .collage-product-title {
+  display: inline-block;
+}
+
+.collage-product-card-wrapper .collage-product-title {
+  color: #8a9bb7;
+  transition: color var(--duration-short) ease;
+}
+
+.collage-product-card-wrapper .collage-product-title:hover {
+  color: #6f82a0;
+}
+
+.collage-product-card-wrapper .collage-product-price-standard {
+  display: none;
+}
+
+.collage-product-card-wrapper .media .collage-product-price-overlay {
+  position: absolute;
+  top: auto;
+  left: auto;
+  right: 3.2rem;
+  bottom: 3.2rem;
+  z-index: 2;
+  pointer-events: none;
+  width: auto;
+  height: auto;
+}
+
+.collage-product-card-wrapper .collage-product-price-amount {
+  font-family: "Cormorant", var(--font-heading-family), serif;
+  font-size: clamp(4.2rem, 3.2vw, 5.4rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.35);
 }
 
 /* Needed for gradient continuity with or without animation, background-attachment: local scopes the gradient to its container which happens automatically when a transform is applied (animation on scroll) */
@@ -199,4 +260,24 @@
 .collage-card .deferred-media__poster:focus {
   outline: none;
   box-shadow: none;
+}
+
+/* Mobile overrides for collage product title and price (must come after desktop rules) */
+@media screen and (max-width: 749px) {
+  .collage-product-card-wrapper .card__heading {
+    font-size: 2.4rem;
+    line-height: 1.2;
+  }
+
+  .collage-product-card-wrapper .media .collage-product-price-overlay {
+    top: auto;
+    left: auto;
+    right: 1.4rem;
+    bottom: 1.4rem;
+  }
+
+  .collage-product-card-wrapper .collage-product-price-amount {
+    font-size: 3.2rem;
+    letter-spacing: 0.06em;
+  }
 }
