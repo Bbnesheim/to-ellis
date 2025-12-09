@@ -25,6 +25,13 @@
     box-sizing: border-box;
   }
 
+  /* Desktop: align footer contents with central content width */
+  @media (min-width: 1025px) {
+    .to-footer__inner-{{ footer_id }} {
+      max-width: 1000px;
+    }
+  }
+
   .to-footer__top-{{ footer_id }} {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr);
