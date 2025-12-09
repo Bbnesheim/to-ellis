@@ -254,6 +254,12 @@ a.product__text {
   margin: 0;
 }
 
+/* Make main product title bold */
+.product__title h1,
+.product__title h2 {
+  font-weight: 700;
+}
+
 .product__title > a {
   display: none;
 }
@@ -365,6 +371,90 @@ a.product__text {
 
 .product-form__buttons {
   max-width: 44rem;
+}
+
+/* Primary CTA: make the button itself medium blue, no outer outline */
+.product-form__primary-cta {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  margin-bottom: 1.2rem;
+}
+
+.product-form__primary-cta .product-form__submit {
+  margin-bottom: 0;
+  background-color: #6e84c5;
+  border-color: #6e84c5;
+  color: #ffffff;
+}
+
+.product-form__primary-cta .product-form__submit:hover,
+.product-form__primary-cta .product-form__submit:focus-visible {
+  background-color: #5b70af;
+  border-color: #5b70af;
+}
+
+/* Secondary CTA: show Buy it now text directly on section background (no box) */
+.product-form__secondary-cta {
+  margin-top: 0.4rem;
+}
+
+.product-form__secondary-cta .shopify-payment-button {
+  margin: 0;
+}
+
+/* Hide "More payment options" helper link under dynamic checkout */
+.product-form__secondary-cta .shopify-payment-button__more-options {
+  display: none !important;
+}
+
+.product-form__secondary-cta .shopify-payment-button__button--unbranded,
+.product-form__secondary-cta .shopify-payment-button__button--branded {
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  min-height: auto;
+  padding: 0;
+  display: inline-block;
+  width: auto;
+  text-align: left;
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.product-form__secondary-cta .shopify-payment-button__button--unbranded:hover,
+.product-form__secondary-cta .shopify-payment-button__button--unbranded:focus-visible,
+.product-form__secondary-cta .shopify-payment-button__button--branded:hover,
+.product-form__secondary-cta .shopify-payment-button__button--branded:focus-visible {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Prefer unbranded dynamic checkout for styling: hide branded Shop Pay bar */
+.product-form__secondary-cta .shopify-payment-button__button--branded {
+  display: none !important;
+}
+
+.product-form__secondary-cta .shopify-payment-button__button--hidden {
+  display: inline-block !important;
+}
+
+/* As a fallback, force any remaining accelerated checkout button to be transparent */
+.product-form__secondary-cta .shopify-payment-button button,
+.product-form__secondary-cta .shopify-payment-button [role='button'] {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+/* The new accelerated checkout (Shop Pay wallet) renders inside a shadow DOM,
+   which we cannot restyle. Hide the widget entirely to remove its colored bar. */
+.product-form__secondary-cta shopify-accelerated-checkout,
+.product-form__secondary-cta shop-pay-wallet-button {
+  display: none !important;
 }
 
 .product--no-media .product__info-container > modal-opener {

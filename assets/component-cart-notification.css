@@ -95,6 +95,12 @@
   margin-top: 1rem;
 }
 
+/* Match checkout buttons in the notification to the cart checkout styling */
+.cart-notification__links .button--primary {
+  --color-button: 138, 155, 183; /* #8A9BB7 */
+  --color-button-text: 249, 248, 247; /* #F9F8F7 */
+}
+
 .cart-notification-product {
   align-items: flex-start;
   display: flex;
