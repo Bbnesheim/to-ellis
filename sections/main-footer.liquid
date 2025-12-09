@@ -78,53 +78,54 @@
     border-radius: 12px;
     background-color: {{ section.settings.newsletter_background }};
     box-sizing: border-box;
-    height: 100%;
-    min-height: 260px;
+    display: inline-block;
+    max-width: 460px;
+    align-self: flex-start;
   }
 
   .to-footer-newsletter__logo-wrap-{{ footer_id }} {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-
-  .to-footer-newsletter__logo-{{ footer_id }} {
-    max-width: {{ section.settings.newsletter_logo_width }}px;
-    height: auto;
-    display: block;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 4px;
+    margin-bottom: 8px;
   }
 
   .to-footer-newsletter__copy-{{ footer_id }} {
     font-family: 'Cormorant', serif;
     text-align: right;
-    margin-top: 40px;
-    margin-right: 8px;
-    max-width: 140px;
+    display: inline-block;
+    position: relative;
+    left: -72px;
+    top: 72px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 56px;
   }
 
   .to-footer-newsletter__copy-{{ footer_id }} .newsletter-cta-line-1 {
     font-size: 20px;
     font-weight: 600;
     line-height: 1.05;
+    margin-bottom: 4px;
   }
 
   .to-footer-newsletter__copy-{{ footer_id }} .newsletter-cta-line-2 {
     font-size: 22px;
     font-weight: 600;
     line-height: 1.05;
+    white-space: nowrap;
   }
 
   .to-footer-newsletter__copy-{{ footer_id }} .newsletter-cta-line-3 {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 700;
-    line-height: 1.05;
+    line-height: 0.98;
   }
 
   .to-footer-newsletter__form-{{ footer_id }} {
-    margin-top: 12px;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -424,9 +425,10 @@
               <div class="to-footer-newsletter__logo-wrap-{{ footer_id }}">
                 {%- if block.settings.logo != blank -%}
                   <img
-                    src="{{ block.settings.logo | image_url: width: block.settings.logo_width | default: 260 }}"
+                    src="{{ block.settings.logo | image_url: width: block.settings.logo_width }}"
                     alt="{{ block.settings.logo_alt | default: 'Newsletter' | escape }}"
                     class="to-footer-newsletter__logo-{{ footer_id }}"
+                    style="max-width: {{ block.settings.logo_width | default: 160 }}px;"
                     loading="lazy"
                   >
                 {%- endif -%}
@@ -782,6 +784,16 @@
           "type": "image_picker",
           "id": "logo",
           "label": "Newsletter logo"
+        },
+        {
+          "type": "range",
+          "id": "logo_width",
+          "label": "Logo width",
+          "min": 80,
+          "max": 260,
+          "step": 4,
+          "unit": "px",
+          "default": 160
         },
         {
           "type": "text",
