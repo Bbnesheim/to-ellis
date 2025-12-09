@@ -513,34 +513,8 @@
           <div class="to-footer__link-stack-{{ footer_id }}">
             {%- for block in section.blocks -%}
               {%- if block.type == 'link_group' -%}
-              <details class="to-footer-link-group-{{ footer_id }}" open {{ block.shopify_attributes }}>
-                <summary>
-                  <span class="to-footer-link-group__title-{{ footer_id }}">{{ block.settings.heading }}</span>
-                  <span class="to-footer-link-group__caret-{{ footer_id }}" aria-hidden="true">+</span>
-                </summary>
-                <div>
-                  <ul class="to-footer-link-list-{{ footer_id }}">
-                    {%- if block.settings.menu != blank and linklists[block.settings.menu] and linklists[block.settings.menu].links.size > 0 -%}
-                      {%- for link in linklists[block.settings.menu].links -%}
-                        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-                      {%- endfor -%}
-                    {%- elsif block.settings.show_all_collections -%}
-                      {%- assign rendered = 0 -%}
-                      {%- for collection in collections -%}
-                        {%- if collection == blank or collection.all_products_count == 0 -%}
-                          {%- continue -%}
-                        {%- endif -%}
-                        <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
-                        {%- assign rendered = rendered | plus: 1 -%}
-                        {%- if rendered >= block.settings.collection_limit -%}
-                          {%- break -%}
-                        {%- endif -%}
-                      {%- endfor -%}
-                    {%- endif -%}
-                  </ul>
-                </div>
-              </details>
-            {%- endif -%}
+                {% render 'main-footer-link-group', block: block, footer_id: footer_id, linklists: linklists, collections: collections %}
+              {%- endif -%}
             {%- endfor -%}
           </div>
 

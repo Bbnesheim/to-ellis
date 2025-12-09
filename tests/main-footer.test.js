@@ -19,7 +19,13 @@ beforeAll(() => {
     )
     .replace(/\{%[\s-]*endform[\s-]*%}/g, '</form>');
 
-  engine = new Liquid();
+  engine = new Liquid({
+    root: [
+      path.join(__dirname, '..', 'sections'),
+      path.join(__dirname, '..', 'snippets'),
+    ],
+    extname: '.liquid',
+  });
 
   // Stub Shopify-specific filters used in the template
   engine.registerFilter('image_url', (input) => {
