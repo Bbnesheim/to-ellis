@@ -120,7 +120,8 @@
         "title_MPqgDb": {
           "type": "title",
           "settings": {
-            "heading_size": "h2"
+            "heading_size": "h2",
+            "heading_size_mobile": "h2"
           }
         },
         "price_pFk7G6": {
@@ -244,7 +245,7 @@
       ],
       "name": "t:sections.collage.presets.name",
       "settings": {
-        "heading": "BLACK SILK SLIP-DRESS",
+        "heading": "<strong>ELLIS DRESS</strong>",
         "heading_size": "h1",
         "desktop_layout": "left",
         "mobile_layout": "collage",
