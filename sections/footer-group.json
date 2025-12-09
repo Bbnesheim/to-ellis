@@ -93,112 +93,90 @@
       }
     },
     "blocks_BgQYqV": {
-      "type": "_blocks",
+      "type": "main-footer",
+      "name": "Footer content",
+      "settings": {
+        "background_color": "#f1f5f9",
+        "text_color": "#121826",
+        "newsletter_background": "#f1f5f9",
+        "input_border_color": "#d7dfea",
+        "button_background_color": "#8a9bb7",
+        "button_text_color": "#f9f8f7",
+        "button_hover_color": "#1b2a3c",
+        "success_color": "#121826",
+        "error_color": "#8a9bb7",
+        "payment_icon_background": "#d7dfea",
+        "newsletter_logo_width": 200,
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
       "blocks": {
-        "ai_gen_block_ab7b259_kVwmLN": {
-          "type": "comprehensive-footer",
+        "footer_newsletter": {
+          "type": "newsletter",
           "settings": {
-            "show_newsletter": true,
-            "newsletter_logo": "shopify://shop_images/The_Club_ToEllis.svg",
-            "newsletter_logo_size": 104,
-            "newsletter_copy": "Sign up to our journal for early access to new arrivals, exclusive discounts and the latest brand news.",
-            "newsletter_label": "Email address",
-            "newsletter_placeholder": "Your email address",
-            "newsletter_button_text": "Sign up",
-            "success_message": "Thank you for subscribing!",
-            "input_height": 40,
-            "button_height": 56,
-            "nav_1_title": "About To Ellis",
-            "nav_1_link_1_text": "Our story",
-            "nav_1_link_1_url": "",
-            "nav_1_link_2_text": "Sustainability",
-            "nav_1_link_2_url": "",
-            "nav_1_link_3_text": "Careers",
-            "nav_1_link_3_url": "",
-            "nav_1_link_4_text": "Press",
-            "nav_1_link_4_url": "",
-            "nav_1_link_5_text": "Stores",
-            "nav_1_link_5_url": "",
-            "categories_title": "Categories",
-            "categories_limit": 5,
-            "nav_2_title": "Help & contacts",
-            "nav_2_link_1_text": "Customer service",
-            "nav_2_link_1_url": "",
-            "nav_2_link_2_text": "Size guide",
-            "nav_2_link_2_url": "",
-            "nav_2_link_3_text": "Shipping & returns",
-            "nav_2_link_3_url": "",
-            "nav_2_link_4_text": "Privacy policy",
-            "nav_2_link_4_url": "",
-            "nav_2_link_5_text": "Terms of service",
-            "nav_2_link_5_url": "",
-            "social_title": "Follow us",
+            "logo": "shopify://shop_images/The_Club_ToEllis.svg",
+            "logo_alt": "The Club To Ellis",
+            "heading": "The Club To Ellis",
+            "body": "<p>Sign up to our journal for early access to new arrivals, exclusive discounts and the latest brand news.</p>",
+            "email_placeholder": "Your email address",
+            "button_text": "Sign up",
+            "success_message": "Thank you for subscribing!"
+          }
+        },
+        "links_about": {
+          "type": "link_group",
+          "settings": {
+            "heading": "About To Ellis",
+            "menu": "footer"
+          }
+        },
+        "links_categories": {
+          "type": "link_group",
+          "settings": {
+            "heading": "Categories",
+            "show_all_collections": true,
+            "collection_limit": 5
+          }
+        },
+        "links_help": {
+          "type": "link_group",
+          "settings": {
+            "heading": "Help & contacts",
+            "menu": "footer"
+          }
+        },
+        "social_follow": {
+          "type": "social",
+          "settings": {
+            "heading": "Follow us",
             "instagram_url": "https://www.instagram.com/elisabethwesterheim/",
-            "instagram_text": "Instagram",
             "facebook_url": "https://www.instagram.com/elisabethwesterheim/",
-            "facebook_text": "Facebook",
             "tiktok_url": "https://www.tiktok.com/@elisabethwest00",
-            "tiktok_text": "TikTok",
-            "youtube_url": "",
-            "youtube_text": "YouTube",
-            "tise_url": "https://tise.com/elisabethwesterheim?fbclid=PAZXh0bgNhZW0CMTEAAaeCjafeC4-e6HQ_FzTv9d1U_VuX-dgP00TY1dk8Oymk9TNYB36K7Yw0rvwsQQ_aem_j5WC5lkCQe8LmD9Gf9fZgg",
-            "tise_text": "Tise",
-            "show_payment_icons": true,
-            "payment_section_padding_vertical": 24,
-            "payment_section_padding_horizontal": 20,
+            "tise_url": "https://tise.com/elisabethwesterheim?fbclid=PAZXh0bgNhZW0CMTEAAaeCjafeC4-e6HQ_FzTv9d1U_VuX-dgP00TY1dk8Oymk9TNYB36K7Yw0rvwsQQ_aem_j5WC5lkCQe8LmD9Gf9fZgg"
+          }
+        },
+        "payments_row": {
+          "type": "payments",
+          "settings": {
+            "heading": "We accept",
+            "use_dynamic_icons": true,
             "payment_icon_1": "shopify://shop_images/icons8-visa.svg",
             "payment_icon_2": "shopify://shop_images/Mastercard-logo.svg",
             "payment_icon_3": "shopify://shop_images/icons8-apple-pay.svg",
             "payment_icon_4": "shopify://shop_images/Klarna_Payment_Badge_svg.webp",
             "payment_icon_5": "shopify://shop_images/icons8-paypal.svg",
-            "payment_icon_6": "shopify://shop_images/icons8-stripe.svg",
-            "payment_icon_size": 52,
-            "top_border_thickness": 0,
-            "top_border_color": "#d7dfea",
-            "bottom_border_thickness": 1,
-            "bottom_border_color": "#d7dfea",
-            "vertical_border_thickness": 0,
-            "vertical_border_color": "#d7dfea",
-            "vertical_border_height": 480,
-            "background_color": "#f1f5f9",
-            "left_section_background": "#f1f5f9",
-            "nav_section_background": "#f1f5f9",
-            "text_color": "#121826",
-            "link_color": "#121826",
-            "link_hover_color": "#8a9bb7",
-            "success_color": "#121826",
-            "error_color": "#8a9bb7",
-            "label_background_color": "#f1f5f9",
-            "input_background_color": "#f1f5f9",
-            "input_text_color": "#121826",
-            "input_placeholder_color": "#f9f8f7",
-            "input_border_color": "#d7dfea",
-            "button_background_color": "#8a9bb7",
-            "button_text_color": "#f9f8f7",
-            "button_hover_color": "#1b2a3c",
-            "social_icon_background": "#f1f5f9",
-            "social_icon_hover_background": "#f1f5f9",
-            "social_icon_color": "#121826",
-            "payment_icon_background": "#d7dfea",
-            "newsletter_copy_size": 15,
-            "newsletter_label_size": 12,
-            "nav_title_size": 16,
-            "link_size": 16,
-            "social_title_size": 18,
-            "social_icon_size": 38,
-            "input_border_radius": 4,
-            "button_border_radius": 4,
-            "padding_top": 0,
-            "padding_bottom": 0
-          },
-          "blocks": {}
+            "payment_icon_6": "shopify://shop_images/icons8-stripe.svg"
+          }
         }
       },
       "block_order": [
-        "ai_gen_block_ab7b259_kVwmLN"
-      ],
-      "name": "Footer content",
-      "settings": {}
+        "footer_newsletter",
+        "links_about",
+        "links_categories",
+        "links_help",
+        "social_follow",
+        "payments_row"
+      ]
     },
     "blocks_4G3Vey": {
       "type": "_blocks",

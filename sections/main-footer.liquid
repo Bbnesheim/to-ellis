@@ -1,0 +1,951 @@
+{% assign footer_id = section.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .to-footer-{{ footer_id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .to-footer-{{ footer_id }} a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .to-footer-{{ footer_id }} a:hover,
+  .to-footer-{{ footer_id }} a:focus-visible {
+    text-decoration: underline;
+  }
+
+  .to-footer__inner-{{ footer_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .to-footer__top-{{ footer_id }} {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr);
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .to-footer__column-{{ footer_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .to-footer__column--left-{{ footer_id }} {
+    max-width: 520px;
+  }
+
+  .to-footer__link-columns-{{ footer_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .to-footer__heading-{{ footer_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+  }
+
+  .to-footer__text-{{ footer_id }} {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Newsletter */
+  .to-footer-newsletter-{{ footer_id }} {
+    padding: 24px 24px 28px;
+    border-radius: 12px;
+    background-color: {{ section.settings.newsletter_background }};
+    box-sizing: border-box;
+  }
+
+  .to-footer-newsletter__logo-wrap-{{ footer_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .to-footer-newsletter__logo-{{ footer_id }} {
+    max-width: {{ section.settings.newsletter_logo_width }}px;
+    height: auto;
+    display: block;
+  }
+
+  .to-footer-newsletter__copy-{{ footer_id }} {
+    font-size: 15px;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .to-footer-newsletter__form-{{ footer_id }} {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .to-footer-newsletter__row-{{ footer_id }} {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+
+  .to-footer-newsletter__row-{{ footer_id }} .field-{{ footer_id }} {
+    display: flex;
+    flex: 1 1 auto;
+    gap: 0;
+  }
+
+  .to-footer-newsletter__input-{{ footer_id }} {
+    flex: 1 1 auto;
+    min-width: 0;
+    border-radius: 8px 0 0 8px;
+    border: 1px solid {{ section.settings.input_border_color }};
+    padding: 0 14px;
+    font-size: 14px;
+    height: 44px;
+    box-sizing: border-box;
+  }
+
+  .to-footer-newsletter__button-{{ footer_id }} {
+    border-radius: 0 8px 8px 0;
+    border: none;
+    background-color: {{ section.settings.button_background_color }};
+    color: {{ section.settings.button_text_color }};
+    padding: 0 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    height: 44px;
+    white-space: nowrap;
+  }
+
+  .to-footer-newsletter__button-{{ footer_id }}:hover {
+    background-color: {{ section.settings.button_hover_color }};
+  }
+
+  .to-footer-newsletter__feedback-{{ footer_id }} {
+    font-size: 13px;
+  }
+
+  .to-footer-newsletter__feedback--success-{{ footer_id }} {
+    color: {{ section.settings.success_color }};
+  }
+
+  .to-footer-newsletter__feedback--error-{{ footer_id }} {
+    color: {{ section.settings.error_color }};
+  }
+
+  /* Link groups (accordion on mobile) */
+  .to-footer-link-group-{{ footer_id }} {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .to-footer-link-group-{{ footer_id }} summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    cursor: default;
+    padding: 0 0 6px 0;
+  }
+
+  .to-footer-link-group-{{ footer_id }} summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .to-footer-link-group__title-{{ footer_id }} {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .to-footer-link-group__caret-{{ footer_id }} {
+    display: none;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .to-footer-link-list-{{ footer_id }} {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+  }
+
+  /* Social icons */
+  .to-footer-social-{{ footer_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .to-footer-social__heading-{{ footer_id }} {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .to-footer-social__icons-{{ footer_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .to-footer-social__icon-{{ footer_id }} {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+  }
+
+  .to-footer-social__icon-{{ footer_id }} svg,
+  .to-footer-social__icon-{{ footer_id }} img {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+
+  .to-footer-social__label-{{ footer_id }} {
+    font-size: 14px;
+    margin-left: 6px;
+  }
+
+  .to-footer-social__link-{{ footer_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Payments */
+  .to-footer-payments-{{ footer_id }} {
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  .to-footer-payments__heading-{{ footer_id }} {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+  }
+
+  .to-footer-payments__list-{{ footer_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .to-footer-payments__item-{{ footer_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background-color: {{ section.settings.payment_icon_background }};
+  }
+
+  .to-footer-payments__item-{{ footer_id }} img,
+  .to-footer-payments__item-{{ footer_id }} svg {
+    height: 24px;
+    width: auto;
+  }
+
+  .to-footer__bottom-{{ footer_id }} {
+    margin-top: 24px;
+    font-size: 12px;
+    opacity: 0.8;
+    text-align: left;
+  }
+
+  @media (max-width: 1024px) {
+    .to-footer__top-{{ footer_id }} {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+    }
+
+    .to-footer__column--left-{{ footer_id }} {
+      max-width: none;
+    }
+
+    .to-footer__link-columns-{{ footer_id }} {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 749px) {
+    .to-footer__inner-{{ footer_id }} {
+      padding: 0 16px;
+    }
+
+    .to-footer__link-columns-{{ footer_id }} {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .to-footer-newsletter-{{ footer_id }} {
+      text-align: center;
+    }
+
+    .to-footer-newsletter__logo-wrap-{{ footer_id }} {
+      align-items: center;
+    }
+
+    .to-footer-newsletter__row-{{ footer_id }} {
+      flex-direction: column;
+    }
+
+    .to-footer-newsletter__row-{{ footer_id }} .field-{{ footer_id }} {
+      flex-direction: column;
+    }
+
+    .to-footer-newsletter__input-{{ footer_id }},
+    .to-footer-newsletter__button-{{ footer_id }} {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .to-footer-link-group-{{ footer_id }} {
+      border-top: 1px solid rgba(18, 24, 38, 0.15);
+      padding-top: 6px;
+    }
+
+    .to-footer-link-group-{{ footer_id }} summary {
+      cursor: pointer;
+      padding: 6px 0;
+    }
+
+    .to-footer-link-group__caret-{{ footer_id }} {
+      display: inline-block;
+    }
+
+    .to-footer-social-{{ footer_id }} {
+      align-items: center;
+    }
+
+    .to-footer-social__icons-{{ footer_id }} {
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .to-footer-social__label-{{ footer_id }} {
+      display: none;
+    }
+
+    .to-footer-payments-{{ footer_id }} {
+      margin-top: 24px;
+    }
+
+    .to-footer__bottom-{{ footer_id }} {
+      text-align: center;
+    }
+  }
+{% endstyle %}
+
+<footer class="to-footer-{{ footer_id }}" role="contentinfo">
+  <div class="to-footer__inner-{{ footer_id }}">
+    <div class="to-footer__top-{{ footer_id }}">
+      <div class="to-footer__column-{{ footer_id }} to-footer__column--left-{{ footer_id }}">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'newsletter' -%}
+            <div class="to-footer-newsletter-{{ footer_id }}" {{ block.shopify_attributes }}>
+              <div class="to-footer-newsletter__logo-wrap-{{ footer_id }}">
+                {%- if block.settings.logo != blank -%}
+                  <img
+                    src="{{ block.settings.logo | image_url: width: block.settings.logo_width | default: 260 }}"
+                    alt="{{ block.settings.logo_alt | default: 'Newsletter' | escape }}"
+                    class="to-footer-newsletter__logo-{{ footer_id }}"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+                {%- if block.settings.heading != blank -%}
+                  <h2 class="to-footer__heading-{{ footer_id }}">{{ block.settings.heading }}</h2>
+                {%- endif -%}
+                {%- if block.settings.body != blank -%}
+                  <div class="to-footer-newsletter__copy-{{ footer_id }}">{{ block.settings.body }}</div>
+                {%- endif -%}
+              </div>
+
+              {% form 'customer', id: 'FooterNewsletter', class: 'to-footer-newsletter__form-{{ footer_id }}' %}
+                <input type="hidden" name="contact[tags]" value="newsletter">
+
+                <div class="to-footer-newsletter__row-{{ footer_id }}">
+                  <div class="field-{{ footer_id }}">
+                    <input
+                      id="FooterNewsletter-email-{{ footer_id }}"
+                      type="email"
+                      name="contact[email]"
+                      class="to-footer-newsletter__input-{{ footer_id }}"
+                      value="{{ form.email }}"
+                      placeholder="{{ block.settings.email_placeholder }}"
+                      autocapitalize="off"
+                      autocomplete="email"
+                      spellcheck="false"
+                      {% if form.errors %}aria-invalid="true" aria-describedby="FooterNewsletter-error-{{ footer_id }}" autofocus{% elsif form.posted_successfully? %}aria-describedby="FooterNewsletter-success-{{ footer_id }}"{% endif %}
+                      required
+                    >
+                    <button
+                      type="submit"
+                      class="to-footer-newsletter__button-{{ footer_id }}"
+                      aria-label="{{ block.settings.button_text }}"
+                    >
+                      {{ block.settings.button_text }}
+                    </button>
+                  </div>
+                </div>
+
+                {% if form.errors %}
+                  <small class="to-footer-newsletter__feedback-{{ footer_id }} to-footer-newsletter__feedback--error-{{ footer_id }}" id="FooterNewsletter-error-{{ footer_id }}">
+                    {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+                  </small>
+                {% endif %}
+
+                {% if form.posted_successfully? %}
+                  <p class="to-footer-newsletter__feedback-{{ footer_id }} to-footer-newsletter__feedback--success-{{ footer_id }}" id="FooterNewsletter-success-{{ footer_id }}" tabindex="-1">
+                    {{ block.settings.success_message }}
+                  </p>
+                {% endif %}
+              {% endform %}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- comment -%}
+          Social icons: use one optional `social` block for heading + fallback URLs,
+          and one or more `social_icon` blocks for actual icons/links.
+        {%- endcomment -%}
+        {%- assign social_block = nil -%}
+        {%- assign social_icon_blocks = section.blocks | where: 'type', 'social_icon' -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'social' -%}
+            {%- assign social_block = block -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if social_block or social_icon_blocks.size > 0 -%}
+          <div class="to-footer-social-{{ footer_id }}"{% if social_block %} {{ social_block.shopify_attributes }}{% endif %}>
+            {%- if social_block and social_block.settings.heading != blank -%}
+              <h3 class="to-footer-social__heading-{{ footer_id }}">{{ social_block.settings.heading }}</h3>
+            {%- endif -%}
+
+            <div class="to-footer-social__icons-{{ footer_id }}">
+              {%- if social_icon_blocks.size > 0 -%}
+                {%- for icon_block in social_icon_blocks -%}
+                  {%- assign platform = icon_block.settings.platform | default: 'custom' -%}
+                  {%- assign label = icon_block.settings.label -%}
+                  {%- if label == blank -%}
+                    {%- case platform -%}
+                      {%- when 'instagram' -%}{%- assign label = 'Instagram' -%}
+                      {%- when 'facebook' -%}{%- assign label = 'Facebook' -%}
+                      {%- when 'tiktok' -%}{%- assign label = 'TikTok' -%}
+                      {%- when 'tise' -%}{%- assign label = 'Tise' -%}
+                      {%- when 'youtube' -%}{%- assign label = 'YouTube' -%}
+                      {%- else -%}{%- assign label = 'Social' -%}
+                    {%- endcase -%}
+                  {%- endif -%}
+
+                  {%- assign url = icon_block.settings.link -%}
+                  {%- if url == blank and social_block -%}
+                    {%- case platform -%}
+                      {%- when 'instagram' -%}{%- assign url = social_block.settings.instagram_url -%}
+                      {%- when 'facebook' -%}{%- assign url = social_block.settings.facebook_url -%}
+                      {%- when 'tiktok' -%}{%- assign url = social_block.settings.tiktok_url -%}
+                      {%- when 'tise' -%}{%- assign url = social_block.settings.tise_url -%}
+                      {%- when 'youtube' -%}{%- assign url = social_block.settings.youtube_url -%}
+                    {%- endcase -%}
+                  {%- endif -%}
+
+                  {%- assign has_link = url != blank -%}
+
+                  {%- if has_link -%}
+                    <a href="{{ url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}" {{ icon_block.shopify_attributes }}>
+                  {%- else -%}
+                    <span class="to-footer-social__link-{{ footer_id }}" {{ icon_block.shopify_attributes }}>
+                  {%- endif -%}
+                      <span class="to-footer-social__icon-{{ footer_id }}">
+                        {%- if icon_block.settings.icon != blank -%}
+                          <img src="{{ icon_block.settings.icon | image_url: width: 80 }}" alt="{{ label }}" loading="lazy">
+                        {%- elsif platform == 'tise' -%}
+                          <img src="https://cdn.shopify.com/s/files/1/0958/3758/5689/files/Tise.svg?v=1757628886" alt="{{ label }}" loading="lazy">
+                        {%- else -%}
+                          <span aria-hidden="true">{{ label | slice: 0, 1 }}</span>
+                        {%- endif -%}
+                      </span>
+                      <span class="to-footer-social__label-{{ footer_id }}">{{ label }}</span>
+                  {%- if has_link -%}
+                    </a>
+                  {%- else -%}
+                    </span>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- elsif social_block -%}
+                {%- comment -%}Fallback: render simple icons based only on URLs on the social block{%- endcomment -%}
+                {%- if social_block.settings.instagram_url != blank -%}
+                  <a href="{{ social_block.settings.instagram_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
+                    <span class="to-footer-social__icon-{{ footer_id }}"><span aria-hidden="true">I</span></span>
+                    <span class="to-footer-social__label-{{ footer_id }}">Instagram</span>
+                  </a>
+                {%- endif -%}
+                {%- if social_block.settings.facebook_url != blank -%}
+                  <a href="{{ social_block.settings.facebook_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
+                    <span class="to-footer-social__icon-{{ footer_id }}"><span aria-hidden="true">F</span></span>
+                    <span class="to-footer-social__label-{{ footer_id }}">Facebook</span>
+                  </a>
+                {%- endif -%}
+                {%- if social_block.settings.tiktok_url != blank -%}
+                  <a href="{{ social_block.settings.tiktok_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
+                    <span class="to-footer-social__icon-{{ footer_id }}"><span aria-hidden="true">T</span></span>
+                    <span class="to-footer-social__label-{{ footer_id }}">TikTok</span>
+                  </a>
+                {%- endif -%}
+                {%- if social_block.settings.tise_url != blank -%}
+                  <a href="{{ social_block.settings.tise_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
+                    <span class="to-footer-social__icon-{{ footer_id }}"><span aria-hidden="true">T</span></span>
+                    <span class="to-footer-social__label-{{ footer_id }}">Tise</span>
+                  </a>
+                {%- endif -%}
+                {%- if social_block.settings.youtube_url != blank -%}
+                  <a href="{{ social_block.settings.youtube_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
+                    <span class="to-footer-social__icon-{{ footer_id }}"><span aria-hidden="true">Y</span></span>
+                    <span class="to-footer-social__label-{{ footer_id }}">YouTube</span>
+                  </a>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="to-footer__column-{{ footer_id }} to-footer__column--right-{{ footer_id }}">
+        <div class="to-footer__link-columns-{{ footer_id }}">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'link_group' -%}
+              <details class="to-footer-link-group-{{ footer_id }}" open {{ block.shopify_attributes }}>
+                <summary>
+                  <span class="to-footer-link-group__title-{{ footer_id }}">{{ block.settings.heading }}</span>
+                  <span class="to-footer-link-group__caret-{{ footer_id }}" aria-hidden="true">+</span>
+                </summary>
+                <div>
+                  <ul class="to-footer-link-list-{{ footer_id }}">
+                    {%- if block.settings.menu != blank and linklists[block.settings.menu] and linklists[block.settings.menu].links.size > 0 -%}
+                      {%- for link in linklists[block.settings.menu].links -%}
+                        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                      {%- endfor -%}
+                    {%- elsif block.settings.show_all_collections -%}
+                      {%- assign rendered = 0 -%}
+                      {%- for collection in collections -%}
+                        {%- if collection == blank or collection.all_products_count == 0 -%}
+                          {%- continue -%}
+                        {%- endif -%}
+                        <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+                        {%- assign rendered = rendered | plus: 1 -%}
+                        {%- if rendered >= block.settings.collection_limit -%}
+                          {%- break -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- endif -%}
+                  </ul>
+                </div>
+              </details>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'payments' -%}
+        <div class="to-footer-payments-{{ footer_id }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.heading != blank -%}
+            <p class="to-footer-payments__heading-{{ footer_id }}">{{ block.settings.heading }}</p>
+          {%- endif -%}
+          <ul class="to-footer-payments__list-{{ footer_id }}">
+            {%- if block.settings.use_dynamic_icons -%}
+              {%- for type in shop.enabled_payment_types -%}
+                <li class="to-footer-payments__item-{{ footer_id }}">{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
+              {%- endfor -%}
+            {%- else -%}
+              {%- for i in (1..6) -%}
+                {%- assign icon_key = 'payment_icon_' | append: i -%}
+                {%- assign icon = block.settings[icon_key] -%}
+                {%- if icon != blank -%}
+                  <li class="to-footer-payments__item-{{ footer_id }}">
+                    <img src="{{ icon | image_url: width: 80 }}" alt="Payment method" loading="lazy">
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <div class="to-footer__bottom-{{ footer_id }}">
+      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Main footer",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F1F5F9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121826"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_background",
+      "label": "Newsletter card background",
+      "default": "#F1F5F9"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Newsletter input border",
+      "default": "#d7dfea"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Newsletter button background",
+      "default": "#8a9bb7"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Newsletter button text",
+      "default": "#f9f8f7"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Newsletter button hover",
+      "default": "#1b2a3c"
+    },
+    {
+      "type": "color",
+      "id": "success_color",
+      "label": "Success message color",
+      "default": "#008060"
+    },
+    {
+      "type": "color",
+      "id": "error_color",
+      "label": "Error message color",
+      "default": "#D82C0D"
+    },
+    {
+      "type": "color",
+      "id": "payment_icon_background",
+      "label": "Payment icon background",
+      "default": "#d7dfea"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_logo_width",
+      "label": "Newsletter logo max width",
+      "min": 80,
+      "max": 260,
+      "step": 4,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Newsletter logo"
+        },
+        {
+          "type": "text",
+          "id": "logo_alt",
+          "label": "Logo alt text",
+          "default": "The Club To Ellis"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "The Club To Ellis"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Copy",
+          "default": "<p>Sign up to our journal for early access to new arrivals, exclusive discounts and the latest brand news.</p>"
+        },
+        {
+          "type": "text",
+          "id": "email_placeholder",
+          "label": "Email placeholder",
+          "default": "Your email address"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Sign up"
+        },
+        {
+          "type": "text",
+          "id": "success_message",
+          "label": "Success message",
+          "default": "Thank you for subscribing!"
+        }
+      ]
+    },
+    {
+      "type": "link_group",
+      "name": "Link column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Column heading",
+          "default": "About To Ellis"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_all_collections",
+          "label": "Show collections when no menu is selected",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "collection_limit",
+          "label": "Collection limit",
+          "min": 3,
+          "max": 12,
+          "step": 1,
+          "default": 6
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Social settings",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Follow us"
+        },
+        {
+          "type": "url",
+          "id": "instagram_url",
+          "label": "Instagram URL (fallback)"
+        },
+        {
+          "type": "url",
+          "id": "facebook_url",
+          "label": "Facebook URL (fallback)"
+        },
+        {
+          "type": "url",
+          "id": "tiktok_url",
+          "label": "TikTok URL (fallback)"
+        },
+        {
+          "type": "url",
+          "id": "tise_url",
+          "label": "Tise URL (fallback)"
+        },
+        {
+          "type": "url",
+          "id": "youtube_url",
+          "label": "YouTube URL (fallback)"
+        }
+      ]
+    },
+    {
+      "type": "social_icon",
+      "name": "Social icon",
+      "settings": [
+        {
+          "type": "select",
+          "id": "platform",
+          "label": "Platform",
+          "options": [
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "facebook", "label": "Facebook" },
+            { "value": "tiktok", "label": "TikTok" },
+            { "value": "tise", "label": "Tise" },
+            { "value": "youtube", "label": "YouTube" },
+            { "value": "custom", "label": "Custom" }
+          ],
+          "default": "instagram"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (overrides fallback URL)"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image (optional)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label (optional)",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "type": "payments",
+      "name": "Payments",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "We accept"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_dynamic_icons",
+          "label": "Use dynamic payment icons from Shopify",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "payment_icon_1",
+          "label": "Custom payment icon 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "payment_icon_2",
+          "label": "Custom payment icon 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "payment_icon_3",
+          "label": "Custom payment icon 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "payment_icon_4",
+          "label": "Custom payment icon 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "payment_icon_5",
+          "label": "Custom payment icon 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "payment_icon_6",
+          "label": "Custom payment icon 6"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main footer",
+      "blocks": [
+        {
+          "type": "newsletter"
+        },
+        {
+          "type": "link_group",
+          "settings": {
+            "heading": "About To Ellis"
+          }
+        },
+        {
+          "type": "link_group",
+          "settings": {
+            "heading": "Categories",
+            "show_all_collections": true,
+            "collection_limit": 5
+          }
+        },
+        {
+          "type": "link_group",
+          "settings": {
+            "heading": "Help & contacts"
+          }
+        },
+        {
+          "type": "social"
+        },
+        {
+          "type": "payments"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

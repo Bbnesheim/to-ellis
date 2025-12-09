@@ -1,0 +1,1485 @@
+{% assign ellis_footer_id = section.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ellis-footer-{{ ellis_footer_id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    border-top: {{ section.settings.top_border_thickness }}px solid {{ section.settings.top_border_color }};
+    border-bottom: {{ section.settings.bottom_border_thickness }}px solid {{ section.settings.bottom_border_color }};
+  }
+
+  .ellis-footer-container-{{ ellis_footer_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ellis-footer-main-{{ ellis_footer_id }} {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: 0;
+    margin-bottom: {{ section.settings.padding_bottom }}px;
+    min-height: {{ section.settings.vertical_border_height }}px;
+  }
+
+  .ellis-footer-left-section-{{ ellis_footer_id }} {
+    padding: 32px 32px 32px 32px;
+    background-color: {{ section.settings.left_section_background }};
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    position: relative;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .ellis-footer-left-section-{{ ellis_footer_id }}::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: {{ section.settings.vertical_border_thickness }}px;
+    height: {{ section.settings.vertical_border_height }}px;
+    background-color: {{ section.settings.vertical_border_color }};
+  }
+
+  .ellis-footer-right-section-{{ ellis_footer_id }} {
+    padding: 32px;
+    background-color: {{ section.settings.nav_section_background }};
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .ellis-footer-nav-section-{{ ellis_footer_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 24px;
+    flex-grow: 1;
+  }
+
+  .ellis-footer-payment-section-{{ ellis_footer_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: {{ section.settings.payment_section_padding_vertical }}px {{ section.settings.payment_section_padding_horizontal }}px;
+  }
+
+  .ellis-footer-newsletter-{{ ellis_footer_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+    justify-content: flex-start;
+  }
+
+  .ellis-footer-newsletter-header-{{ ellis_footer_id }} {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .ellis-footer-newsletter-logo-{{ ellis_footer_id }} {
+    width: {{ section.settings.newsletter_logo_size }}px;
+    height: {{ section.settings.newsletter_logo_size }}px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .ellis-footer-newsletter-logo-placeholder-{{ ellis_footer_id }} {
+    width: {{ section.settings.newsletter_logo_size }}px;
+    height: {{ section.settings.newsletter_logo_size }}px;
+    background-color: rgba(18, 24, 38, 0.1);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ellis-footer-newsletter-logo-placeholder-{{ ellis_footer_id }} svg {
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+  }
+
+  .ellis-footer-newsletter-copy-{{ ellis_footer_id }} {
+    font-family: 'Cormorant', serif;
+    font-size: {{ section.settings.newsletter_copy_size }}px;
+    color: {{ section.settings.text_color }};
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .ellis-footer-newsletter-form-{{ ellis_footer_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: auto;
+  }
+
+  .ellis-footer-newsletter-grid-{{ ellis_footer_id }} {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border: 1px solid {{ section.settings.input_border_color }};
+    border-radius: {{ section.settings.input_border_radius }}px {{ section.settings.input_border_radius }}px 0 0;
+    overflow: hidden;
+    background-color: {{ section.settings.input_background_color }};
+    height: {{ section.settings.input_height }}px;
+    border-right: none;
+  }
+
+  .ellis-footer-newsletter-label-{{ ellis_footer_id }} {
+    font-family: 'Cormorant', serif;
+    font-size: {{ section.settings.newsletter_label_size }}px;
+    font-weight: 600;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+    padding: 0 16px;
+    background-color: {{ section.settings.label_background_color }};
+    border-right: 1px solid {{ section.settings.input_border_color }};
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .ellis-footer-newsletter-input-wrapper-{{ ellis_footer_id }} {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: {{ section.settings.input_background_color }};
+    padding: 0;
+  }
+
+  .ellis-footer-newsletter-input-{{ ellis_footer_id }} {
+    padding: 0 16px;
+    border: none;
+    background-color: transparent;
+    color: {{ section.settings.input_text_color }};
+    font-family: 'Cormorant', serif;
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+  }
+
+  .ellis-footer-newsletter-input-{{ ellis_footer_id }}::placeholder {
+    color: {{ section.settings.input_placeholder_color }};
+    font-family: 'Cormorant', serif;
+  }
+
+  .ellis-footer-newsletter-button-{{ ellis_footer_id }} {
+    padding: 0 24px;
+    background-color: {{ section.settings.button_background_color }};
+    color: {{ section.settings.button_text_color }};
+    border: none;
+    border-radius: 0 0 {{ section.settings.button_border_radius }}px {{ section.settings.button_border_radius }}px;
+    font-family: 'Cormorant', serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 0;
+    margin-right: 0;
+    height: {{ section.settings.button_height }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .ellis-footer-newsletter-button-{{ ellis_footer_id }}:hover {
+    background-color: {{ section.settings.button_hover_color }};
+  }
+
+  .ellis-footer-newsletter-success-{{ ellis_footer_id }} {
+    color: {{ section.settings.success_color }};
+    font-family: 'Cormorant', serif;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .ellis-footer-newsletter-error-{{ ellis_footer_id }} {
+    color: {{ section.settings.error_color }};
+    font-family: 'Cormorant', serif;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .ellis-footer-nav-column-{{ ellis_footer_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ellis-footer-nav-title-{{ ellis_footer_id }} {
+    font-size: {{ section.settings.nav_title_size }}px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: {{ section.settings.text_color }};
+  }
+
+  .ellis-footer-nav-list-{{ ellis_footer_id }} {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .ellis-footer-nav-link-{{ ellis_footer_id }} {
+    color: {{ section.settings.link_color }};
+    text-decoration: none;
+    font-size: {{ section.settings.link_size }}px;
+    transition: color 0.3s ease;
+    line-height: 1.4;
+  }
+
+  .ellis-footer-nav-link-{{ ellis_footer_id }}:hover {
+    color: {{ section.settings.link_hover_color }};
+  }
+
+  /* Accordion shell used for About, Categories, Help columns */
+  .ellis-footer-accordion-{{ ellis_footer_id }} {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ellis-footer-accordion-summary-{{ ellis_footer_id }} {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    cursor: default;
+  }
+
+  .ellis-footer-accordion-summary-{{ ellis_footer_id }}::-webkit-details-marker {
+    display: none;
+  }
+  
+  .ellis-footer-accordion-icon-{{ ellis_footer_id }} {
+    display: none;
+    margin-left: 12px;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .ellis-footer-social-column-{{ ellis_footer_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ellis-footer-social-title-{{ ellis_footer_id }} {
+    font-size: {{ section.settings.social_title_size }}px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: {{ section.settings.text_color }};
+  }
+
+  .ellis-footer-social-links-{{ ellis_footer_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ellis-footer-social-link-{{ ellis_footer_id }} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: {{ section.settings.link_color }};
+    transition: color 0.3s ease;
+    line-height: 1.4;
+  }
+
+  .ellis-footer-social-link-{{ ellis_footer_id }}:hover {
+    color: {{ section.settings.link_hover_color }};
+  }
+
+  .ellis-footer-social-icon-{{ ellis_footer_id }} {
+    width: {{ section.settings.social_icon_size }}px;
+    height: {{ section.settings.social_icon_size }}px;
+    background-color: {{ section.settings.social_icon_background }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .ellis-footer-social-link-{{ ellis_footer_id }}:hover .ellis-footer-social-icon-{{ ellis_footer_id }} {
+    background-color: {{ section.settings.social_icon_hover_background }};
+  }
+
+  .ellis-footer-social-icon-{{ ellis_footer_id }} svg {
+    width: calc({{ section.settings.social_icon_size }}px * 0.6);
+    height: calc({{ section.settings.social_icon_size }}px * 0.6);
+    fill: {{ section.settings.social_icon_color }};
+  }
+
+  .ellis-footer-social-icon-{{ ellis_footer_id }} img {
+    width: calc({{ section.settings.social_icon_size }}px * 0.6);
+    height: calc({{ section.settings.social_icon_size }}px * 0.6);
+    object-fit: contain;
+  }
+
+  .ellis-footer-social-text-{{ ellis_footer_id }} {
+    font-size: {{ section.settings.link_size }}px;
+    font-weight: 500;
+  }
+
+  .ellis-footer-payment-icons-{{ ellis_footer_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .ellis-footer-payment-icon-{{ ellis_footer_id }} {
+    width: {{ section.settings.payment_icon_size }}px;
+    height: {{ section.settings.payment_icon_size }}px;
+    background-color: {{ section.settings.payment_icon_background }};
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+  }
+
+  .ellis-footer-payment-icon-{{ ellis_footer_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ellis-footer-payment-placeholder-{{ ellis_footer_id }} {
+    width: {{ section.settings.payment_icon_size }}px;
+    height: {{ section.settings.payment_icon_size }}px;
+    background-color: rgba(18, 24, 38, 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+  }
+
+  .ellis-footer-payment-placeholder-{{ ellis_footer_id }} svg {
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .ellis-footer-main-{{ ellis_footer_id }} {
+      grid-template-columns: 1fr;
+      gap: 0;
+      min-height: auto;
+    }
+
+    .ellis-footer-left-section-{{ ellis_footer_id }}::after {
+      display: none;
+    }
+
+    .ellis-footer-nav-section-{{ ellis_footer_id }} {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .ellis-footer-payment-icons-{{ ellis_footer_id }} {
+      gap: 10px;
+    }
+  }
+
+  @media screen and (max-width: 990px) {
+    .ellis-footer-nav-section-{{ ellis_footer_id }} {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .ellis-footer-payment-icons-{{ ellis_footer_id }} {
+      gap: 8px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ellis-footer-left-section-{{ ellis_footer_id }},
+    .ellis-footer-right-section-{{ ellis_footer_id }} {
+      padding: 20px;
+    }
+
+    .ellis-footer-nav-section-{{ ellis_footer_id }} {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    /* Newsletter: center logo and copy, stack above form */
+    .ellis-footer-newsletter-{{ ellis_footer_id }} {
+      align-items: center;
+      text-align: center;
+    }
+
+    .ellis-footer-newsletter-header-{{ ellis_footer_id }} {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ellis-footer-newsletter-form-{{ ellis_footer_id }} {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .ellis-footer-newsletter-grid-{{ ellis_footer_id }} {
+      grid-template-columns: 1fr;
+      height: auto;
+      border-right: 1px solid {{ section.settings.input_border_color }};
+    }
+
+    .ellis-footer-newsletter-label-{{ ellis_footer_id }} {
+      border-right: none;
+      border-bottom: 1px solid {{ section.settings.input_border_color }};
+      height: {{ section.settings.input_height }}px;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .ellis-footer-newsletter-input-wrapper-{{ ellis_footer_id }} {
+      height: {{ section.settings.input_height }}px;
+    }
+
+    .ellis-footer-newsletter-input-{{ ellis_footer_id }} {
+      height: 100%;
+    }
+
+    .ellis-footer-newsletter-button-{{ ellis_footer_id }} {
+      height: {{ section.settings.button_height }}px;
+      width: 100%;
+      border-radius: 0 0 {{ section.settings.button_border_radius }}px {{ section.settings.button_border_radius }}px;
+    }
+
+    /* Accordion behaviour on mobile */
+    .ellis-footer-accordion-summary-{{ ellis_footer_id }} {
+      cursor: pointer;
+      padding-bottom: 8px;
+      border-bottom: 1px solid {{ section.settings.input_border_color }};
+    }
+
+    .ellis-footer-accordion-icon-{{ ellis_footer_id }} {
+      display: inline-block;
+    }
+
+    .ellis-footer-accordion-{{ ellis_footer_id }}[open] .ellis-footer-accordion-icon-{{ ellis_footer_id }} {
+      transform: rotate(45deg);
+    }
+
+    .ellis-footer-nav-column-{{ ellis_footer_id }} {
+      padding: 4px 0;
+    }
+
+    /* Social icons row at bottom, icons only */
+    .ellis-footer-social-column-{{ ellis_footer_id }} {
+      align-items: center;
+    }
+
+    .ellis-footer-social-links-{{ ellis_footer_id }} {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .ellis-footer-social-link-{{ ellis_footer_id }} {
+      gap: 0;
+    }
+
+    .ellis-footer-social-text-{{ ellis_footer_id }} {
+      display: none;
+    }
+
+    .ellis-footer-payment-section-{{ ellis_footer_id }} {
+      padding: {{ section.settings.payment_section_padding_vertical | times: 0.8 }}px {{ section.settings.payment_section_padding_horizontal | times: 0.8 }}px;
+    }
+
+    .ellis-footer-payment-icons-{{ ellis_footer_id }} {
+      gap: 6px;
+    }
+
+    .ellis-footer-payment-icon-{{ ellis_footer_id }},
+    .ellis-footer-payment-placeholder-{{ ellis_footer_id }} {
+      padding: 6px;
+    }
+  }
+{% endstyle %}
+
+<footer class="ellis-footer-{{ ellis_footer_id }}" data-section-id="{{ section.id }}">
+  <div class="ellis-footer-container-{{ ellis_footer_id }}">
+    <div class="ellis-footer-main-{{ ellis_footer_id }}">
+      <div class="ellis-footer-left-section-{{ ellis_footer_id }}">
+        {% if section.settings.show_newsletter %}
+          <div class="ellis-footer-newsletter-{{ ellis_footer_id }}">
+            <div class="ellis-footer-newsletter-header-{{ ellis_footer_id }}">
+              {% if section.settings.newsletter_logo %}
+                <img
+                  src="{{ section.settings.newsletter_logo | image_url: width: 260 }}"
+                  alt="Newsletter"
+                  class="ellis-footer-newsletter-logo-{{ ellis_footer_id }}"
+                  loading="lazy"
+                >
+              {% else %}
+                <div class="ellis-footer-newsletter-logo-placeholder-{{ ellis_footer_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+              {% if section.settings.newsletter_copy != blank %}
+                <p class="ellis-footer-newsletter-copy-{{ ellis_footer_id }}">
+                  {{ section.settings.newsletter_copy }}
+                </p>
+              {% endif %}
+            </div>
+            {% form 'customer' %}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <div class="ellis-footer-newsletter-form-{{ ellis_footer_id }}">
+                <div class="ellis-footer-newsletter-grid-{{ ellis_footer_id }}">
+                  <label class="ellis-footer-newsletter-label-{{ ellis_footer_id }}" for="newsletter-email-{{ ellis_footer_id }}">
+                    {{ section.settings.newsletter_label }}
+                  </label>
+                  <div class="ellis-footer-newsletter-input-wrapper-{{ ellis_footer_id }}">
+                    <input
+                      type="email"
+                      id="newsletter-email-{{ ellis_footer_id }}"
+                      name="contact[email]"
+                      class="ellis-footer-newsletter-input-{{ ellis_footer_id }}"
+                      placeholder="{{ section.settings.newsletter_placeholder }}"
+                      value="{{ form.email }}"
+                      required
+                      aria-label="Email address"
+                      {% if form.errors %}
+                        aria-invalid="true"
+                        aria-describedby="newsletter-error-{{ ellis_footer_id }}"
+                      {% endif %}
+                      {% if form.posted_successfully? %}
+                        aria-describedby="newsletter-success-{{ ellis_footer_id }}"
+                      {% endif %}
+                    >
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  class="ellis-footer-newsletter-button-{{ ellis_footer_id }}"
+                >
+                  {{ section.settings.newsletter_button_text }}
+                </button>
+                {% if form.posted_successfully? %}
+                  <div id="newsletter-success-{{ ellis_footer_id }}" class="ellis-footer-newsletter-success-{{ ellis_footer_id }}">
+                    {{ section.settings.success_message }}
+                  </div>
+                {% endif %}
+                {% if form.errors %}
+                  <div id="newsletter-error-{{ ellis_footer_id }}" class="ellis-footer-newsletter-error-{{ ellis_footer_id }}">
+                    {{ form.errors.messages.email }}
+                  </div>
+                {% endif %}
+              </div>
+            {% endform %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ellis-footer-right-section-{{ ellis_footer_id }}">
+        <div class="ellis-footer-nav-section-{{ ellis_footer_id }}">
+          <div class="ellis-footer-nav-column-{{ ellis_footer_id }}">
+            <details class="ellis-footer-accordion-{{ ellis_footer_id }}" open>
+              <summary class="ellis-footer-accordion-summary-{{ ellis_footer_id }}">
+                <h3 class="ellis-footer-nav-title-{{ ellis_footer_id }}">{{ section.settings.nav_1_title }}</h3>
+                <span class="ellis-footer-accordion-icon-{{ ellis_footer_id }}">+</span>
+              </summary>
+              <ul class="ellis-footer-nav-list-{{ ellis_footer_id }}">
+                {% if section.settings.nav_1_link_1_text != blank %}
+                  <li><a href="{{ section.settings.nav_1_link_1_url }}" class="ellis-footer-nav-link-{{ ellis_footer_id }}">{{ section.settings.nav_1_link_1_text }}</a></li>
+                {% endif %}
+                {% if section.settings.nav_1_link_2_text != blank %}
+                  <li><a href="{{ section.settings.nav_1_link_2_url }}" class="ellis-footer-nav-link-{{ ellis_footer_id }}">{{ section.settings.nav_1_link_2_text }}</a></li>
+                {% endif %}
+                {% if section.settings.nav_1_link_3_text != blank %}
+                  <li><a href="{{ section.settings.nav_1_link_3_url }}" class="ellis-footer-nav-link-{{ ellis_footer_id }}">{{ section.settings.nav_1_link_3_text }}</a></li>
+                {% endif %}
+                {% if section.settings.nav_1_link_4_text != blank %}
+                  <li><a href="{{ section.settings.nav_1_link_4_url }}" class="ellis-footer-nav-link-{{ ellis_footer_id }}">{{ section.settings.nav_1_link_4_text }}</a></li>
+                {% endif %}
+                {% if section.settings.nav_1_link_5_text != blank %}
+                  <li><a href="{{ section.settings.nav_1_link_5_url }}" class="ellis-footer-nav-link-{{ ellis_footer_id }}">{{ section.settings.nav_1_link_5_text }}</a></li>
+                {% endif %}
+              </ul>
+            </details>
+          </div>
+
+          <div class="ellis-footer-nav-column-{{ ellis_footer_id }}">
+            <details class="ellis-footer-accordion-{{ ellis_footer_id }}" open>
+              <summary class="ellis-footer-accordion-summary-{{ ellis_footer_id }}">
+                <h3 class="ellis-footer-nav-title-{{ ellis_footer_id }}">{{ section.settings.categories_title }}</h3>
+                <span class="ellis-footer-accordion-icon-{{ ellis_footer_id }}">+</span>
+              </summary>
+              <ul class="ellis-footer-nav-list-{{ ellis_footer_id }}">
+                {% for collection in collections %}
+                  {% if forloop.index <= section.settings.categories_limit %}
+                    <li><a href="{{ collection.url }}" class="ellis-footer-nav-link-{{ ellis_footer_id }}">{{ collection.title }}</a></li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </details>
+          </div>
+
+          <div class="ellis-footer-nav-column-{{ ellis_footer_id }}">
+            <details class="ellis-footer-accordion-{{ ellis_footer_id }}" open>
+              <summary class="ellis-footer-accordion-summary-{{ ellis_footer_id }}">
+                <h3 class="ellis-footer-nav-title-{{ ellis_footer_id }}">{{ section.settings.nav_2_title }}</h3>
+                <span class="ellis-footer-accordion-icon-{{ ellis_footer_id }}">+</span>
+              </summary>
+              <ul class="ellis-footer-nav-list-{{ ellis_footer_id }}">
+                {% if section.settings.nav_2_link_1_text != blank %}
+                  <li><a href="{{ section.settings.nav_2_link_1_url }}" class="ellis-footer-nav-link-{{ ellis_footer_id }}">{{ section.settings.nav_2_link_1_text }}</a></li>
+                {% endif %}
+                {% if section.settings.nav_2_link_2_text != blank %}
+                  <li><a href="{{ section.settings.nav_2_link_2_url }}" class="ellis-footer-nav-link-{{ ellis_footer_id }}">{{ section.settings.nav_2_link_2_text }}</a></li>
+                {% endif %}
+                {% if section.settings.nav_2_link_3_text != blank %}
+                  <li><a href="{{ section.settings.nav_2_link_3_url }}" class="ellis-footer-nav-link-{{ ellis_footer_id }}">{{ section.settings.nav_2_link_3_text }}</a></li>
+                {% endif %}
+                {% if section.settings.nav_2_link_4_text != blank %}
+                  <li><a href="{{ section.settings.nav_2_link_4_url }}" class="ellis-footer-nav-link-{{ ellis_footer_id }}">{{ section.settings.nav_2_link_4_text }}</a></li>
+                {% endif %}
+                {% if section.settings.nav_2_link_5_text != blank %}
+                  <li><a href="{{ section.settings.nav_2_link_5_url }}" class="ellis-footer-nav-link-{{ ellis_footer_id }}">{{ section.settings.nav_2_link_5_text }}</a></li>
+                {% endif %}
+              </ul>
+            </details>
+          </div>
+
+          <div class="ellis-footer-social-column-{{ ellis_footer_id }}">
+            <h3 class="ellis-footer-social-title-{{ ellis_footer_id }}">{{ section.settings.social_title }}</h3>
+            <div class="ellis-footer-social-links-{{ ellis_footer_id }}">
+              {% if section.settings.instagram_url != blank %}
+                <a href="{{ section.settings.instagram_url }}" class="ellis-footer-social-link-{{ ellis_footer_id }}" target="_blank" rel="noopener">
+                  <div class="ellis-footer-social-icon-{{ ellis_footer_id }}">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  </div>
+                  <span class="ellis-footer-social-text-{{ ellis_footer_id }}">{{ section.settings.instagram_text }}</span>
+                </a>
+              {% endif %}
+              {% if section.settings.facebook_url != blank %}
+                <a href="{{ section.settings.facebook_url }}" class="ellis-footer-social-link-{{ ellis_footer_id }}" target="_blank" rel="noopener">
+                  <div class="ellis-footer-social-icon-{{ ellis_footer_id }}">
+                    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  </div>
+                  <span class="ellis-footer-social-text-{{ ellis_footer_id }}">{{ section.settings.facebook_text }}</span>
+                </a>
+              {% endif %}
+              {% if section.settings.tiktok_url != blank %}
+                <a href="{{ section.settings.tiktok_url }}" class="ellis-footer-social-link-{{ ellis_footer_id }}" target="_blank" rel="noopener">
+                  <div class="ellis-footer-social-icon-{{ ellis_footer_id }}">
+                    <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.081.53.633.09 1.754.171.121.112.71.62 4.241.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.012.92.01 5.84-.02 8.75-.081.4-.542.79-1.353.94-1.311.92-3.583.17-5.913.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.443.98-2.13 6.15-1.72.021.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.111.04-1.361.75-.21.51-.15 1.07-.14 1.61.241.641.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                  </div>
+                  <span class="ellis-footer-social-text-{{ ellis_footer_id }}">{{ section.settings.tiktok_text }}</span>
+                </a>
+              {% endif %}
+              {% if section.settings.youtube_url != blank %}
+                <a href="{{ section.settings.youtube_url }}" class="ellis-footer-social-link-{{ ellis_footer_id }}" target="_blank" rel="noopener">
+                  <div class="ellis-footer-social-icon-{{ ellis_footer_id }}">
+                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                  </div>
+                  <span class="ellis-footer-social-text-{{ ellis_footer_id }}">{{ section.settings.youtube_text }}</span>
+                </a>
+              {% endif %}
+              {% if section.settings.tise_url != blank %}
+                <a href="{{ section.settings.tise_url }}" class="ellis-footer-social-link-{{ ellis_footer_id }}" target="_blank" rel="noopener">
+                  <div class="ellis-footer-social-icon-{{ ellis_footer_id }}">
+                    <img src="https://cdn.shopify.com/s/files/1/0958/3758/5689/files/Tise.svg?v=1757628886" alt="Tise">
+                  </div>
+                  <span class="ellis-footer-social-text-{{ ellis_footer_id }}">{{ section.settings.tise_text }}</span>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        {% if section.settings.show_payment_icons %}
+          <div class="ellis-footer-payment-section-{{ ellis_footer_id }}">
+            <div class="ellis-footer-payment-icons-{{ ellis_footer_id }}">
+              {% for i in (1..15) %}
+                {% assign payment_icon_key = 'payment_icon_' | append: i %}
+                {% assign payment_icon = section.settings[payment_icon_key] %}
+                {% if payment_icon %}
+                  <div class="ellis-footer-payment-icon-{{ ellis_footer_id }}">
+                    <img src="{{ payment_icon | image_url: width: 120 }}" alt="Payment method" loading="lazy">
+                  </div>
+                {% elsif i <= 6 %}
+                  <div class="ellis-footer-payment-placeholder-{{ ellis_footer_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Ellis footer",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter signup"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show newsletter signup",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "newsletter_logo",
+      "label": "Newsletter logo"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_logo_size",
+      "min": 40,
+      "max": 220,
+      "step": 4,
+      "unit": "px",
+      "label": "Newsletter logo size",
+      "default": 140
+    },
+    {
+      "type": "text",
+      "id": "newsletter_copy",
+      "label": "Newsletter copy",
+      "default": "Sign up to our journal for early access to new arrivals, exclusive discounts and the latest brand news."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_label",
+      "label": "Email label",
+      "default": "Email address"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email placeholder",
+      "default": "Your email address"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_text",
+      "label": "Button text",
+      "default": "Sign up"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you for subscribing!"
+    },
+    {
+      "type": "range",
+      "id": "input_height",
+      "min": 40,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Input field height",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "button_height",
+      "min": 40,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Button height",
+      "default": 56
+    },
+    {
+      "type": "header",
+      "content": "Navigation: About To Ellis"
+    },
+    {
+      "type": "text",
+      "id": "nav_1_title",
+      "label": "Column title",
+      "default": "About To Ellis"
+    },
+    {
+      "type": "text",
+      "id": "nav_1_link_1_text",
+      "label": "Link 1 text",
+      "default": "Our story"
+    },
+    {
+      "type": "url",
+      "id": "nav_1_link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_1_link_2_text",
+      "label": "Link 2 text",
+      "default": "Sustainability"
+    },
+    {
+      "type": "url",
+      "id": "nav_1_link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_1_link_3_text",
+      "label": "Link 3 text",
+      "default": "Careers"
+    },
+    {
+      "type": "url",
+      "id": "nav_1_link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_1_link_4_text",
+      "label": "Link 4 text",
+      "default": "Press"
+    },
+    {
+      "type": "url",
+      "id": "nav_1_link_4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_1_link_5_text",
+      "label": "Link 5 text",
+      "default": "Stores"
+    },
+    {
+      "type": "url",
+      "id": "nav_1_link_5_url",
+      "label": "Link 5 URL"
+    },
+    {
+      "type": "header",
+      "content": "Navigation: Categories"
+    },
+    {
+      "type": "text",
+      "id": "categories_title",
+      "label": "Categories title",
+      "default": "Categories"
+    },
+    {
+      "type": "range",
+      "id": "categories_limit",
+      "min": 3,
+      "max": 15,
+      "step": 1,
+      "label": "Number of categories to show",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Navigation: Help & contacts"
+    },
+    {
+      "type": "text",
+      "id": "nav_2_title",
+      "label": "Column title",
+      "default": "Help & contacts"
+    },
+    {
+      "type": "text",
+      "id": "nav_2_link_1_text",
+      "label": "Link 1 text",
+      "default": "Customer service"
+    },
+    {
+      "type": "url",
+      "id": "nav_2_link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_2_link_2_text",
+      "label": "Link 2 text",
+      "default": "Size guide"
+    },
+    {
+      "type": "url",
+      "id": "nav_2_link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_2_link_3_text",
+      "label": "Link 3 text",
+      "default": "Shipping & returns"
+    },
+    {
+      "type": "url",
+      "id": "nav_2_link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_2_link_4_text",
+      "label": "Link 4 text",
+      "default": "Privacy policy"
+    },
+    {
+      "type": "url",
+      "id": "nav_2_link_4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "text",
+      "id": "nav_2_link_5_text",
+      "label": "Link 5 text",
+      "default": "Terms of service"
+    },
+    {
+      "type": "url",
+      "id": "nav_2_link_5_url",
+      "label": "Link 5 URL"
+    },
+    {
+      "type": "header",
+      "content": "Social media"
+    },
+    {
+      "type": "text",
+      "id": "social_title",
+      "label": "Social media title",
+      "default": "Follow us"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "text",
+      "id": "instagram_text",
+      "label": "Instagram text",
+      "default": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "text",
+      "id": "facebook_text",
+      "label": "Facebook text",
+      "default": "Facebook"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "text",
+      "id": "tiktok_text",
+      "label": "TikTok text",
+      "default": "TikTok"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "text",
+      "id": "youtube_text",
+      "label": "YouTube text",
+      "default": "YouTube"
+    },
+    {
+      "type": "url",
+      "id": "tise_url",
+      "label": "Tise URL"
+    },
+    {
+      "type": "text",
+      "id": "tise_text",
+      "label": "Tise text",
+      "default": "Tise"
+    },
+    {
+      "type": "header",
+      "content": "Payment icons"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment icons",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "payment_section_padding_vertical",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Payment section vertical spacing",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "payment_section_padding_horizontal",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Payment section horizontal spacing",
+      "default": 20
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_1",
+      "label": "Payment icon 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_2",
+      "label": "Payment icon 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_3",
+      "label": "Payment icon 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_4",
+      "label": "Payment icon 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_5",
+      "label": "Payment icon 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_6",
+      "label": "Payment icon 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_7",
+      "label": "Payment icon 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_8",
+      "label": "Payment icon 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_9",
+      "label": "Payment icon 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_10",
+      "label": "Payment icon 10"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_11",
+      "label": "Payment icon 11"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_12",
+      "label": "Payment icon 12"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_13",
+      "label": "Payment icon 13"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_14",
+      "label": "Payment icon 14"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_15",
+      "label": "Payment icon 15"
+    },
+    {
+      "type": "range",
+      "id": "payment_icon_size",
+      "min": 4,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Payment icon size",
+      "default": 52
+    },
+    {
+      "type": "header",
+      "content": "Border settings"
+    },
+    {
+      "type": "range",
+      "id": "top_border_thickness",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Top border thickness",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "top_border_color",
+      "label": "Top border color",
+      "default": "#d7dfea"
+    },
+    {
+      "type": "range",
+      "id": "bottom_border_thickness",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom border thickness",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "bottom_border_color",
+      "label": "Bottom border color",
+      "default": "#d7dfea"
+    },
+    {
+      "type": "range",
+      "id": "vertical_border_thickness",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical border thickness",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "vertical_border_color",
+      "label": "Vertical border color",
+      "default": "#d7dfea"
+    },
+    {
+      "type": "range",
+      "id": "vertical_border_height",
+      "min": 200,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Vertical border height",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F1F5F9"
+    },
+    {
+      "type": "color",
+      "id": "left_section_background",
+      "label": "Left section background",
+      "default": "#F1F5F9"
+    },
+    {
+      "type": "color",
+      "id": "nav_section_background",
+      "label": "Navigation section background",
+      "default": "#F1F5F9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121826"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#121826"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#8a9bb7"
+    },
+    {
+      "type": "color",
+      "id": "success_color",
+      "label": "Success message color",
+      "default": "#121826"
+    },
+    {
+      "type": "color",
+      "id": "error_color",
+      "label": "Error message color",
+      "default": "#8a9bb7"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter form colors"
+    },
+    {
+      "type": "color",
+      "id": "label_background_color",
+      "label": "Label background",
+      "default": "#f1f5f9"
+    },
+    {
+      "type": "color",
+      "id": "input_background_color",
+      "label": "Input background",
+      "default": "#f1f5f9"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input text color",
+      "default": "#121826"
+    },
+    {
+      "type": "color",
+      "id": "input_placeholder_color",
+      "label": "Input placeholder color",
+      "default": "#f9f8f7"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border color",
+      "default": "#d7dfea"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button background",
+      "default": "#8a9bb7"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#f9f8f7"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#1b2a3c"
+    },
+    {
+      "type": "header",
+      "content": "Social media colors"
+    },
+    {
+      "type": "color",
+      "id": "social_icon_background",
+      "label": "Social icon background",
+      "default": "#f1f5f9"
+    },
+    {
+      "type": "color",
+      "id": "social_icon_hover_background",
+      "label": "Social icon hover background",
+      "default": "#f1f5f9"
+    },
+    {
+      "type": "color",
+      "id": "social_icon_color",
+      "label": "Social icon color",
+      "default": "#121826"
+    },
+    {
+      "type": "header",
+      "content": "Payment section colors"
+    },
+    {
+      "type": "color",
+      "id": "payment_icon_background",
+      "label": "Payment icon background",
+      "default": "#d7dfea"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_copy_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Newsletter copy size",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "newsletter_label_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Newsletter label size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "nav_title_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Navigation title size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "link_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Link size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "social_title_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Social title size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Sizing"
+    },
+    {
+      "type": "range",
+      "id": "social_icon_size",
+      "min": 30,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Social icon size",
+      "default": 38
+    },
+    {
+      "type": "header",
+      "content": "Border radius"
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Input border radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comprehensive footer"
+    }
+  ]
+}
+{% endschema %}
