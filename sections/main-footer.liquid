@@ -29,7 +29,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr);
     gap: 40px;
-    align-items: flex-start;
+    align-items: stretch;
   }
 
   .to-footer__column-{{ footer_id }} {
@@ -44,14 +44,26 @@
 
   .to-footer__link-columns-{{ footer_id }} {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+    gap: 24px;
+    align-items: stretch;
+    height: 100%;
+    min-height: 260px;
+  }
+
+  .to-footer__link-stack-{{ footer_id }} {
+    display: flex;
+    flex-direction: column;
     gap: 24px;
   }
 
   .to-footer__heading-{{ footer_id }} {
-    font-size: 16px;
+    font-family: 'Cormorant', serif;
+    font-size: 18px;
     font-weight: 600;
     margin: 0 0 8px 0;
+    text-align: right;
+    width: 100%;
   }
 
   .to-footer__text-{{ footer_id }} {
@@ -66,13 +78,16 @@
     border-radius: 12px;
     background-color: {{ section.settings.newsletter_background }};
     box-sizing: border-box;
+    height: 100%;
+    min-height: 260px;
   }
 
   .to-footer-newsletter__logo-wrap-{{ footer_id }} {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 12px;
     margin-bottom: 16px;
   }
 
@@ -83,9 +98,29 @@
   }
 
   .to-footer-newsletter__copy-{{ footer_id }} {
-    font-size: 15px;
-    line-height: 1.4;
-    margin: 0;
+    font-family: 'Cormorant', serif;
+    text-align: right;
+    margin-top: 40px;
+    margin-right: 8px;
+    max-width: 140px;
+  }
+
+  .to-footer-newsletter__copy-{{ footer_id }} .newsletter-cta-line-1 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.05;
+  }
+
+  .to-footer-newsletter__copy-{{ footer_id }} .newsletter-cta-line-2 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.05;
+  }
+
+  .to-footer-newsletter__copy-{{ footer_id }} .newsletter-cta-line-3 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.05;
   }
 
   .to-footer-newsletter__form-{{ footer_id }} {
@@ -93,6 +128,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    align-items: flex-end;
+    text-align: right;
   }
 
   .to-footer-newsletter__row-{{ footer_id }} {
@@ -114,9 +151,15 @@
     border-radius: 8px 0 0 8px;
     border: 1px solid {{ section.settings.input_border_color }};
     padding: 0 14px;
-    font-size: 14px;
+    font-family: 'Cormorant', serif;
+    font-size: 15px;
     height: 44px;
     box-sizing: border-box;
+    text-align: right;
+  }
+
+  .to-footer-newsletter__input-{{ footer_id }}::placeholder {
+    font-family: 'Cormorant', serif;
   }
 
   .to-footer-newsletter__button-{{ footer_id }} {
@@ -125,7 +168,8 @@
     background-color: {{ section.settings.button_background_color }};
     color: {{ section.settings.button_text_color }};
     padding: 0 18px;
-    font-size: 14px;
+    font-family: 'Cormorant', serif;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     height: 44px;
@@ -137,6 +181,7 @@
   }
 
   .to-footer-newsletter__feedback-{{ footer_id }} {
+    font-family: 'Cormorant', serif;
     font-size: 13px;
   }
 
@@ -197,21 +242,21 @@
   }
 
   .to-footer-social__heading-{{ footer_id }} {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
   }
 
   .to-footer-social__icons-{{ footer_id }} {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 
   .to-footer-social__icon-{{ footer_id }} {
-    width: 32px;
-    height: 32px;
+    width: 50px;
+    height: 50px;
     border-radius: 999px;
     display: inline-flex;
     align-items: center;
@@ -221,14 +266,14 @@
 
   .to-footer-social__icon-{{ footer_id }} svg,
   .to-footer-social__icon-{{ footer_id }} img {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     display: block;
   }
 
   .to-footer-social__label-{{ footer_id }} {
-    font-size: 14px;
-    margin-left: 6px;
+    font-size: 17px;
+    margin-left: 12px;
   }
 
   .to-footer-social__link-{{ footer_id }} {
@@ -311,7 +356,9 @@
     }
 
     .to-footer-newsletter__logo-wrap-{{ footer_id }} {
+      flex-direction: column;
       align-items: center;
+      gap: 12px;
     }
 
     .to-footer-newsletter__row-{{ footer_id }} {
@@ -347,6 +394,8 @@
     }
 
     .to-footer-social__icons-{{ footer_id }} {
+      flex-direction: row;
+      flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
     }
@@ -384,9 +433,22 @@
                 {%- if block.settings.heading != blank -%}
                   <h2 class="to-footer__heading-{{ footer_id }}">{{ block.settings.heading }}</h2>
                 {%- endif -%}
-                {%- if block.settings.body != blank -%}
+
+                {% if block.settings.cta_line_1 != blank or block.settings.cta_line_2 != blank or block.settings.cta_line_3 != blank %}
+                  <div class="to-footer-newsletter__copy-{{ footer_id }}">
+                    {% if block.settings.cta_line_1 != blank %}
+                      <div class="newsletter-cta-line-1">{{ block.settings.cta_line_1 }}</div>
+                    {% endif %}
+                    {% if block.settings.cta_line_2 != blank %}
+                      <div class="newsletter-cta-line-2">{{ block.settings.cta_line_2 }}</div>
+                    {% endif %}
+                    {% if block.settings.cta_line_3 != blank %}
+                      <div class="newsletter-cta-line-3">{{ block.settings.cta_line_3 }}</div>
+                    {% endif %}
+                  </div>
+                {% elsif block.settings.body != blank %}
                   <div class="to-footer-newsletter__copy-{{ footer_id }}">{{ block.settings.body }}</div>
-                {%- endif -%}
+                {% endif %}
               </div>
 
               {% form 'customer', id: 'FooterNewsletter', class: 'to-footer-newsletter__form-{{ footer_id }}' %}
@@ -444,105 +506,13 @@
             {%- assign social_block = block -%}
           {%- endif -%}
         {%- endfor -%}
-
-        {%- if social_block or social_icon_blocks.size > 0 -%}
-          <div class="to-footer-social-{{ footer_id }}"{% if social_block %} {{ social_block.shopify_attributes }}{% endif %}>
-            {%- if social_block and social_block.settings.heading != blank -%}
-              <h3 class="to-footer-social__heading-{{ footer_id }}">{{ social_block.settings.heading }}</h3>
-            {%- endif -%}
-
-            <div class="to-footer-social__icons-{{ footer_id }}">
-              {%- if social_icon_blocks.size > 0 -%}
-                {%- for icon_block in social_icon_blocks -%}
-                  {%- assign platform = icon_block.settings.platform | default: 'custom' -%}
-                  {%- assign label = icon_block.settings.label -%}
-                  {%- if label == blank -%}
-                    {%- case platform -%}
-                      {%- when 'instagram' -%}{%- assign label = 'Instagram' -%}
-                      {%- when 'facebook' -%}{%- assign label = 'Facebook' -%}
-                      {%- when 'tiktok' -%}{%- assign label = 'TikTok' -%}
-                      {%- when 'tise' -%}{%- assign label = 'Tise' -%}
-                      {%- when 'youtube' -%}{%- assign label = 'YouTube' -%}
-                      {%- else -%}{%- assign label = 'Social' -%}
-                    {%- endcase -%}
-                  {%- endif -%}
-
-                  {%- assign url = icon_block.settings.link -%}
-                  {%- if url == blank and social_block -%}
-                    {%- case platform -%}
-                      {%- when 'instagram' -%}{%- assign url = social_block.settings.instagram_url -%}
-                      {%- when 'facebook' -%}{%- assign url = social_block.settings.facebook_url -%}
-                      {%- when 'tiktok' -%}{%- assign url = social_block.settings.tiktok_url -%}
-                      {%- when 'tise' -%}{%- assign url = social_block.settings.tise_url -%}
-                      {%- when 'youtube' -%}{%- assign url = social_block.settings.youtube_url -%}
-                    {%- endcase -%}
-                  {%- endif -%}
-
-                  {%- assign has_link = url != blank -%}
-
-                  {%- if has_link -%}
-                    <a href="{{ url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}" {{ icon_block.shopify_attributes }}>
-                  {%- else -%}
-                    <span class="to-footer-social__link-{{ footer_id }}" {{ icon_block.shopify_attributes }}>
-                  {%- endif -%}
-                      <span class="to-footer-social__icon-{{ footer_id }}">
-                        {%- if icon_block.settings.icon != blank -%}
-                          <img src="{{ icon_block.settings.icon | image_url: width: 80 }}" alt="{{ label }}" loading="lazy">
-                        {%- elsif platform == 'tise' -%}
-                          <img src="https://cdn.shopify.com/s/files/1/0958/3758/5689/files/Tise.svg?v=1757628886" alt="{{ label }}" loading="lazy">
-                        {%- else -%}
-                          <span aria-hidden="true">{{ label | slice: 0, 1 }}</span>
-                        {%- endif -%}
-                      </span>
-                      <span class="to-footer-social__label-{{ footer_id }}">{{ label }}</span>
-                  {%- if has_link -%}
-                    </a>
-                  {%- else -%}
-                    </span>
-                  {%- endif -%}
-                {%- endfor -%}
-              {%- elsif social_block -%}
-                {%- comment -%}Fallback: render simple icons based only on URLs on the social block{%- endcomment -%}
-                {%- if social_block.settings.instagram_url != blank -%}
-                  <a href="{{ social_block.settings.instagram_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
-                    <span class="to-footer-social__icon-{{ footer_id }}"><span aria-hidden="true">I</span></span>
-                    <span class="to-footer-social__label-{{ footer_id }}">Instagram</span>
-                  </a>
-                {%- endif -%}
-                {%- if social_block.settings.facebook_url != blank -%}
-                  <a href="{{ social_block.settings.facebook_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
-                    <span class="to-footer-social__icon-{{ footer_id }}"><span aria-hidden="true">F</span></span>
-                    <span class="to-footer-social__label-{{ footer_id }}">Facebook</span>
-                  </a>
-                {%- endif -%}
-                {%- if social_block.settings.tiktok_url != blank -%}
-                  <a href="{{ social_block.settings.tiktok_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
-                    <span class="to-footer-social__icon-{{ footer_id }}"><span aria-hidden="true">T</span></span>
-                    <span class="to-footer-social__label-{{ footer_id }}">TikTok</span>
-                  </a>
-                {%- endif -%}
-                {%- if social_block.settings.tise_url != blank -%}
-                  <a href="{{ social_block.settings.tise_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
-                    <span class="to-footer-social__icon-{{ footer_id }}"><span aria-hidden="true">T</span></span>
-                    <span class="to-footer-social__label-{{ footer_id }}">Tise</span>
-                  </a>
-                {%- endif -%}
-                {%- if social_block.settings.youtube_url != blank -%}
-                  <a href="{{ social_block.settings.youtube_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
-                    <span class="to-footer-social__icon-{{ footer_id }}"><span aria-hidden="true">Y</span></span>
-                    <span class="to-footer-social__label-{{ footer_id }}">YouTube</span>
-                  </a>
-                {%- endif -%}
-              {%- endif -%}
-            </div>
-          </div>
-        {%- endif -%}
       </div>
 
       <div class="to-footer__column-{{ footer_id }} to-footer__column--right-{{ footer_id }}">
         <div class="to-footer__link-columns-{{ footer_id }}">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'link_group' -%}
+          <div class="to-footer__link-stack-{{ footer_id }}">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'link_group' -%}
               <details class="to-footer-link-group-{{ footer_id }}" open {{ block.shopify_attributes }}>
                 <summary>
                   <span class="to-footer-link-group__title-{{ footer_id }}">{{ block.settings.heading }}</span>
@@ -571,7 +541,129 @@
                 </div>
               </details>
             {%- endif -%}
-          {%- endfor -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if social_block or social_icon_blocks.size > 0 -%}
+            <div class="to-footer-social-{{ footer_id }}"{% if social_block %} {{ social_block.shopify_attributes }}{% endif %}>
+              {%- if social_block and social_block.settings.heading != blank -%}
+                <h3 class="to-footer-social__heading-{{ footer_id }}">{{ social_block.settings.heading }}</h3>
+              {%- endif -%}
+
+              <div class="to-footer-social__icons-{{ footer_id }}">
+                {%- if social_icon_blocks.size > 0 -%}
+                  {%- for icon_block in social_icon_blocks -%}
+                    {%- assign platform = icon_block.settings.platform | default: 'custom' -%}
+                    {%- assign label = icon_block.settings.label -%}
+                    {%- if label == blank -%}
+                      {%- case platform -%}
+                        {%- when 'instagram' -%}{%- assign label = 'Instagram' -%}
+                        {%- when 'facebook' -%}{%- assign label = 'Facebook' -%}
+                        {%- when 'tiktok' -%}{%- assign label = 'TikTok' -%}
+                        {%- when 'tise' -%}{%- assign label = 'Tise' -%}
+                        {%- when 'youtube' -%}{%- assign label = 'YouTube' -%}
+                        {%- else -%}{%- assign label = 'Social' -%}
+                      {%- endcase -%}
+                    {%- endif -%}
+
+                    {%- assign url = icon_block.settings.link -%}
+                    {%- if url == blank and social_block -%}
+                      {%- case platform -%}
+                        {%- when 'instagram' -%}{%- assign url = social_block.settings.instagram_url -%}
+                        {%- when 'facebook' -%}{%- assign url = social_block.settings.facebook_url -%}
+                        {%- when 'tiktok' -%}{%- assign url = social_block.settings.tiktok_url -%}
+                        {%- when 'tise' -%}{%- assign url = social_block.settings.tise_url -%}
+                        {%- when 'youtube' -%}{%- assign url = social_block.settings.youtube_url -%}
+                      {%- endcase -%}
+                    {%- endif -%}
+
+                    {%- if url != blank -%}
+                      <a href="{{ url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}" {{ icon_block.shopify_attributes }}>
+                    {%- else -%}
+                      <span class="to-footer-social__link-{{ footer_id }}" {{ icon_block.shopify_attributes }}>
+                    {%- endif -%}
+                        <span class="to-footer-social__icon-{{ footer_id }}">
+                          {%- if icon_block.settings.icon != blank -%}
+                            <img src="{{ icon_block.settings.icon | image_url: width: 80 }}" alt="{{ label }}" loading="lazy">
+                          {%- elsif platform == 'tise' -%}
+                            <img src="https://cdn.shopify.com/s/files/1/0958/3758/5689/files/Tise.svg?v=1757628886" alt="{{ label }}" loading="lazy">
+                          {%- else -%}
+                            <span aria-hidden="true">{{ label | slice: 0, 1 }}</span>
+                          {%- endif -%}
+                        </span>
+                        <span class="to-footer-social__label-{{ footer_id }}">{{ label }}</span>
+                    {%- if url != blank -%}
+                      </a>
+                    {%- else -%}
+                      </span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- elsif social_block -%}
+                  {%- comment -%}Fallback: render icons based on URLs + optional per-platform icons on the social block{%- endcomment -%}
+                  {%- if social_block.settings.instagram_url != blank -%}
+                    <a href="{{ social_block.settings.instagram_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
+                      <span class="to-footer-social__icon-{{ footer_id }}">
+                        {%- if social_block.settings.instagram_icon != blank -%}
+                          <img src="{{ social_block.settings.instagram_icon | image_url: width: 80 }}" alt="Instagram" loading="lazy">
+                        {%- else -%}
+                          <span aria-hidden="true">I</span>
+                        {%- endif -%}
+                      </span>
+                      <span class="to-footer-social__label-{{ footer_id }}">Instagram</span>
+                    </a>
+                  {%- endif -%}
+                  {%- if social_block.settings.facebook_url != blank -%}
+                    <a href="{{ social_block.settings.facebook_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
+                      <span class="to-footer-social__icon-{{ footer_id }}">
+                        {%- if social_block.settings.facebook_icon != blank -%}
+                          <img src="{{ social_block.settings.facebook_icon | image_url: width: 80 }}" alt="Facebook" loading="lazy">
+                        {%- else -%}
+                          <span aria-hidden="true">F</span>
+                        {%- endif -%}
+                      </span>
+                      <span class="to-footer-social__label-{{ footer_id }}">Facebook</span>
+                    </a>
+                  {%- endif -%}
+                  {%- if social_block.settings.tiktok_url != blank -%}
+                    <a href="{{ social_block.settings.tiktok_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
+                      <span class="to-footer-social__icon-{{ footer_id }}">
+                        {%- if social_block.settings.tiktok_icon != blank -%}
+                          <img src="{{ social_block.settings.tiktok_icon | image_url: width: 80 }}" alt="TikTok" loading="lazy">
+                        {%- else -%}
+                          <span aria-hidden="true">T</span>
+                        {%- endif -%}
+                      </span>
+                      <span class="to-footer-social__label-{{ footer_id }}">TikTok</span>
+                    </a>
+                  {%- endif -%}
+                  {%- if social_block.settings.tise_url != blank -%}
+                    <a href="{{ social_block.settings.tise_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
+                      <span class="to-footer-social__icon-{{ footer_id }}">
+                        {%- if social_block.settings.tise_icon != blank -%}
+                          <img src="{{ social_block.settings.tise_icon | image_url: width: 80 }}" alt="Tise" loading="lazy">
+                        {%- else -%}
+                          <span aria-hidden="true">T</span>
+                        {%- endif -%}
+                      </span>
+                      <span class="to-footer-social__label-{{ footer_id }}">Tise</span>
+                    </a>
+                  {%- endif -%}
+                  {%- if social_block.settings.youtube_url != blank -%}
+                    <a href="{{ social_block.settings.youtube_url }}" target="_blank" rel="noopener" class="to-footer-social__link-{{ footer_id }}">
+                      <span class="to-footer-social__icon-{{ footer_id }}">
+                        {%- if social_block.settings.youtube_icon != blank -%}
+                          <img src="{{ social_block.settings.youtube_icon | image_url: width: 80 }}" alt="YouTube" loading="lazy">
+                        {%- else -%}
+                          <span aria-hidden="true">Y</span>
+                        {%- endif -%}
+                      </span>
+                      <span class="to-footer-social__label-{{ footer_id }}">YouTube</span>
+                    </a>
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
         </div>
       </div>
     </div>
@@ -737,6 +829,24 @@
         },
         {
           "type": "text",
+          "id": "cta_line_1",
+          "label": "CTA line 1",
+          "default": "Sign up"
+        },
+        {
+          "type": "text",
+          "id": "cta_line_2",
+          "label": "CTA line 2",
+          "default": "for early"
+        },
+        {
+          "type": "text",
+          "id": "cta_line_3",
+          "label": "CTA line 3",
+          "default": "access"
+        },
+        {
+          "type": "text",
           "id": "email_placeholder",
           "label": "Email placeholder",
           "default": "Your email address"
@@ -804,9 +914,19 @@
           "label": "Instagram URL (fallback)"
         },
         {
+          "type": "image_picker",
+          "id": "instagram_icon",
+          "label": "Instagram icon"
+        },
+        {
           "type": "url",
           "id": "facebook_url",
           "label": "Facebook URL (fallback)"
+        },
+        {
+          "type": "image_picker",
+          "id": "facebook_icon",
+          "label": "Facebook icon"
         },
         {
           "type": "url",
@@ -814,14 +934,29 @@
           "label": "TikTok URL (fallback)"
         },
         {
+          "type": "image_picker",
+          "id": "tiktok_icon",
+          "label": "TikTok icon"
+        },
+        {
           "type": "url",
           "id": "tise_url",
           "label": "Tise URL (fallback)"
         },
         {
+          "type": "image_picker",
+          "id": "tise_icon",
+          "label": "Tise icon"
+        },
+        {
           "type": "url",
           "id": "youtube_url",
           "label": "YouTube URL (fallback)"
+        },
+        {
+          "type": "image_picker",
+          "id": "youtube_icon",
+          "label": "YouTube icon"
         }
       ]
     },
@@ -856,8 +991,7 @@
         {
           "type": "text",
           "id": "label",
-          "label": "Label (optional)",
-          "default": ""
+          "label": "Label (optional)"
         }
       ]
     },
