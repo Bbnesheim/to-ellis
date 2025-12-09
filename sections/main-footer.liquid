@@ -44,9 +44,11 @@
 
   .to-footer__link-columns-{{ footer_id }} {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
-    gap: 20px;
+    /* Make the stacked link column narrower so social can sit closer */
+    grid-template-columns: minmax(260px, max-content) minmax(200px, max-content);
+    column-gap: 20px;
     align-items: center;
+    justify-content: flex-start;
     height: 100%;
     min-height: 220px;
   }
@@ -251,12 +253,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 6px;
   }
 
   .to-footer-social__icon-{{ footer_id }} {
-    width: 50px;
-    height: 50px;
+    width: 42px;
+    height: 42px;
     border-radius: 999px;
     display: inline-flex;
     align-items: center;
@@ -266,14 +268,14 @@
 
   .to-footer-social__icon-{{ footer_id }} svg,
   .to-footer-social__icon-{{ footer_id }} img {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     display: block;
   }
 
   .to-footer-social__label-{{ footer_id }} {
-    font-size: 17px;
-    margin-left: 12px;
+    font-size: 15px;
+    margin-left: 8px;
   }
 
   .to-footer-social__link-{{ footer_id }} {
