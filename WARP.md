@@ -66,13 +66,20 @@ shopify theme check
 If you add a `.theme-check.yml`, document any custom rules or excludes here.
 
 ### Tests
-There are currently **no automated tests** (no `package.json`, Ruby test suite, or E2E harness).
+This theme now includes a small Node-based unit test harness for selected Liquid logic.
 
-For now:
-- Use `shopify theme check` as the closest thing to static analysis.
-- Rely on manual QA via `shopify theme dev` and the store preview.
+From the repo root, after installing dependencies with `npm install`:
 
-If you introduce automated tests (Jest, Playwright, etc.), add the exact commands in this section.
+```bash
+cd /home/ben/projects/to-ellis
+npm test
+```
+
+This runs the Jest test suite (currently covering the featured product title rendering logic).
+
+You should still:
+- Use `shopify theme check` as the closest thing to static analysis for Liquid/CSS.
+- Rely on manual QA via `shopify theme dev` and the store preview for end-to-end behavior.
 
 ## High-Level Architecture & Structure
 

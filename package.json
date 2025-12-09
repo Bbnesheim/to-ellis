@@ -1,0 +1,11 @@
+{
+  "name": "to-ellis-theme",
+  "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "liquidjs": "^10.10.2"
+  }
+}
