@@ -106,16 +106,47 @@ class CartItems extends HTMLElement {
           console.error(e);
         });
     } else {
-      return fetch(`${routes.cart_url}?section_id=main-cart-items`)
-        .then((response) => response.text())
-        .then((responseText) => {
-          const html = new DOMParser().parseFromString(responseText, 'text/html');
-          const sourceQty = html.querySelector('cart-items');
-          this.innerHTML = sourceQty.innerHTML;
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+      // When the cart is updated from elsewhere (e.g. quick order list, product form),
+      // we need to refresh both the line items *and* the footer so the estimated total
+      // stays in sync with the server-side cart.
+      const promises = [];
+
+      // Refresh main cart items section
+      promises.push(
+        fetch(`${routes.cart_url}?section_id=main-cart-items`)
+          .then((response) => response.text())
+          .then((responseText) => {
+            const html = new DOMParser().parseFromString(responseText, 'text/html');
+            const sourceQty = html.querySelector('cart-items');
+            if (sourceQty) {
+              this.innerHTML = sourceQty.innerHTML;
+            }
+          })
+          .catch((e) => {
+            console.error(e);
+          })
+      );
+
+      // Refresh cart footer / estimated total if the footer is present on this page
+      const cartFooter = document.getElementById('main-cart-footer');
+      if (cartFooter) {
+        promises.push(
+          fetch(`${routes.cart_url}?section_id=main-cart-footer`)
+            .then((response) => response.text())
+            .then((responseText) => {
+              const html = new DOMParser().parseFromString(responseText, 'text/html');
+              const sourceFooter = html.getElementById('main-cart-footer');
+              if (sourceFooter) {
+                cartFooter.innerHTML = sourceFooter.innerHTML;
+              }
+            })
+            .catch((e) => {
+              console.error(e);
+            })
+        );
+      }
+
+      return Promise.all(promises);
     }
   }
 
@@ -181,13 +212,31 @@ class CartItems extends HTMLElement {
           if (cartDrawerWrapper) cartDrawerWrapper.classList.toggle('is-empty', parsedState.item_count === 0);
 
           this.getSectionsToRender().forEach((section) => {
-            const elementToReplace =
-              document.getElementById(section.id).querySelector(section.selector) || document.getElementById(section.id);
+            const host = document.getElementById(section.id);
+            if (!host) return;
+            const elementToReplace = host.querySelector(section.selector) || host;
             elementToReplace.innerHTML = this.getSectionInnerHTML(
               parsedState.sections[section.section],
               section.selector
             );
           });
+
+          // Extra safety: ensure the visible estimated total text always reflects
+          // the latest cart state returned from the server, even if the section
+          // replacement above fails for some reason.
+          if (cartFooter) {
+            const footerSectionId = cartFooter.dataset.id;
+            const footerMarkup = parsedState.sections && parsedState.sections[footerSectionId];
+            if (footerMarkup) {
+              const footerDoc = new DOMParser().parseFromString(footerMarkup, 'text/html');
+              const newTotalEl = footerDoc.querySelector('.totals__total-value');
+              const currentTotalEl = cartFooter.querySelector('.totals__total-value');
+              if (newTotalEl && currentTotalEl) {
+                currentTotalEl.innerHTML = newTotalEl.innerHTML;
+              }
+            }
+          }
+
           const updatedValue = parsedState.items[line - 1] ? parsedState.items[line - 1].quantity : undefined;
           let message = '';
           if (items.length === parsedState.items.length && updatedValue !== parseInt(quantityElement.value)) {
