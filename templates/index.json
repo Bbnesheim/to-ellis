@@ -214,7 +214,7 @@
         "color_scheme": "scheme-1",
         "show_view_all": false,
         "columns_mobile": "1",
-        "swipe_on_mobile": false,
+        "swipe_on_mobile": true,
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -231,11 +231,15 @@
         },
         "image_Dkt98h": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/image3.jpg"
+          }
         },
         "image_PB6fzB": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/susan-wilkinson-WOpn4JUJk9c-unsplash.jpg"
+          }
         }
       },
       "block_order": [
