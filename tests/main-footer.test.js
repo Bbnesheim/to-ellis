@@ -345,4 +345,167 @@ describe('main-footer section', () => {
     expect(tiseIconImg).not.toBeNull();
     expect(tiseIconImg.getAttribute('src')).toContain('Tise.svg');
   });
+
+  test('6. Custom payment icons are displayed when they are configured', async () => {
+    const paymentsBlock = {
+      id: 'payments',
+      type: 'payments',
+      shopify_attributes: '',
+      settings: {
+        heading: 'We accept',
+        use_dynamic_icons: false,
+        payment_icon_1: 'visa.svg',
+        payment_icon_2: 'mastercard.svg',
+        payment_icon_3: 'paypal.svg',
+        payment_icon_4: null,
+        payment_icon_5: null,
+        payment_icon_6: null,
+      },
+    };
+
+    const { footerId } = await renderMainFooter({
+      blocks: [paymentsBlock],
+    });
+
+    const icons = document.querySelectorAll(
+      `.to-footer-payments__item-${footerId} img`,
+    );
+
+    expect(icons).toHaveLength(3);
+  });
+
+  test('7. Dynamic Shopify payment icons are displayed when no custom icons are set and dynamic icons are enabled', async () => {
+    const paymentsBlock = {
+      id: 'payments',
+      type: 'payments',
+      shopify_attributes: '',
+      settings: {
+        heading: 'We accept',
+        use_dynamic_icons: true,
+        payment_icon_1: null,
+        payment_icon_2: null,
+        payment_icon_3: null,
+        payment_icon_4: null,
+        payment_icon_5: null,
+        payment_icon_6: null,
+      },
+    };
+
+    const enabledTypes = ['visa', 'master', 'paypal'];
+
+    const { footerId } = await renderMainFooter({
+      blocks: [paymentsBlock],
+      shop: {
+        enabled_payment_types: enabledTypes,
+      },
+    });
+
+    const items = document.querySelectorAll(
+      `.to-footer-payments__item-${footerId} svg[data-payment]`,
+    );
+
+    expect(items).toHaveLength(enabledTypes.length);
+  });
+
+  test('8. No payment icons are displayed when neither custom nor dynamic icons are configured', async () => {
+    const paymentsBlock = {
+      id: 'payments',
+      type: 'payments',
+      shopify_attributes: '',
+      settings: {
+        heading: 'We accept',
+        use_dynamic_icons: false,
+        payment_icon_1: null,
+        payment_icon_2: null,
+        payment_icon_3: null,
+        payment_icon_4: null,
+        payment_icon_5: null,
+        payment_icon_6: null,
+      },
+    };
+
+    const { footerId } = await renderMainFooter({
+      blocks: [paymentsBlock],
+      shop: {
+        enabled_payment_types: [],
+      },
+    });
+
+    const items = document.querySelectorAll(
+      `.to-footer-payments__item-${footerId}`,
+    );
+
+    expect(items).toHaveLength(0);
+  });
+
+  test('9. Each custom payment icon is rendered with the correct image source and alt attribute', async () => {
+    const paymentsBlock = {
+      id: 'payments',
+      type: 'payments',
+      shopify_attributes: '',
+      settings: {
+        heading: 'We accept',
+        use_dynamic_icons: false,
+        payment_icon_1: 'visa.svg',
+        payment_icon_2: 'mastercard.svg',
+        payment_icon_3: 'applepay.svg',
+        payment_icon_4: null,
+        payment_icon_5: null,
+        payment_icon_6: null,
+      },
+    };
+
+    const { footerId } = await renderMainFooter({
+      blocks: [paymentsBlock],
+    });
+
+    const icons = Array.from(
+      document.querySelectorAll(`.to-footer-payments__item-${footerId} img`),
+    );
+
+    const expectedSources = ['visa.svg', 'mastercard.svg', 'applepay.svg'];
+
+    expect(icons).toHaveLength(expectedSources.length);
+
+    icons.forEach((img, index) => {
+      expect(img.getAttribute('src')).toBe(`url-${expectedSources[index]}`);
+      expect(img.getAttribute('alt')).toBe('Payment method');
+    });
+  });
+
+  test('10. The correct Shopify dynamic payment types are rendered when dynamic icons are enabled and no custom icons are set', async () => {
+    const paymentsBlock = {
+      id: 'payments',
+      type: 'payments',
+      shopify_attributes: '',
+      settings: {
+        heading: 'We accept',
+        use_dynamic_icons: true,
+        payment_icon_1: null,
+        payment_icon_2: null,
+        payment_icon_3: null,
+        payment_icon_4: null,
+        payment_icon_5: null,
+        payment_icon_6: null,
+      },
+    };
+
+    const enabledTypes = ['visa', 'master', 'paypal'];
+
+    const { footerId } = await renderMainFooter({
+      blocks: [paymentsBlock],
+      shop: {
+        enabled_payment_types: enabledTypes,
+      },
+    });
+
+    const svgs = Array.from(
+      document.querySelectorAll(
+        `.to-footer-payments__item-${footerId} svg[data-payment]`,
+      ),
+    );
+
+    const renderedTypes = svgs.map((svg) => svg.getAttribute('data-payment'));
+    expect(renderedTypes).toEqual(enabledTypes);
+  });
 });
