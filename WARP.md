@@ -91,7 +91,7 @@ This is a Dawn-derived Online Store 2.0 theme with the standard Shopify structur
   - `password.liquid` – layout for password-protected storefront.
 - `templates/` – JSON templates defining which sections appear on each route (home, collection, product, blog, article, search, customer pages, etc.).
 - `sections/` – top-level, configurable page sections (`main-*` sections, header/footer groups, featured collection, contact form, etc.).
-- `blocks/` – **custom AI-generated block-style components** used inside `_blocks` sections and custom templates (e.g. `custom-header.liquid`, `journal.liquid`, `comprehensive-footer.liquid`, `hero-banner.liquid`, `logo-banner.liquid`, `ai_gen_block_*`).
+- `blocks/` – **custom AI-generated block-style components** used inside `_blocks` sections and custom templates (e.g. `custom-header.liquid`, `journal.liquid`, `comprehensive-footer.liquid`, `hero-banner.liquid`, `logo-banner.liquid`).
 - `snippets/` – reusable partials (`meta-tags`, `header-mega-menu`, `cart-drawer`, `price`, `facets`, `product-media-gallery`, etc.).
 - `assets/` – JS, CSS, and images for the theme (e.g. `global.js`, `base.css`, `cart.js`, many component/section CSS files, SVG icons).
 - `config/` – global theme settings and presets (`settings_schema.json`, `settings_data.json`).
@@ -167,9 +167,9 @@ When adjusting header behavior:
 
 The footer mirrors the header group pattern using `sections/footer-group.json`:
 
-- `blocks_Ua4jQ9` – an `_blocks` section that injects an AI-generated **trust section** block (`ai_gen_block_beba2a0`) with four columns (Customer Service, Free Returns, Safe & Secure Payment, Free Shipping). Settings control:
-  - Colors, typography, padding, min-heights.
-  - SVG icons and popup content per column.
+- `footer_trust_*` – a dedicated footer trust section (`footer-trust.liquid`) with four columns (Customer Service, Easy Returns, Safe Payments, Quick Shipping). Settings control:
+  - Colors via theme color schemes, typography via global fonts, and shared text sizing.
+  - Icons and per-column popup content for detailed messaging.
 - `blocks_BgQYqV` – another `_blocks` section using a `comprehensive-footer` block, acting as the main footer content:
   - Newsletter area (logo, copy, label/placeholder/button text, success message).
   - Two configurable nav columns (about/help links).

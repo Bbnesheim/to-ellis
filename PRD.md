@@ -68,7 +68,7 @@ Based on the Dawn-derived theme in this repository, key architectural elements a
 - Blocks (custom components)
   - `blocks/custom-header.liquid`: AI-generated, highly configurable header component with logo placement, navigation, hover animations, dropdown imagery, and icon/localization layout.
   - `blocks/journal.liquid`: AI-generated journal-style blog layout used by `templates/blog.journal-to-ellis.json` to present long-form content like a designed book.
-  - `blocks/comprehensive-footer.liquid` and `blocks/ai_gen_block_beba2a0.liquid`: complex footer and trust-section blocks providing newsletter, nav, social, payment icons, and trust columns.
+- `blocks/comprehensive-footer.liquid` and `sections/footer-trust.liquid`: complex footer and trust-section components providing newsletter, nav, social, payment icons, and trust columns.
 
 - Templates
   - `templates/index.json`: strongly customized home page wired to `_blocks` hero section, featured collections, featured product, collage, journal teaser.
