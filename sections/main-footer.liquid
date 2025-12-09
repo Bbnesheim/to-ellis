@@ -519,6 +519,14 @@
       padding: 6px 0;
     }
 
+    .to-footer-link-group__title-{{ footer_id }} {
+      font-size: 22px;
+    }
+
+    .to-footer-link-list-{{ footer_id }} {
+      font-size: 18px;
+    }
+
     .to-footer-link-group__caret-{{ footer_id }} {
       display: inline-block;
     }
@@ -530,6 +538,7 @@
 
     .to-footer-social__heading-{{ footer_id }} {
       width: 100%;
+      text-align: left;
     }
 
     .to-footer-social__icons-{{ footer_id }} {
@@ -545,7 +554,11 @@
     }
 
     .to-footer-payments-{{ footer_id }} {
-      margin-top: 24px;
+      margin-top: 40px;
+    }
+
+    .to-footer-payments__heading-{{ footer_id }} {
+      text-align: left;
     }
 
     .to-footer__bottom-{{ footer_id }} {
@@ -856,10 +869,38 @@
     {%- endfor -%}
 
     <div class="to-footer__bottom-{{ footer_id }}">
-      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
+      &copy; {{ 'now' | date: '%Y' }} toellis.com is developed by <a href="https://www.nesheimvatten.no" target="_blank" rel="noopener">Nesheim & Vatten AS</a>
     </div>
   </div>
 </footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var mq = window.matchMedia('(max-width: 749px)');
+
+    function updateFooterAccordions(e) {
+      var groups = document.querySelectorAll('.to-footer-link-group-{{ footer_id }}');
+      if (!groups.length) return;
+
+      groups.forEach(function (details) {
+        if (e.matches) {
+          // Mobile: start with accordions closed
+          details.removeAttribute('open');
+        } else {
+          // Desktop/tablet: show lists expanded
+          details.setAttribute('open', 'open');
+        }
+      });
+    }
+
+    updateFooterAccordions(mq);
+    if (mq.addEventListener) {
+      mq.addEventListener('change', updateFooterAccordions);
+    } else if (mq.addListener) {
+      mq.addListener(updateFooterAccordions);
+    }
+  });
+</script>
 
 {% schema %}
 {
