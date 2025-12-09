@@ -91,3 +91,33 @@
     font-size: calc(var(--font-heading-scale) * 4.2rem);
   }
 }
+
+/* Boost featured product title size on wider phones (>= 400px) */
+@media screen and (min-width: 400px) and (max-width: 749px) {
+  .section-featured-product .product__title--mobile.h2 {
+    font-size: calc(var(--font-heading-scale) * 3.2rem);
+  }
+
+  .section-featured-product .product__title--mobile.h1 {
+    font-size: calc(var(--font-heading-scale) * 3.8rem);
+  }
+
+  .section-featured-product .product__title--mobile.h0 {
+    font-size: calc(var(--font-heading-scale) * 4.8rem);
+  }
+}
+
+/* Make featured product title much larger on wide desktops (>= 1025px) */
+@media screen and (min-width: 1025px) {
+  .section-featured-product .product__title.h2 {
+    font-size: calc(var(--font-heading-scale) * 3.4rem);
+  }
+
+  .section-featured-product .product__title.h1 {
+    font-size: calc(var(--font-heading-scale) * 4.6rem);
+  }
+
+  .section-featured-product .product__title.h0 {
+    font-size: calc(var(--font-heading-scale) * 5.8rem);
+  }
+}
