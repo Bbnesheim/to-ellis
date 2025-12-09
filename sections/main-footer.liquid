@@ -657,20 +657,52 @@
           {%- if block.settings.heading != blank -%}
             <p class="to-footer-payments__heading-{{ footer_id }}">{{ block.settings.heading }}</p>
           {%- endif -%}
+
+          {%- assign has_custom_payment_icons = false -%}
+          {%- if block.settings.payment_icon_1 != blank or
+                block.settings.payment_icon_2 != blank or
+                block.settings.payment_icon_3 != blank or
+                block.settings.payment_icon_4 != blank or
+                block.settings.payment_icon_5 != blank or
+                block.settings.payment_icon_6 != blank -%}
+            {%- assign has_custom_payment_icons = true -%}
+          {%- endif -%}
+
           <ul class="to-footer-payments__list-{{ footer_id }}">
-            {%- if block.settings.use_dynamic_icons -%}
+            {%- if has_custom_payment_icons -%}
+              {%- if block.settings.payment_icon_1 != blank -%}
+                <li class="to-footer-payments__item-{{ footer_id }}">
+                  <img src="{{ block.settings.payment_icon_1 | image_url: width: 80 }}" alt="Payment method" loading="lazy">
+                </li>
+              {%- endif -%}
+              {%- if block.settings.payment_icon_2 != blank -%}
+                <li class="to-footer-payments__item-{{ footer_id }}">
+                  <img src="{{ block.settings.payment_icon_2 | image_url: width: 80 }}" alt="Payment method" loading="lazy">
+                </li>
+              {%- endif -%}
+              {%- if block.settings.payment_icon_3 != blank -%}
+                <li class="to-footer-payments__item-{{ footer_id }}">
+                  <img src="{{ block.settings.payment_icon_3 | image_url: width: 80 }}" alt="Payment method" loading="lazy">
+                </li>
+              {%- endif -%}
+              {%- if block.settings.payment_icon_4 != blank -%}
+                <li class="to-footer-payments__item-{{ footer_id }}">
+                  <img src="{{ block.settings.payment_icon_4 | image_url: width: 80 }}" alt="Payment method" loading="lazy">
+                </li>
+              {%- endif -%}
+              {%- if block.settings.payment_icon_5 != blank -%}
+                <li class="to-footer-payments__item-{{ footer_id }}">
+                  <img src="{{ block.settings.payment_icon_5 | image_url: width: 80 }}" alt="Payment method" loading="lazy">
+                </li>
+              {%- endif -%}
+              {%- if block.settings.payment_icon_6 != blank -%}
+                <li class="to-footer-payments__item-{{ footer_id }}">
+                  <img src="{{ block.settings.payment_icon_6 | image_url: width: 80 }}" alt="Payment method" loading="lazy">
+                </li>
+              {%- endif -%}
+            {%- elsif block.settings.use_dynamic_icons -%}
               {%- for type in shop.enabled_payment_types -%}
                 <li class="to-footer-payments__item-{{ footer_id }}">{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
-              {%- endfor -%}
-            {%- else -%}
-              {%- for i in (1..6) -%}
-                {%- assign icon_key = 'payment_icon_' | append: i -%}
-                {%- assign icon = block.settings[icon_key] -%}
-                {%- if icon != blank -%}
-                  <li class="to-footer-payments__item-{{ footer_id }}">
-                    <img src="{{ icon | image_url: width: 80 }}" alt="Payment method" loading="lazy">
-                  </li>
-                {%- endif -%}
               {%- endfor -%}
             {%- endif -%}
           </ul>
@@ -1002,38 +1034,38 @@
         {
           "type": "checkbox",
           "id": "use_dynamic_icons",
-          "label": "Use dynamic payment icons from Shopify",
-          "default": true
+          "label": "Use Shopify dynamic payment icons (fallback)",
+          "default": false
         },
         {
           "type": "image_picker",
           "id": "payment_icon_1",
-          "label": "Custom payment icon 1"
+          "label": "Visa icon"
         },
         {
           "type": "image_picker",
           "id": "payment_icon_2",
-          "label": "Custom payment icon 2"
+          "label": "Mastercard icon"
         },
         {
           "type": "image_picker",
           "id": "payment_icon_3",
-          "label": "Custom payment icon 3"
+          "label": "Apple Pay icon"
         },
         {
           "type": "image_picker",
           "id": "payment_icon_4",
-          "label": "Custom payment icon 4"
+          "label": "Klarna icon"
         },
         {
           "type": "image_picker",
           "id": "payment_icon_5",
-          "label": "Custom payment icon 5"
+          "label": "PayPal icon"
         },
         {
           "type": "image_picker",
           "id": "payment_icon_6",
-          "label": "Custom payment icon 6"
+          "label": "Extra payment icon"
         }
       ]
     }
