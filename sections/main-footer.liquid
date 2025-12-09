@@ -300,7 +300,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 26px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -310,9 +310,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 6px 10px;
-    border-radius: 8px;
-    background-color: {{ section.settings.payment_icon_background }};
+    /* Remove card-style chrome so icons sit directly on the footer background */
+    padding: 0;
+    border-radius: 0;
+    background-color: transparent;
   }
 
   .to-footer-payments__item-{{ footer_id }} img,
