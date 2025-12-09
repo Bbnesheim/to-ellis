@@ -17,9 +17,7 @@
           "name": "Hero video banner",
           "settings": {
             "desktop_video_url": "https://cdn.shopify.com/videos/c/o/v/d2a289db13ae4441ab1594af6fbf9b6a.mp4",
-            "fallback_image": "shopify://shop_images/to_ellis_banner.webp",
             "mobile_video_url": "https://cdn.shopify.com/videos/c/o/v/1ae4ffc6169149cf9c106cd313dcdc87.mp4",
-            "mobile_fallback_image": "shopify://shop_images/to-ellis-hero-ivory-silk-curtain-embroidered-logo-9x16.webp",
             "autoplay": true,
             "muted": true,
             "show_controls": true,
@@ -232,15 +230,11 @@
         },
         "image_Dkt98h": {
           "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/1.png"
-          }
+          "settings": {}
         },
         "image_PB6fzB": {
           "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/laura-chouette-DwMsM9C1nKA-unsplash.jpg"
-          }
+          "settings": {}
         }
       },
       "block_order": [
@@ -287,6 +281,7 @@
         "featured_collection_wTrM9W",
         "featured_collection_eJXTfa"
       ],
+      "disabled": true,
       "name": "t:sections.collection-list.presets.name",
       "settings": {
         "title": "SHOP BY CATEGORY",
@@ -335,9 +330,9 @@
         "text_cFHTX8",
         "buttons_TMkK9w"
       ],
+      "disabled": true,
       "name": "t:sections.image-banner.presets.name",
       "settings": {
-        "image": "shopify://shop_images/larm-rmah-47aNXqlIdfI-unsplash.jpg",
         "image_overlay_opacity": 20,
         "image_height": "medium",
         "image_behavior": "none",
@@ -387,7 +382,6 @@
       "disabled": true,
       "name": "t:sections.image-banner.presets.name",
       "settings": {
-        "image": "shopify://shop_images/summer-stock-QDVN-tZHPtA-unsplash.jpg",
         "image_overlay_opacity": 0,
         "image_height": "large",
         "image_behavior": "none",

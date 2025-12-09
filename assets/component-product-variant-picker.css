@@ -64,10 +64,10 @@ variant-selects {
   border-radius: var(--variant-pills-radius);
   color: rgb(var(--color-foreground));
   display: inline-block;
-  margin: 0.7rem 0.5rem 0.2rem 0;
-  padding: 1rem 2rem;
-  font-size: 1.4rem;
-  letter-spacing: 0.1rem;
+  margin: 0.4rem 0.4rem 0.2rem 0;
+  padding: 0.5rem 1.3rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.05rem;
   line-height: 1;
   text-align: center;
   transition: border var(--duration-short) ease;
@@ -150,3 +150,12 @@ variant-selects {
   }
 }
 /* End custom styles for Swatch display type */
+
+@media screen and (max-width: 749px) {
+  .product-form__input--pill input[type='radio'] + label {
+    margin: 1.5rem 0.2rem 0.1rem 0;
+    padding: 0.3rem 1rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.04rem;
+  }
+}
