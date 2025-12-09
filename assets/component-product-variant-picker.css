@@ -153,9 +153,9 @@ variant-selects {
 
 @media screen and (max-width: 749px) {
   .product-form__input--pill input[type='radio'] + label {
-    margin: 1.5rem 0.2rem 0.1rem 0;
-    padding: 0.3rem 1rem;
-    font-size: 1.1rem;
+    margin: 1rem 0.2rem 0.1rem 0;
+    padding: 0.2rem 1rem;
+    font-size: 1rem;
     letter-spacing: 0.04rem;
   }
 }

@@ -106,12 +106,19 @@
                     {{- block.settings.text -}}
                   </p>
                 {%- when 'title' -%}
-                  <h2 class="product__title {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
+                  {%- capture featured_product_title -%}
                     {%- unless placeholder -%}
                       {{ product.title | escape }}
                     {%- else -%}
                       {{ 'onboarding.product_title' | t }}
                     {%- endunless -%}
+                  {%- endcapture -%}
+                  {%- assign heading_mobile = block.settings.heading_size_mobile | default: block.settings.heading_size -%}
+                  <h2 class="product__title product__title--mobile {{ heading_mobile }} medium-hide large-up-hide" {{ block.shopify_attributes }}>
+                    {{ featured_product_title | strip }}
+                  </h2>
+                  <h2 class="product__title {{ block.settings.heading_size }} small-hide" {{ block.shopify_attributes }}>
+                    {{ featured_product_title | strip }}
                   </h2>
                 {%- when 'price' -%}
                   <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
@@ -577,6 +584,26 @@
           ],
           "default": "h1",
           "label": "t:sections.all.heading_size.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size_mobile",
+          "options": [
+            {
+              "value": "h2",
+              "label": "Small (mobile)"
+            },
+            {
+              "value": "h1",
+              "label": "Medium (mobile)"
+            },
+            {
+              "value": "h0",
+              "label": "Large (mobile)"
+            }
+          ],
+          "default": "h2",
+          "label": "Mobile heading size"
         }
       ]
     },
