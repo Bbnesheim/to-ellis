@@ -92,78 +92,6 @@
         "padding_horizontal_mobile": 16
       }
     },
-    "blocks_Ua4jQ9": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_beba2a0_wjgUFa": {
-          "type": "ai_gen_block_beba2a0",
-          "settings": {
-            "background_color": "#f1f5f9",
-            "heading_font": "cormorant_n5",
-            "body_font": "cormorant_n4",
-            "popup_heading_font": "cormorant_n5",
-            "popup_body_font": "cormorant_n4",
-            "text_color": "#121826",
-            "title_size": 16,
-            "title_size_mobile": 14,
-            "content_width": 1000,
-            "vertical_alignment": "center",
-            "horizontal_alignment": "center",
-            "columns_mobile": "2",
-            "column_gap": 60,
-            "column_gap_mobile": 20,
-            "column_1_svg": "shopify://shop_images/customer_service.svg",
-            "column_1_title": "Customer Service",
-            "column_1_popup_title": "CUSTOMER SERVICE",
-            "column_1_popup_text": "<p>Our customer service team is here to help you.<br/><br/>Contact us Monday through Sunday from 9AM to 7PM.<br/><br/>By phone: +47 472 33 500<br/>By e-mail and by chat: <a href=\"/pages/about\" title=\"ABOUT\">Click here</a></p>",
-            "column_2_svg": "shopify://shop_images/free_returns.svg",
-            "column_2_title": "Free Returns",
-            "column_2_popup_title": "RETURNS ARE ON US",
-            "column_2_popup_text": "<p>To return a product, please register your return on your “Shipment Confirmation” email or by logging in to your ToEllis.com account. You have 30 days from the delivery of your order to return a product purchased from ToEllis.com.</p>",
-            "column_3_svg": "shopify://shop_images/Safe_secure_payments.svg",
-            "column_3_title": "Safe & Secure Payment",
-            "column_3_popup_title": "SAFE & SECURE",
-            "column_3_popup_text": "<p>All payment information will be SSL coded for transmission to protect your card data and to ensure that it cannot be used by anyone else.<br/><br/>The following payment methods are available on the To Ellis Online Experience: Apple Pay, VISA, Mastercard, American Express, PayPal, and 4 Interest Free Payments with Klarna.</p>",
-            "column_4_svg": "shopify://shop_images/free_shipping.svg",
-            "column_4_title": "Free Shipping",
-            "column_4_popup_title": "FREE SHIPPING",
-            "column_4_popup_text": "<p>ROUND SHIPPING Arrives within 5 to 7 business days from when it is shipped.<br/><br/><br/>EXPRESS 2ND DAY SHIPPING Arrives within 2 business days if the order is placed before 11:00 AM.</p>",
-            "svg_size": 65,
-            "svg_size_mobile": 60,
-            "svg_background_color": "#f1f5f9",
-            "svg_padding": 6,
-            "svg_padding_mobile": 8,
-            "svg_border_radius": 0,
-            "svg_spacing": 6,
-            "svg_spacing_mobile": 6,
-            "popup_width": 500,
-            "popup_bg_color": "#ffffff",
-            "popup_text_color": "#000000",
-            "popup_border_radius": 8,
-            "popup_padding": 32,
-            "popup_padding_mobile": 24,
-            "popup_title_size": 24,
-            "popup_title_size_mobile": 20,
-            "popup_text_size": 16,
-            "popup_text_size_mobile": 14,
-            "min_height": 150,
-            "min_height_mobile": 150,
-            "padding_top": 32,
-            "padding_bottom": 32,
-            "padding_horizontal": 20,
-            "padding_top_mobile": 32,
-            "padding_bottom_mobile": 32,
-            "padding_horizontal_mobile": 20
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_beba2a0_wjgUFa"
-      ],
-      "name": "Footer trust section",
-      "settings": {}
-    },
     "blocks_BgQYqV": {
       "type": "_blocks",
       "blocks": {
@@ -298,7 +226,6 @@
   },
   "order": [
     "footer_trust_tkkwhf",
-    "blocks_Ua4jQ9",
     "blocks_BgQYqV",
     "blocks_4G3Vey",
     "footer"
