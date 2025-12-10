@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 36,
         "padding_bottom": 36
@@ -18,14 +19,63 @@
     },
     "contact_info": {
       "type": "contact-info",
-      "settings": {}
-    },
-    "form": {
-      "type": "contact-form",
+      "blocks": {
+        "kontakt_card_kCqn4C": {
+          "type": "kontakt_card",
+          "settings": {
+            "title": "Kontakt oss",
+            "text": "<p><strong>E-post:</strong> <a href=\"mailto:elisabeth@toellis.com\">elisabeth@toellis.com</a><br/><strong>Instagram DM:</strong> @toellis_official<br/><strong>Åpningstider:</strong> Hver dag - morgen til kveld.</p>",
+            "note": "Vi ser frem til å hjelpe deg."
+          }
+        },
+        "bedrift_card_gHnL8q": {
+          "type": "bedrift_card",
+          "settings": {
+            "title": "Bedriftsinformasjon",
+            "text": "<p><strong>Selskap:</strong> To Ellis AS<br/><strong>Org.nr:</strong> 935 950 740<br/><strong>Adresse:</strong> Sjoarbakken 6 C, 5411 Stord, Norge</p>",
+            "note": "Dette er den registrerte selskapsadressen til To Ellis. Ingen fysisk butikk – all handel skjer i nettbutikken."
+          }
+        },
+        "kundeservice_card_DQc8yk": {
+          "type": "kundeservice_card",
+          "settings": {
+            "title": "Kundeservice",
+            "text": "<p>Vårt kundeserviceteam er her for å hjelpe deg med alle spørsmål relatert til bestillinger, levering, retur og personalisering. Vi jobber hardt for å gi deg den beste opplevelsen.</p><ul><li>Bestillinger og ordrestatus</li><li>Levering, frakt og sporingsinformasjon</li><li>Retur og bytter</li><li>Personalisering og tilpasning</li></ul>",
+            "note": "Vi svarer vanligvis innen 24 timer på hverdager."
+          }
+        }
+      },
+      "block_order": [
+        "kontakt_card_kCqn4C",
+        "bedrift_card_gHnL8q",
+        "kundeservice_card_DQc8yk"
+      ],
       "settings": {
-        "heading": "",
+        "heading": "<strong>Contact and Company information</strong>",
+        "subheading": "<p>Har du spørsmål om bestilling, passform eller levering? Her finner du all kontaktinformasjon samlet på ett sted.</p>",
         "heading_size": "h1",
-        "color_scheme": "scheme-26194e4e-9d40-4b90-b944-64ef1209f330",
+        "color_scheme": "",
+        "padding_top": 48,
+        "padding_bottom": 52
+      }
+    },
+    "contact_form_support_MVUHkH": {
+      "type": "contact-form-support",
+      "name": "Support contact form",
+      "settings": {
+        "heading": "SKRIV TIL OSS",
+        "subheading": "<p>Du kan også finne svar i vår <a href=\"/pages/faq\">FAQ-side</a>.</p>",
+        "heading_size": "h1",
+        "color_scheme": "",
+        "order_label": "Ordrenummer (valgfritt)",
+        "order_placeholder": "#1001",
+        "topic_label": "Emne",
+        "topic_placeholder": "Velg emne",
+        "topic_option_return": "Retur",
+        "topic_option_size": "Feil størrelse",
+        "topic_option_shipping": "Spørsmål om levering",
+        "topic_option_other": "Annet",
+        "submit_label": "Send melding",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -34,6 +84,6 @@
   "order": [
     "main",
     "contact_info",
-    "form"
+    "contact_form_support_MVUHkH"
   ]
 }
