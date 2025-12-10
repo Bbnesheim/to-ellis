@@ -1,0 +1,229 @@
+{% assign section_id = section.id %}
+
+{% style %}
+  .section-{{ section_id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section_id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .contact-info-{{ section_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .contact-info__header-{{ section_id }} {
+    text-align: left;
+  }
+
+  .contact-info__grid-{{ section_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .contact-info__card-{{ section_id }} {
+    position: relative;
+    padding: 24px 24px 20px;
+    border-radius: 18px;
+    background: rgba(var(--color-background), 1);
+    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(15, 23, 42, 0.04);
+  }
+
+  .contact-info__title-{{ section_id }} {
+    margin: 0 0 12px;
+  }
+
+  .contact-info__text-{{ section_id }} {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .contact-info__note-{{ section_id }} {
+    margin-top: 16px;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    opacity: 0.8;
+  }
+
+  .contact-info__label-{{ section_id }} {
+    font-weight: 600;
+  }
+
+  @media screen and (max-width: 989px) {
+    .contact-info__grid-{{ section_id }} {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .contact-info__grid-{{ section_id }} {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstyle %}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section_id }}-padding contact-info-{{ section_id }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"{% if settings.animations_reveal_on_scroll %} data-cascade{% endif %}>
+    {%- unless section.settings.heading == blank -%}
+      <div class="contact-info__header-{{ section_id }}">
+        <h2 class="title inline-richtext {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+        {%- if section.settings.subheading != blank -%}
+          <div class="rte">{{ section.settings.subheading }}</div>
+        {%- endif -%}
+      </div>
+    {%- endunless -%}
+
+    <div class="contact-info__grid-{{ section_id }}">
+      {%- for block in section.blocks -%}
+        <div class="contact-info__card-{{ section_id }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.title != blank -%}
+            <h3 class="contact-info__title-{{ section_id }} inline-richtext">{{ block.settings.title }}</h3>
+          {%- endif -%}
+
+          {%- if block.settings.text != blank -%}
+            <div class="contact-info__text-{{ section_id }} rte">{{ block.settings.text }}</div>
+          {%- endif -%}
+
+          {%- if block.settings.note != blank -%}
+            <p class="contact-info__note-{{ section_id }}">{{ block.settings.note }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact information",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Kontakt To Ellis"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Har du spørsmål om bestilling, passform eller levering? Her finner du all kontaktinformasjon samlet på ett sted.</p>"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "t:sections.all.heading_size.options__1.label" },
+        { "value": "h1", "label": "t:sections.all.heading_size.options__2.label" },
+        { "value": "h0", "label": "t:sections.all.heading_size.options__3.label" },
+        { "value": "hxl", "label": "t:sections.all.heading_size.options__4.label" },
+        { "value": "hxxl", "label": "t:sections.all.heading_size.options__5.label" }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info_card",
+      "name": "Info card",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "Kundeservice"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<ul><li>Spørsmål om bestilling og ordrestatus</li><li>Levering, frakt og sporingsinformasjon</li><li>Retur, bytter og reklamasjon</li><li>Spørsmål om passform, størrelse og materialer</li></ul>"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "note",
+          "label": "Note",
+          "default": "Vi svarer vanligvis innen 24 timer på hverdager."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact information",
+      "blocks": [
+        {
+          "type": "info_card",
+          "settings": {
+            "title": "Kundeservice",
+            "text": "<ul><li>Spørsmål om bestilling og ordrestatus</li><li>Levering, frakt og sporingsinformasjon</li><li>Retur, bytter og reklamasjon</li><li>Spørsmål om passform, størrelse og materialer</li></ul>",
+            "note": "Vi svarer vanligvis innen 24 timer på hverdager."
+          }
+        },
+        {
+          "type": "info_card",
+          "settings": {
+            "title": "Kontakt oss direkte",
+            "text": "<p><strong>E-post:</strong> <a href=\"mailto:elisabeth@toellis.com\">elisabeth@toellis.com</a><br/><strong>Instagram DM:</strong> @toellis_official</p>",
+            "note": "Vi leser henvendelser løpende gjennom dagen og svarer så raskt vi kan."
+          }
+        },
+        {
+          "type": "info_card",
+          "settings": {
+            "title": "Selskapsinformasjon",
+            "text": "<p><strong>Selskap:</strong> To Ellis<br/><strong>Org.nr:</strong> 935 950 740<br/><strong>Adresse:</strong> Sjoarbakken 6 C, 5411 Stord, Norge</p>",
+            "note": "Dette er den registrerte selskapsadressen til To Ellis. Ingen fysisk butikk – all handel skjer i nettbutikken."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
