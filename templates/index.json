@@ -84,7 +84,7 @@
       "settings": {
         "collection": "new-arrivals",
         "products_to_show": 8,
-        "title": "NEW<strong> </strong>ARRIVALS",
+        "title": "<strong>NEW ARRIVALS</strong>",
         "heading_size": "h1",
         "description": "",
         "show_description": false,
