@@ -80,10 +80,12 @@
     margin-bottom: 0;
   }
 
-  .contact-support-{{ section.id }} .field {
-    border: none;
-    box-shadow: none;
-    background: transparent;
+  .contact-support-{{ section.id }} .field,
+  .contact-support-{{ section.id }} .field::before,
+  .contact-support-{{ section.id }} .field::after {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
   }
 
   .contact-support__field-full-{{ section.id }} {
