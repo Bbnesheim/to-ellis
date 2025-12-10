@@ -47,12 +47,21 @@
   .contact-support-{{ section.id }} .select {
     border-radius: 999px;
     overflow: hidden;
-    background: #ffffff;
+    background: transparent;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0;
   }
 
   .contact-support-{{ section.id }} .select select.field__input {
     background: #ffffff;
     border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    padding-left: 16px;
+    padding-right: 36px;
+    height: 48px;
+    line-height: 1.4;
   }
 
   .contact-support__header-{{ section.id }} {
