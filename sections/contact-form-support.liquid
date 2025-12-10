@@ -44,10 +44,12 @@
     background: #ffffff;
   }
 
-  .contact-support-{{ section.id }} .select {
+  .contact-support-{{ section.id }} .select,
+  .contact-support-{{ section.id }} .select::before,
+  .contact-support-{{ section.id }} .select::after {
     border-radius: 999px;
     overflow: hidden;
-    background: transparent;
+    background: transparent !important;
     border: none !important;
     box-shadow: none !important;
     padding: 0;
