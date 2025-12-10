@@ -108,7 +108,12 @@
 
         --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
         --font-heading-style: {{ settings.type_header_font.style }};
-        --font-heading-weight: {{ settings.type_header_font.weight }};
+        /*
+          Apply a subtle reduction to the heading font weight so headings feel lighter and more in line
+          with the To Ellis brand guidance (regular / semi-bold, not ultra-bold), even if the
+          underlying theme setting is on the heavier side.
+        */
+        --font-heading-weight: {{ settings.type_header_font.weight | minus: 100 | at_least: 300 }};
 
         --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
         --font-heading-scale: {{ settings.heading_scale | times: 1.0 | divided_by: settings.body_scale }};
