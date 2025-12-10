@@ -23,9 +23,13 @@
     text-align: left;
   }
 
+  .contact-info__primary-{{ section_id }} {
+    margin-bottom: 24px;
+  }
+
   .contact-info__grid-{{ section_id }} {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
   }
 
@@ -34,8 +38,24 @@
     padding: 24px 24px 20px;
     border-radius: 18px;
     background: rgba(var(--color-background), 1);
-    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
-    border: 1px solid rgba(15, 23, 42, 0.04);
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.10);
+    border: 1px solid rgba(129, 140, 248, 0.45);
+  }
+
+  .contact-info__card-{{ section_id }}.contact-info__card--primary {
+    padding: 28px 28px 24px;
+  }
+
+  .contact-info__card-{{ section_id }}.contact-info__card--secondary {
+    height: 100%;
+  }
+
+  .contact-info__note-pill-{{ section_id }} {
+    margin-top: 20px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(129, 140, 248, 0.12), rgba(56, 189, 248, 0.12));
+    border: 1px solid rgba(129, 140, 248, 0.35);
   }
 
   .contact-info__title-{{ section_id }} {
@@ -49,10 +69,10 @@
   }
 
   .contact-info__note-{{ section_id }} {
-    margin-top: 16px;
+    margin: 0;
     font-size: 1.3rem;
     line-height: 1.4;
-    opacity: 0.8;
+    opacity: 0.9;
   }
 
   .contact-info__label-{{ section_id }} {
@@ -83,23 +103,49 @@
       </div>
     {%- endunless -%}
 
-    <div class="contact-info__grid-{{ section_id }}">
-      {%- for block in section.blocks -%}
-        <div class="contact-info__card-{{ section_id }}" {{ block.shopify_attributes }}>
-          {%- if block.settings.title != blank -%}
-            <h3 class="contact-info__title-{{ section_id }} inline-richtext">{{ block.settings.title }}</h3>
+    {%- assign primary_block = section.blocks | first -%}
+
+    {%- if primary_block -%}
+      <div class="contact-info__primary-{{ section_id }}">
+        <div class="contact-info__card-{{ section_id }} contact-info__card--primary" {{ primary_block.shopify_attributes }}>
+          {%- if primary_block.settings.title != blank -%}
+            <h3 class="contact-info__title-{{ section_id }} inline-richtext">{{ primary_block.settings.title }}</h3>
           {%- endif -%}
 
-          {%- if block.settings.text != blank -%}
-            <div class="contact-info__text-{{ section_id }} rte">{{ block.settings.text }}</div>
+          {%- if primary_block.settings.text != blank -%}
+            <div class="contact-info__text-{{ section_id }} rte">{{ primary_block.settings.text }}</div>
           {%- endif -%}
 
-          {%- if block.settings.note != blank -%}
-            <p class="contact-info__note-{{ section_id }}">{{ block.settings.note }}</p>
+          {%- if primary_block.settings.note != blank -%}
+            <div class="contact-info__note-pill-{{ section_id }}">
+              <p class="contact-info__note-{{ section_id }}">{{ primary_block.settings.note }}</p>
+            </div>
           {%- endif -%}
         </div>
-      {%- endfor -%}
-    </div>
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 1 -%}
+      <div class="contact-info__grid-{{ section_id }}">
+        {%- for block in section.blocks -%}
+          {%- unless block.id == primary_block.id -%}
+            <div class="contact-info__card-{{ section_id }} contact-info__card--secondary" {{ block.shopify_attributes }}>
+              {%- if block.settings.title != blank -%}
+                <h3 class="contact-info__title-{{ section_id }} inline-richtext">{{ block.settings.title }}</h3>
+              {%- endif -%}
+
+              {%- if block.settings.text != blank -%}
+                <div class="contact-info__text-{{ section_id }} rte">{{ block.settings.text }}</div>
+              {%- endif -%}
+
+              {%- if block.settings.note != blank -%}
+                <p class="contact-info__note-{{ section_id }}">{{ block.settings.note }}</p>
+              {%- endif -%}
+            </div>
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </div>
 </div>
 
