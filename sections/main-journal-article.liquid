@@ -1,0 +1,1506 @@
+{% assign ai_gen_id = section.id | replace: '_', '' | downcase %}
+
+{% style %}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+  {{ section.settings.body_font | font_face: font_display: 'swap' }}
+
+  .ellis-journal-book-{{ ai_gen_id }} {
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+    padding: {{ section.settings.page_padding }}px;
+    background-color: {{ section.settings.background_color }};
+    background-image: {{ section.settings.background_gradient }};
+    min-height: 100vh;
+    position: relative;
+    perspective: 1000px;
+  }
+
+  .ellis-journal-book-background-{{ ai_gen_id }} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+    {% if section.settings.background_image %}
+      background-image: url('{{ section.settings.background_image | image_url: width: 2400 }}');
+      background-repeat: no-repeat;
+      background-size: {{ section.settings.background_size }};
+      background-position: {{ section.settings.background_position_x }}% {{ section.settings.background_position_y }}%;
+      background-attachment: {{ section.settings.background_attachment }};
+      opacity: {{ section.settings.background_image_opacity | divided_by: 100.0 }};
+      {% if section.settings.background_blur > 0 %}
+        filter: blur({{ section.settings.background_blur }}px);
+      {% endif %}
+      {% if section.settings.background_scale != 100 %}
+        transform: scale({{ section.settings.background_scale | divided_by: 100.0 }});
+      {% endif %}
+      transition: all 0.3s ease;
+    {% else %}
+      background-color: #f4f4f4;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e0e0e0' fill-opacity='0.3'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    {% endif %}
+  }
+
+  .ellis-journal-book-background-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    z-index: 1;
+  }
+
+  .ellis-journal-book-background-placeholder-{{ ai_gen_id }} svg {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+    opacity: 0.5;
+  }
+
+  .ellis-journal-book-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    transform-style: preserve-3d;
+    {% if section.settings.enable_animation %}
+      animation: ellis-journal-book-entrance-{{ ai_gen_id }} {{ section.settings.animation_duration }}s {{ section.settings.animation_easing }} {{ section.settings.animation_delay }}s both;
+    {% endif %}
+  }
+
+  .ellis-journal-book-content-{{ ai_gen_id }} {
+    position: relative;
+    background-color: {{ section.settings.content_background }};
+    padding: {{ section.settings.content_padding }}px;
+    border-radius: {{ section.settings.content_border_radius }}px;
+    transform-style: preserve-3d;
+    {% if section.settings.content_shadow %}
+      box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.1),
+        0 1px 3px rgba(0, 0, 0, 0.05),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.02);
+    {% endif %}
+    {% if section.settings.book_spine_effect %}
+      border-left: {{ section.settings.spine_width }}px solid {{ section.settings.spine_color }};
+      margin-left: {{ section.settings.spine_offset }}px;
+    {% endif %}
+  }
+
+  {% if section.settings.paper_texture %}
+    .ellis-journal-book-content-{{ ai_gen_id }}::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('{{ section.settings.paper_texture | image_url: width: 1920 }}');
+      background-repeat: repeat;
+      background-size: 400px 400px;
+      opacity: {{ section.settings.texture_opacity | divided_by: 100.0 }};
+      pointer-events: none;
+      z-index: 1;
+      border-radius: {{ section.settings.content_border_radius }}px;
+    }
+  {% endif %}
+
+  {% if section.settings.page_lines %}
+    .ellis-journal-book-content-{{ ai_gen_id }}::after {
+      content: '';
+      position: absolute;
+      top: {{ section.settings.content_padding }}px;
+      left: {{ section.settings.content_padding }}px;
+      right: {{ section.settings.content_padding }}px;
+      bottom: {{ section.settings.content_padding }}px;
+      background-image: repeating-linear-gradient(
+        transparent,
+        transparent {{ section.settings.line_spacing | minus: 1 }}px,
+        {{ section.settings.line_color }} {{ section.settings.line_spacing | minus: 1 }}px,
+        {{ section.settings.line_color }} {{ section.settings.line_spacing }}px
+      );
+      opacity: {{ section.settings.line_opacity | divided_by: 100.0 }};
+      pointer-events: none;
+      z-index: 1;
+      border-radius: {{ section.settings.content_border_radius }}px;
+    }
+  {% endif %}
+
+  .ellis-journal-book-inner-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    {% if section.settings.enable_animation %}
+      opacity: 0;
+      animation: ellis-journal-book-content-fade-{{ ai_gen_id }} {{ section.settings.content_animation_duration }}s ease-out {{ section.settings.animation_delay | plus: section.settings.animation_duration | times: 0.7 }}s both;
+    {% endif %}
+  }
+
+  .ellis-journal-book-header-{{ ai_gen_id }} {
+    text-align: {{ section.settings.header_alignment }};
+    margin-bottom: {{ section.settings.header_spacing }}px;
+    padding-bottom: {{ section.settings.header_spacing | divided_by: 2 }}px;
+    {% if section.settings.show_header_border %}
+      border-bottom: 1px solid {{ section.settings.border_color }};
+    {% endif %}
+    {% if section.settings.enable_animation %}
+      transform: translateY(20px);
+      opacity: 0;
+      animation: ellis-journal-book-slide-up-{{ ai_gen_id }} {{ section.settings.element_animation_duration }}s ease-out {{ section.settings.animation_delay | plus: section.settings.animation_duration }}s both;
+    {% endif %}
+  }
+
+  .ellis-journal-book-title-{{ ai_gen_id }} {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+    font-style: {{ section.settings.heading_font.style }};
+    font-size: {{ section.settings.title_size }}px;
+    color: {{ section.settings.title_color }};
+    margin: 0 0 {{ section.settings.title_spacing }}px 0;
+    line-height: 1.2;
+  }
+
+  .ellis-journal-book-date-{{ ai_gen_id }} {
+    font-family: {{ section.settings.body_font.family }}, {{ section.settings.body_font.fallback_families }};
+    font-weight: {{ section.settings.body_font.weight }};
+    font-style: italic;
+    font-size: {{ section.settings.date_size }}px;
+    color: {{ section.settings.date_color }};
+    margin-bottom: {{ section.settings.date_spacing }}px;
+  }
+
+  .ellis-journal-book-excerpt-{{ ai_gen_id }} {
+    font-family: {{ section.settings.body_font.family }}, {{ section.settings.body_font.fallback_families }};
+    font-weight: {{ section.settings.body_font.weight }};
+    font-style: italic;
+    font-size: {{ section.settings.excerpt_size }}px;
+    color: {{ section.settings.excerpt_color }};
+    line-height: {{ section.settings.line_height | divided_by: 100.0 }};
+    margin-bottom: {{ section.settings.excerpt_spacing }}px;
+  }
+
+  .ellis-journal-book-text-block-{{ ai_gen_id }} {
+    font-family: {{ section.settings.body_font.family }}, {{ section.settings.body_font.fallback_families }};
+    font-weight: {{ section.settings.body_font.weight }};
+    font-style: {{ section.settings.body_font.style }};
+    font-size: {{ section.settings.body_size }}px;
+    color: {{ section.settings.body_color }};
+    line-height: {{ section.settings.line_height | divided_by: 100.0 }};
+    margin-bottom: {{ section.settings.paragraph_spacing }}px;
+    text-align: {{ section.settings.body_alignment }};
+    {% if section.settings.enable_animation %}
+      transform: translateY(30px);
+      opacity: 0;
+      animation: ellis-journal-book-slide-up-{{ ai_gen_id }} {{ section.settings.element_animation_duration }}s ease-out {{ section.settings.animation_delay | plus: section.settings.animation_duration | plus: 1 | times: section.settings.stagger_delay }}s both;
+    {% endif %}
+  }
+
+  .ellis-journal-book-text-block-{{ ai_gen_id }} p {
+    margin-bottom: {{ section.settings.paragraph_spacing }}px;
+  }
+
+  .ellis-journal-book-text-block-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ellis-journal-book-signature-{{ ai_gen_id }} {
+    margin-top: {{ section.settings.signature_spacing }}px;
+    text-align: {{ section.settings.signature_alignment }};
+    {% if section.settings.show_signature_border %}
+      border-top: 1px solid {{ section.settings.border_color }};
+      padding-top: {{ section.settings.signature_spacing | divided_by: 2 }}px;
+    {% endif %}
+    {% if section.settings.enable_animation %}
+      transform: translateY(20px);
+      opacity: 0;
+      animation: ellis-journal-book-slide-up-{{ ai_gen_id }} {{ section.settings.element_animation_duration }}s ease-out {{ section.settings.animation_delay | plus: section.settings.animation_duration | plus: 3 | times: section.settings.stagger_delay }}s both;
+    {% endif %}
+  }
+
+  .ellis-journal-book-signature-content-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: {{ section.settings.signature_logo_spacing }}px;
+    {% if section.settings.signature_alignment == 'left' %}
+      flex-direction: row;
+    {% elsif section.settings.signature_alignment == 'right' %}
+      flex-direction: row-reverse;
+    {% else %}
+      flex-direction: column;
+    {% endif %}
+  }
+
+  .ellis-journal-book-signature-text-{{ ai_gen_id }} {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+    font-style: {{ section.settings.heading_font.style }};
+    font-size: {{ section.settings.signature_size }}px;
+    color: {{ section.settings.signature_color }};
+    margin: 0;
+  }
+
+  .ellis-journal-book-signature-logo-{{ ai_gen_id }} {
+    width: {{ section.settings.signature_logo_size }}px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .ellis-journal-book-signature-logo-placeholder-{{ ai_gen_id }} {
+    width: {{ section.settings.signature_logo_size }}px;
+    height: {{ section.settings.signature_logo_size | divided_by: 2 }}px;
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .ellis-journal-book-signature-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    color: {{ section.settings.border_color }};
+  }
+
+  .ellis-journal-book-signature-logo-placeholder-{{ ai_gen_id }}::after {
+    content: "Add signature logo";
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #999;
+    white-space: nowrap;
+  }
+
+  .ellis-journal-book-decorative-{{ ai_gen_id }} {
+    text-align: center;
+    margin: {{ section.settings.decorative_spacing }}px 0;
+    {% if section.settings.enable_animation %}
+      transform: scale(0.8);
+      opacity: 0;
+      animation: ellis-journal-book-scale-in-{{ ai_gen_id }} {{ section.settings.element_animation_duration }}s ease-out {{ section.settings.animation_delay | plus: section.settings.animation_duration | plus: 2 | times: section.settings.stagger_delay }}s both;
+    {% endif %}
+  }
+
+  .ellis-journal-book-decorative-{{ ai_gen_id }} img {
+    max-width: {{ section.settings.decorative_size }}px;
+    height: auto;
+    opacity: {{ section.settings.decorative_opacity | divided_by: 100.0 }};
+  }
+
+  .ellis-journal-book-decorative-placeholder-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ section.settings.decorative_size }}px;
+    height: 40px;
+    margin: 0 auto;
+    opacity: {{ section.settings.decorative_opacity | divided_by: 100.0 }};
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .ellis-journal-book-decorative-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    color: {{ section.settings.border_color }};
+  }
+
+  .ellis-journal-book-decorative-placeholder-{{ ai_gen_id }}::after {
+    content: "Add decorative element";
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #999;
+    white-space: nowrap;
+  }
+
+  .ellis-journal-page-turner-{{ ai_gen_id }} {
+    margin-top: {{ section.settings.page_turner_spacing }}px;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .ellis-journal-page-turner__link {
+    position: relative;
+    flex: 1 1 12rem;
+    padding: 1rem 1.5rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid {{ section.settings.border_color }};
+    text-decoration: none;
+    color: {{ section.settings.body_color }};
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+
+  .ellis-journal-page-turner__label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .ellis-journal-page-turner__title {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .ellis-journal-page-turner__link--prev::before,
+  .ellis-journal-page-turner__link--next::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 18px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.04), transparent);
+    pointer-events: none;
+  }
+
+  .ellis-journal-page-turner__link--prev::before {
+    left: 0;
+  }
+
+  .ellis-journal-page-turner__link--next::after {
+    right: 0;
+    transform: scaleX(-1);
+  }
+
+  {% if section.settings.enable_animation %}
+    @keyframes ellis-journal-book-entrance-{{ ai_gen_id }} {
+      0% {
+        transform: rotateY(-15deg) rotateX(5deg) translateZ(-50px);
+        opacity: 0;
+      }
+      100% {
+        transform: rotateY(0deg) rotateX(0deg) translateZ(0px);
+        opacity: 1;
+      }
+    }
+
+    @keyframes ellis-journal-book-content-fade-{{ ai_gen_id }} {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes ellis-journal-book-slide-up-{{ ai_gen_id }} {
+      0% {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes ellis-journal-book-scale-in-{{ ai_gen_id }} {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    {% if section.settings.animation_type == 'page_turn' %}
+      @keyframes ellis-journal-book-entrance-{{ ai_gen_id }} {
+        0% {
+          transform: rotateY(-180deg) rotateX(10deg);
+          opacity: 0;
+        }
+        50% {
+          transform: rotateY(-90deg) rotateX(5deg);
+          opacity: 0.5;
+        }
+        100% {
+          transform: rotateY(0deg) rotateX(0deg);
+          opacity: 1;
+        }
+      }
+    {% elsif section.settings.animation_type == 'book_open' %}
+      @keyframes ellis-journal-book-entrance-{{ ai_gen_id }} {
+        0% {
+          transform: rotateX(-90deg) scale(0.8);
+          opacity: 0;
+        }
+        50% {
+          transform: rotateX(-45deg) scale(0.9);
+          opacity: 0.7;
+        }
+        100% {
+          transform: rotateX(0deg) scale(1);
+          opacity: 1;
+        }
+      }
+    {% elsif section.settings.animation_type == 'fade_in' %}
+      @keyframes ellis-journal-book-entrance-{{ ai_gen_id }} {
+        0% {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    {% endif %}
+
+    {% if section.settings.hover_effects %}
+      .ellis-journal-book-wrapper-{{ ai_gen_id }}:hover {
+        transform: rotateY(2deg) rotateX(1deg) translateZ(10px);
+        transition: transform 0.3s ease;
+      }
+
+      .ellis-journal-book-content-{{ ai_gen_id }}:hover {
+        box-shadow:
+          0 8px 30px rgba(0, 0, 0, 0.15),
+          0 2px 6px rgba(0, 0, 0, 0.08),
+          inset 0 0 0 1px rgba(0, 0, 0, 0.03);
+        transition: box-shadow 0.3s ease;
+      }
+    {% endif %}
+  {% endif %}
+
+  @media screen and (max-width: 768px) {
+    .ellis-journal-book-{{ ai_gen_id }} {
+      padding: {{ section.settings.mobile_padding }}px;
+    }
+
+    .ellis-journal-book-content-{{ ai_gen_id }} {
+      padding: {{ section.settings.mobile_content_padding }}px;
+    }
+
+    .ellis-journal-book-title-{{ ai_gen_id }} {
+      font-size: {{ section.settings.mobile_title_size }}px;
+    }
+
+    .ellis-journal-book-excerpt-{{ ai_gen_id }} {
+      font-size: {{ section.settings.mobile_excerpt_size }}px;
+    }
+
+    .ellis-journal-book-text-block-{{ ai_gen_id }} {
+      font-size: {{ section.settings.mobile_body_size }}px;
+    }
+
+    .ellis-journal-book-signature-text-{{ ai_gen_id }} {
+      font-size: {{ section.settings.mobile_signature_size }}px;
+    }
+
+    .ellis-journal-book-signature-content-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: {{ section.settings.signature_logo_spacing | divided_by: 2 }}px;
+    }
+
+    .ellis-journal-book-signature-logo-{{ ai_gen_id }},
+    .ellis-journal-book-signature-logo-placeholder-{{ ai_gen_id }} {
+      width: {{ section.settings.signature_logo_size | times: 0.8 }}px;
+    }
+
+    .ellis-journal-book-signature-logo-placeholder-{{ ai_gen_id }} {
+      height: {{ section.settings.signature_logo_size | times: 0.8 | divided_by: 2 }}px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ellis-journal-book-wrapper-{{ ai_gen_id }},
+    .ellis-journal-book-inner-content-{{ ai_gen_id }},
+    .ellis-journal-book-header-{{ ai_gen_id }},
+    .ellis-journal-book-text-block-{{ ai_gen_id }},
+    .ellis-journal-book-signature-{{ ai_gen_id }},
+    .ellis-journal-book-decorative-{{ ai_gen_id }},
+    .ellis-journal-page-turner-{{ ai_gen_id }} {
+      animation: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+{% endstyle %}
+
+<div class="ellis-journal-book-background-{{ ai_gen_id }}">
+  {% unless section.settings.background_image %}
+    <div class="ellis-journal-book-background-placeholder-{{ ai_gen_id }}">
+      {{ 'image' | placeholder_svg_tag }}
+      <div>Add background image</div>
+    </div>
+  {% endunless %}
+</div>
+
+<article class="ellis-journal-book-{{ ai_gen_id }}" {{ section.shopify_attributes }}>
+  <div class="ellis-journal-book-wrapper-{{ ai_gen_id }}">
+    <div class="ellis-journal-book-content-{{ ai_gen_id }}">
+      <div class="ellis-journal-book-inner-content-{{ ai_gen_id }}">
+        <header class="ellis-journal-book-header-{{ ai_gen_id }}">
+          <h1 class="ellis-journal-book-title-{{ ai_gen_id }}">{{ article.title }}</h1>
+
+          {% if section.settings.show_date %}
+            <time class="ellis-journal-book-date-{{ ai_gen_id }}">{{ article.published_at | time_tag: format: 'date' }}</time>
+          {% endif %}
+
+          {% if section.settings.show_excerpt %}
+            {% assign journal_excerpt = article.excerpt | default: article.content | strip_html | truncatewords: section.settings.excerpt_words %}
+            {% if journal_excerpt != blank %}
+              <div class="ellis-journal-book-excerpt-{{ ai_gen_id }}">{{ journal_excerpt }}</div>
+            {% endif %}
+          {% endif %}
+        </header>
+
+        {% if section.settings.show_decorative_top %}
+          <div class="ellis-journal-book-decorative-{{ ai_gen_id }}">
+            {% if section.settings.decorative_element %}
+              <img
+                src="{{ section.settings.decorative_element | image_url: width: 400 }}"
+                alt="Decorative element"
+                loading="lazy"
+              >
+            {% else %}
+              <div class="ellis-journal-book-decorative-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if article.content != blank %}
+          <div class="ellis-journal-book-text-block-{{ ai_gen_id }}">
+            {{ article.content }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.show_decorative_bottom %}
+          <div class="ellis-journal-book-decorative-{{ ai_gen_id }}">
+            {% if section.settings.decorative_element %}
+              <img
+                src="{{ section.settings.decorative_element | image_url: width: 400 }}"
+                alt="Decorative element"
+                loading="lazy"
+              >
+            {% else %}
+              <div class="ellis-journal-book-decorative-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <footer class="ellis-journal-book-signature-{{ ai_gen_id }}">
+          <div class="ellis-journal-book-signature-content-{{ ai_gen_id }}">
+            {% if section.settings.signature_text != blank %}
+              <p class="ellis-journal-book-signature-text-{{ ai_gen_id }}">{{ section.settings.signature_text }}</p>
+            {% endif %}
+
+            {% if section.settings.show_signature_logo %}
+              {% if section.settings.signature_logo %}
+                <img
+                  src="{{ section.settings.signature_logo | image_url: width: 200 }}"
+                  alt="Signature logo"
+                  class="ellis-journal-book-signature-logo-{{ ai_gen_id }}"
+                  loading="lazy"
+                >
+              {% else %}
+                <div class="ellis-journal-book-signature-logo-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            {% endif %}
+          </div>
+        </footer>
+
+        {% if section.settings.show_pagination %}
+          {% if article.previous or article.next %}
+            <nav class="ellis-journal-page-turner-{{ ai_gen_id }}" aria-label="Journal navigation">
+              {% if article.previous %}
+                <a href="{{ article.previous.url }}" class="ellis-journal-page-turner__link ellis-journal-page-turner__link--prev">
+                  <span class="ellis-journal-page-turner__label">{{ section.settings.previous_label }}</span>
+                  <span class="ellis-journal-page-turner__title">{{ article.previous.title }}</span>
+                </a>
+              {% endif %}
+
+              {% if article.next %}
+                <a href="{{ article.next.url }}" class="ellis-journal-page-turner__link ellis-journal-page-turner__link--next">
+                  <span class="ellis-journal-page-turner__label">{{ section.settings.next_label }}</span>
+                  <span class="ellis-journal-page-turner__title">{{ article.next.title }}</span>
+                </a>
+              {% endif %}
+            </nav>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Ellis journal article",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Animation settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Enable animations",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation_type",
+      "label": "Animation type",
+      "options": [
+        {
+          "value": "book_entrance",
+          "label": "Book entrance"
+        },
+        {
+          "value": "page_turn",
+          "label": "Page turn"
+        },
+        {
+          "value": "book_open",
+          "label": "Book opening"
+        },
+        {
+          "value": "fade_in",
+          "label": "Fade in"
+        }
+      ],
+      "default": "book_entrance"
+    },
+    {
+      "type": "range",
+      "id": "animation_duration",
+      "min": 0.5,
+      "max": 3,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Animation duration",
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "animation_delay",
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Animation delay",
+      "default": 0.3
+    },
+    {
+      "type": "select",
+      "id": "animation_easing",
+      "label": "Animation easing",
+      "options": [
+        {
+          "value": "ease",
+          "label": "Ease"
+        },
+        {
+          "value": "ease-in",
+          "label": "Ease in"
+        },
+        {
+          "value": "ease-out",
+          "label": "Ease out"
+        },
+        {
+          "value": "ease-in-out",
+          "label": "Ease in out"
+        },
+        {
+          "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+          "label": "Smooth"
+        }
+      ],
+      "default": "ease-out"
+    },
+    {
+      "type": "range",
+      "id": "content_animation_duration",
+      "min": 0.3,
+      "max": 2,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Content fade duration",
+      "default": 0.8
+    },
+    {
+      "type": "range",
+      "id": "element_animation_duration",
+      "min": 0.3,
+      "max": 2,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Element animation duration",
+      "default": 0.6
+    },
+    {
+      "type": "range",
+      "id": "stagger_delay",
+      "min": 0.1,
+      "max": 0.5,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Stagger delay between elements",
+      "default": 0.2
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_effects",
+      "label": "Enable hover effects",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Header & content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show excerpt (from article excerpt or content)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "excerpt_words",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "label": "Excerpt length",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Signature"
+    },
+    {
+      "type": "text",
+      "id": "signature_text",
+      "label": "Signature text",
+      "default": "With love, Ellis"
+    },
+    {
+      "type": "select",
+      "id": "signature_alignment",
+      "label": "Signature alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_signature_logo",
+      "label": "Show signature logo",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "signature_logo",
+      "label": "Signature logo"
+    },
+    {
+      "type": "range",
+      "id": "signature_logo_size",
+      "min": 30,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Signature logo size",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "signature_logo_spacing",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo spacing",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "serif"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "date_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Date size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "excerpt_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Excerpt size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Body text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "signature_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Signature size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "min": 120,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "label": "Line height",
+      "default": 160
+    },
+    {
+      "type": "header",
+      "content": "Mobile typography"
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_size",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile title size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "mobile_excerpt_size",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile excerpt size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_body_size",
+      "min": 16,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile body size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "mobile_signature_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile signature size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#faf9f7"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "color",
+      "id": "content_background",
+      "label": "Content background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#2c2c2c"
+    },
+    {
+      "type": "color",
+      "id": "date_color",
+      "label": "Date color",
+      "default": "#8a8a8a"
+    },
+    {
+      "type": "color",
+      "id": "excerpt_color",
+      "label": "Excerpt color",
+      "default": "#5a5a5a"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text color",
+      "default": "#3c3c3c"
+    },
+    {
+      "type": "color",
+      "id": "signature_color",
+      "label": "Signature color",
+      "default": "#6a6a6a"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 600,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "label": "Content width",
+      "default": 750
+    },
+    {
+      "type": "range",
+      "id": "page_padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Page padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Content padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile page padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile content padding",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Header spacing",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Title spacing",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "date_spacing",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Date spacing",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "excerpt_spacing",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Excerpt spacing",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "paragraph_spacing",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Paragraph spacing",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "signature_spacing",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Signature spacing",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Alignment"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "body_alignment",
+      "label": "Body text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Style options"
+    },
+    {
+      "type": "checkbox",
+      "id": "content_shadow",
+      "label": "Content shadow",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "content_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Content border radius",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header_border",
+      "label": "Show header border",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_signature_border",
+      "label": "Show signature border",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Book style"
+    },
+    {
+      "type": "checkbox",
+      "id": "book_spine_effect",
+      "label": "Show book spine",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "spine_width",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Spine width",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "spine_offset",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Spine offset",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "spine_color",
+      "label": "Spine color",
+      "default": "#8B4513"
+    },
+    {
+      "type": "checkbox",
+      "id": "page_lines",
+      "label": "Show page lines",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "line_spacing",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Line spacing",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Line color",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "range",
+      "id": "line_opacity",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "label": "Line opacity",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "select",
+      "id": "background_size",
+      "label": "Background size",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        },
+        {
+          "value": "auto",
+          "label": "Original size"
+        },
+        {
+          "value": "100% 100%",
+          "label": "Stretch to fill"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "range",
+      "id": "background_position_x",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background horizontal position",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "background_position_y",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background vertical position",
+      "default": 50
+    },
+    {
+      "type": "select",
+      "id": "background_attachment",
+      "label": "Background attachment",
+      "options": [
+        {
+          "value": "scroll",
+          "label": "Scroll with page"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed position"
+        }
+      ],
+      "default": "scroll"
+    },
+    {
+      "type": "range",
+      "id": "background_scale",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "label": "Background scale",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "background_image_opacity",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background image opacity",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "background_blur",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Background blur",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Paper texture"
+    },
+    {
+      "type": "image_picker",
+      "id": "paper_texture",
+      "label": "Paper texture image"
+    },
+    {
+      "type": "range",
+      "id": "texture_opacity",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "label": "Texture opacity",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Decorative elements"
+    },
+    {
+      "type": "image_picker",
+      "id": "decorative_element",
+      "label": "Decorative element"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_decorative_top",
+      "label": "Show decorative element at top",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_decorative_bottom",
+      "label": "Show decorative element at bottom",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "decorative_size",
+      "min": 50,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Decorative element size",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "decorative_opacity",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Decorative element opacity",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "decorative_spacing",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Decorative element spacing",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Page turner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show newer/older article links",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "page_turner_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Spacing above page turner",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "previous_label",
+      "label": "Label for newer article",
+      "default": "Newer entry"
+    },
+    {
+      "type": "text",
+      "id": "next_label",
+      "label": "Label for older article",
+      "default": "Older entry"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Journal article (animated)"
+    }
+  ]
+}
+{% endschema %}
