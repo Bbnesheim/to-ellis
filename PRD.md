@@ -219,6 +219,13 @@ Functional requirements are grouped by area and numbered FR-x.
   - All key homepage, header/footer, PDP, and journal content should be editable via sections/blocks in the Shopify theme editor without code changes.
   - Custom blocks (hero-banner, journal, trust section, comprehensive footer) must have sensible defaults and help text.
 
+### 5.9 Contact and support
+
+- FR-21: Contact information section
+  - Provide a dedicated `contact-info` section that can be used on the contact page (and optionally other pages) to present key To Ellis contact and support information in a set of simple cards.
+  - Cards should cover, at minimum: customer service scope and typical response time, direct contact details (email and optional other channels), and company details (name, org. number, registered address).
+  - All card content (titles, text, email address, etc.) must be editable via the theme editor, with sensible To Ellis defaults.
+
 ## 6. Non-functional requirements
 
 - NFR-1: Performance
