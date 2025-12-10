@@ -94,30 +94,18 @@
     },
     "blocks_BgQYqV": {
       "type": "main-footer",
-      "name": "Footer content",
-      "settings": {
-        "background_color": "#f1f5f9",
-        "text_color": "#121826",
-        "newsletter_background": "#f1f5f9",
-        "input_border_color": "#d7dfea",
-        "button_background_color": "#8a9bb7",
-        "button_text_color": "#f9f8f7",
-        "button_hover_color": "#1b2a3c",
-        "success_color": "#121826",
-        "error_color": "#8a9bb7",
-        "payment_icon_background": "#d7dfea",
-        "newsletter_logo_width": 200,
-        "padding_top": 0,
-        "padding_bottom": 0
-      },
       "blocks": {
         "footer_newsletter": {
           "type": "newsletter",
           "settings": {
             "logo": "shopify://shop_images/The_Club_ToEllis.svg",
+            "logo_width": 160,
             "logo_alt": "The Club To Ellis",
-            "heading": "The Club To Ellis",
-            "body": "<p>Sign up to our journal for early access to new arrivals, exclusive discounts and the latest brand news.</p>",
+            "heading": "",
+            "body": "",
+            "cta_line_1": "Sign up",
+            "cta_line_2": "for early",
+            "cta_line_3": "access",
             "email_placeholder": "Your email address",
             "button_text": "Sign up",
             "success_message": "Thank you for subscribing!"
@@ -127,22 +115,18 @@
           "type": "link_group",
           "settings": {
             "heading": "About To Ellis",
-            "menu": "footer"
+            "menu": "navigation-footer",
+            "show_all_collections": false,
+            "collection_limit": 6
           }
         },
-        "links_categories": {
+        "link_group_3ecxxV": {
           "type": "link_group",
           "settings": {
-            "heading": "Categories",
-            "show_all_collections": true,
-            "collection_limit": 5
-          }
-        },
-        "links_help": {
-          "type": "link_group",
-          "settings": {
-            "heading": "Help & contacts",
-            "menu": "footer"
+            "heading": "About To Ellis",
+            "menu": "help-contacts",
+            "show_all_collections": false,
+            "collection_limit": 6
           }
         },
         "social_follow": {
@@ -152,7 +136,8 @@
             "instagram_url": "https://www.instagram.com/elisabethwesterheim/",
             "facebook_url": "https://www.instagram.com/elisabethwesterheim/",
             "tiktok_url": "https://www.tiktok.com/@elisabethwest00",
-            "tise_url": "https://tise.com/elisabethwesterheim?fbclid=PAZXh0bgNhZW0CMTEAAaeCjafeC4-e6HQ_FzTv9d1U_VuX-dgP00TY1dk8Oymk9TNYB36K7Yw0rvwsQQ_aem_j5WC5lkCQe8LmD9Gf9fZgg"
+            "tise_url": "https://tise.com/elisabethwesterheim?fbclid=PAZXh0bgNhZW0CMTEAAaeCjafeC4-e6HQ_FzTv9d1U_VuX-dgP00TY1dk8Oymk9TNYB36K7Yw0rvwsQQ_aem_j5WC5lkCQe8LmD9Gf9fZgg",
+            "youtube_url": ""
           }
         },
         "payments_row": {
@@ -172,11 +157,26 @@
       "block_order": [
         "footer_newsletter",
         "links_about",
-        "links_categories",
-        "links_help",
+        "link_group_3ecxxV",
         "social_follow",
         "payments_row"
-      ]
+      ],
+      "name": "Footer content",
+      "settings": {
+        "background_color": "#f1f5f9",
+        "text_color": "#121826",
+        "newsletter_background": "#f1f5f9",
+        "input_border_color": "#d7dfea",
+        "button_background_color": "#8a9bb7",
+        "button_text_color": "#f9f8f7",
+        "button_hover_color": "#1b2a3c",
+        "success_color": "#121826",
+        "error_color": "#8a9bb7",
+        "payment_icon_background": "#d7dfea",
+        "newsletter_logo_width": 200,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     },
     "blocks_4G3Vey": {
       "type": "_blocks",
