@@ -123,7 +123,7 @@
         "link_group_3ecxxV": {
           "type": "link_group",
           "settings": {
-            "heading": "About To Ellis",
+            "heading": "Help & Service",
             "menu": "help-contacts",
             "show_all_collections": false,
             "collection_limit": 6
@@ -134,16 +134,20 @@
           "settings": {
             "heading": "Follow us",
             "instagram_url": "https://www.instagram.com/elisabethwesterheim/",
+            "instagram_icon": "shopify://shop_images/instagram-svgrepo-com_5.svg",
             "facebook_url": "https://www.instagram.com/elisabethwesterheim/",
+            "facebook_icon": "shopify://shop_images/facebook-svgrepo-com_2.svg",
             "tiktok_url": "https://www.tiktok.com/@elisabethwest00",
+            "tiktok_icon": "shopify://shop_images/tiktok-svgrepo-com_1.svg",
             "tise_url": "https://tise.com/elisabethwesterheim?fbclid=PAZXh0bgNhZW0CMTEAAaeCjafeC4-e6HQ_FzTv9d1U_VuX-dgP00TY1dk8Oymk9TNYB36K7Yw0rvwsQQ_aem_j5WC5lkCQe8LmD9Gf9fZgg",
+            "tise_icon": "shopify://shop_images/Tise.svg",
             "youtube_url": ""
           }
         },
         "payments_row": {
           "type": "payments",
           "settings": {
-            "heading": "We accept",
+            "heading": "",
             "use_dynamic_icons": true,
             "payment_icon_1": "shopify://shop_images/icons8-visa.svg",
             "payment_icon_2": "shopify://shop_images/Mastercard-logo.svg",
