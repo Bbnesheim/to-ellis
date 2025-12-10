@@ -63,8 +63,8 @@
       "type": "contact-form-support",
       "name": "Support contact form",
       "settings": {
-        "heading": "Write to us..",
-        "subheading": "<p>You can also find answers in our FAQ-page.</p>",
+        "heading": "<strong>Write to us..</strong>",
+        "subheading": "<p>You can also see our FAQ-page for more information.</p>",
         "heading_size": "h1",
         "color_scheme": "",
         "order_label": "Order #:",
