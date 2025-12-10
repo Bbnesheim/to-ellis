@@ -152,7 +152,6 @@
             "payment_icon_1": "shopify://shop_images/icons8-visa.svg",
             "payment_icon_2": "shopify://shop_images/Mastercard-logo.svg",
             "payment_icon_3": "shopify://shop_images/icons8-apple-pay.svg",
-            "payment_icon_4": "shopify://shop_images/Klarna_Payment_Badge_svg.webp",
             "payment_icon_5": "shopify://shop_images/icons8-paypal.svg",
             "payment_icon_6": "shopify://shop_images/icons8-stripe.svg"
           }
