@@ -16,6 +16,10 @@
         "padding_bottom": 36
       }
     },
+    "contact_info": {
+      "type": "contact-info",
+      "settings": {}
+    },
     "form": {
       "type": "contact-form",
       "settings": {
@@ -29,6 +33,7 @@
   },
   "order": [
     "main",
+    "contact_info",
     "form"
   ]
 }
