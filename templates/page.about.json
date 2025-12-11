@@ -54,7 +54,7 @@
       "name": "t:sections.image-banner.presets.name",
       "settings": {
         "image": "shopify://shop_images/marta-filipczyk-3R7dDLzEIB0-unsplash.jpg",
-        "image_overlay_opacity": 20,
+        "image_overlay_opacity": 0,
         "image_height": "medium",
         "image_behavior": "none",
         "desktop_content_position": "middle-center",
@@ -100,7 +100,7 @@
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/martha_black_3.webp",
-        "height": "small",
+        "height": "medium",
         "desktop_image_width": "large",
         "layout": "text_first",
         "image_behavior": "none",
@@ -148,7 +148,7 @@
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/ellis_white_4.webp",
-        "height": "adapt",
+        "height": "medium",
         "desktop_image_width": "medium",
         "layout": "image_first",
         "image_behavior": "none",
@@ -197,7 +197,7 @@
       "settings": {
         "image": "shopify://shop_images/ellis_navy_4.webp",
         "height": "small",
-        "desktop_image_width": "small",
+        "desktop_image_width": "medium",
         "layout": "text_first",
         "image_behavior": "none",
         "content_layout": "no-overlap",
