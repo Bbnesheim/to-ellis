@@ -151,6 +151,13 @@
           "type": "price",
           "settings": {}
         },
+        "text_P7XjPP": {
+          "type": "text",
+          "settings": {
+            "text": "Text block",
+            "text_style": "body"
+          }
+        },
         "variant_picker_iAAjfd": {
           "type": "variant_picker",
           "settings": {
@@ -180,6 +187,7 @@
         "text_YDMdWw",
         "title_yqCVpi",
         "price_VLbHGy",
+        "text_P7XjPP",
         "variant_picker_iAAjfd",
         "quantity_selector_GWkmWW",
         "buy_buttons_8VYfUj",
