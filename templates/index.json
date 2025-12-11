@@ -250,7 +250,7 @@
         "desktop_layout": "left",
         "mobile_layout": "collage",
         "card_styles": "none",
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-2",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -303,7 +303,7 @@
         "heading_ziEwE3": {
           "type": "heading",
           "settings": {
-            "heading": "GET THE LATEST NEWS IN OUR JOURNAL",
+            "heading": "",
             "heading_size": "h1"
           }
         },
@@ -317,10 +317,10 @@
         "buttons_TMkK9w": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "DISCOVER",
+            "button_label_1": "Discover Journal",
             "button_link_1": "shopify://blogs/inspiration-to-ellis",
-            "button_style_secondary_1": false,
-            "button_label_2": "SUBSCRIBE",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
             "button_link_2": "shopify://blogs/inspiration-to-ellis",
             "button_style_secondary_2": false
           }
@@ -331,9 +331,9 @@
         "text_cFHTX8",
         "buttons_TMkK9w"
       ],
-      "disabled": true,
       "name": "t:sections.image-banner.presets.name",
       "settings": {
+        "image": "shopify://shop_images/ellis_bw_1.webp",
         "image_overlay_opacity": 20,
         "image_height": "medium",
         "image_behavior": "none",
@@ -342,55 +342,6 @@
         "show_text_box": false,
         "color_scheme": "scheme-f5a20548-bb2a-496e-a7dc-205bb24bd6d4",
         "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
-      }
-    },
-    "image_banner_rFKLeP": {
-      "type": "image-banner",
-      "blocks": {
-        "heading_Pm34qJ": {
-          "type": "heading",
-          "settings": {
-            "heading": "<strong>JUST IN</strong>",
-            "heading_size": "h1"
-          }
-        },
-        "text_xKrFjK": {
-          "type": "text",
-          "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
-          }
-        },
-        "buttons_HbiWWV": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Button label",
-            "button_link_1": "",
-            "button_style_secondary_1": false,
-            "button_label_2": "Button label",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading_Pm34qJ",
-        "text_xKrFjK",
-        "buttons_HbiWWV"
-      ],
-      "disabled": true,
-      "name": "t:sections.image-banner.presets.name",
-      "settings": {
-        "image_overlay_opacity": 0,
-        "image_height": "large",
-        "image_behavior": "none",
-        "desktop_content_position": "middle-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-4",
-        "stack_images_on_mobile": true,
         "mobile_content_alignment": "center",
         "show_text_below": false
       }
@@ -439,7 +390,6 @@
     "collage_WcCWD4",
     "collection_list_eJtPzU",
     "image_banner_UDnyDY",
-    "image_banner_rFKLeP",
     "newsletter_pUTXa7"
   ]
 }
