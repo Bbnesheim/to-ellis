@@ -37,6 +37,42 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Featured collection slider: overlay arrows in the vertical middle of the cards and hide numeric counter */
+  .section-featured-collection #collection-{{ section.id }} slider-component {
+    position: relative;
+  }
+
+  .section-featured-collection #collection-{{ section.id }} .slider-buttons {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.5rem;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .section-featured-collection #collection-{{ section.id }} .slider-button {
+    pointer-events: auto;
+  }
+
+  .section-featured-collection #collection-{{ section.id }} .slider-counter {
+    display: none;
+  }
+
+  /* Featured collection slider: show ~1.25 product cards on first reveal on mobile/tablet */
+  @media screen and (max-width: 989px) {
+    .section-featured-collection #Slider-{{ section.id }}.slider--tablet.grid--peek .grid__item {
+      width: 80%;
+      max-width: 80%;
+      flex: 0 0 80%;
+    }
+  }
 {%- endstyle -%}
 
 {%- liquid
