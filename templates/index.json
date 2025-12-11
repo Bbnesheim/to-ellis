@@ -60,6 +60,7 @@
     },
     "featured_collection": {
       "type": "featured-collection",
+      "name": "New Arrivals",
       "settings": {
         "collection": "new-arrivals",
         "products_to_show": 8,
