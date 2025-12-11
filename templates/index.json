@@ -9,72 +9,6 @@
  */
 {
   "sections": {
-    "17576675617bf295b1": {
-      "type": "_blocks",
-      "blocks": {
-        "hero_banner_mrC9BX": {
-          "type": "hero-banner",
-          "name": "Hero video banner",
-          "settings": {
-            "desktop_video_url": "https://cdn.shopify.com/videos/c/o/v/d2a289db13ae4441ab1594af6fbf9b6a.mp4",
-            "mobile_video_url": "https://cdn.shopify.com/videos/c/o/v/1ae4ffc6169149cf9c106cd313dcdc87.mp4",
-            "autoplay": true,
-            "muted": true,
-            "show_controls": true,
-            "heading": "PRE-ORDER AVAILABLE",
-            "subheading": "",
-            "button_text": "SIGN UP",
-            "button_link": "shopify://pages/contact",
-            "content_position": "bottom-center",
-            "horizontal_offset": 5,
-            "vertical_offset": 9,
-            "custom_horizontal": 50,
-            "custom_vertical": 45,
-            "text_alignment": "center",
-            "content_width": 800,
-            "desktop_height": 90,
-            "mobile_content_position": "bottom-center",
-            "mobile_horizontal_offset": 0,
-            "mobile_vertical_offset": 18,
-            "mobile_custom_horizontal": 0,
-            "mobile_custom_vertical": 0,
-            "mobile_text_alignment": "center",
-            "mobile_height": 55,
-            "show_overlay": false,
-            "overlay_opacity": 35,
-            "overlay_direction": "to top",
-            "text_color": "#f7f3ee",
-            "button_color": "#8a9bb7",
-            "button_text_color": "#f7f3ee",
-            "button_hover_color": "#8a9bb7",
-            "button_hover_text_color": "#f7f3ee",
-            "show_gradient_animation": true,
-            "gradient_start_color": "#d7dfea",
-            "gradient_end_color": "#8a9bb7",
-            "gradient_opacity": 50,
-            "gradient_border_width": 8,
-            "animation_duration": 10,
-            "heading_font": "cormorant_n6",
-            "heading_size": 50,
-            "subheading_font": "cormorant_n4",
-            "subheading_size": 25,
-            "button_font": "cormorant_n7",
-            "button_font_size": 24,
-            "button_padding": 14,
-            "button_border_radius": 8,
-            "mobile_heading_size": 22,
-            "mobile_subheading_size": 16,
-            "mobile_button_font_size": 12,
-            "mobile_button_padding": 10
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "hero_banner_mrC9BX"
-      ],
-      "settings": {}
-    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -172,6 +106,55 @@
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "image_banner_UDnyDY": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_ziEwE3": {
+          "type": "heading",
+          "settings": {
+            "heading": "",
+            "heading_size": "h1"
+          }
+        },
+        "text_cFHTX8": {
+          "type": "text",
+          "settings": {
+            "text": "",
+            "text_style": "body"
+          }
+        },
+        "buttons_TMkK9w": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "",
+            "button_link_1": "shopify://blogs/inspiration-to-ellis",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "shopify://blogs/inspiration-to-ellis",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_ziEwE3",
+        "text_cFHTX8",
+        "buttons_TMkK9w"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/ellis_bw_1.webp",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "scheme-b99e0aef-894a-4801-8a10-2f8cd240c82b",
+        "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
+        "show_text_below": false
       }
     },
     "collection_list_RkRH6j": {
@@ -297,54 +280,71 @@
         "padding_bottom": 36
       }
     },
-    "image_banner_UDnyDY": {
-      "type": "image-banner",
+    "17576675617bf295b1": {
+      "type": "_blocks",
       "blocks": {
-        "heading_ziEwE3": {
-          "type": "heading",
+        "hero_banner_mrC9BX": {
+          "type": "hero-banner",
+          "name": "Hero video banner",
           "settings": {
+            "desktop_video_url": "https://cdn.shopify.com/videos/c/o/v/d2a289db13ae4441ab1594af6fbf9b6a.mp4",
+            "mobile_video_url": "https://cdn.shopify.com/videos/c/o/v/1ae4ffc6169149cf9c106cd313dcdc87.mp4",
+            "autoplay": true,
+            "muted": true,
+            "show_controls": true,
             "heading": "",
-            "heading_size": "h1"
-          }
-        },
-        "text_cFHTX8": {
-          "type": "text",
-          "settings": {
-            "text": "",
-            "text_style": "body"
-          }
-        },
-        "buttons_TMkK9w": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Discover Journal",
-            "button_link_1": "shopify://blogs/inspiration-to-ellis",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "shopify://blogs/inspiration-to-ellis",
-            "button_style_secondary_2": false
-          }
+            "subheading": "",
+            "button_text": "SIGN UP",
+            "button_link": "shopify://pages/contact",
+            "content_position": "bottom-center",
+            "horizontal_offset": 5,
+            "vertical_offset": 9,
+            "custom_horizontal": 50,
+            "custom_vertical": 45,
+            "text_alignment": "center",
+            "content_width": 800,
+            "desktop_height": 90,
+            "mobile_content_position": "bottom-center",
+            "mobile_horizontal_offset": 0,
+            "mobile_vertical_offset": 18,
+            "mobile_custom_horizontal": 0,
+            "mobile_custom_vertical": 0,
+            "mobile_text_alignment": "center",
+            "mobile_height": 55,
+            "show_overlay": false,
+            "overlay_opacity": 35,
+            "overlay_direction": "to top",
+            "text_color": "#f7f3ee",
+            "button_color": "#8a9bb7",
+            "button_text_color": "#f7f3ee",
+            "button_hover_color": "#8a9bb7",
+            "button_hover_text_color": "#f7f3ee",
+            "show_gradient_animation": true,
+            "gradient_start_color": "#d7dfea",
+            "gradient_end_color": "#8a9bb7",
+            "gradient_opacity": 50,
+            "gradient_border_width": 8,
+            "animation_duration": 10,
+            "heading_font": "cormorant_n6",
+            "heading_size": 50,
+            "subheading_font": "cormorant_n4",
+            "subheading_size": 25,
+            "button_font": "cormorant_n7",
+            "button_font_size": 24,
+            "button_padding": 14,
+            "button_border_radius": 8,
+            "mobile_heading_size": 22,
+            "mobile_subheading_size": 16,
+            "mobile_button_font_size": 12,
+            "mobile_button_padding": 10
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "heading_ziEwE3",
-        "text_cFHTX8",
-        "buttons_TMkK9w"
+        "hero_banner_mrC9BX"
       ],
-      "name": "t:sections.image-banner.presets.name",
-      "settings": {
-        "image": "shopify://shop_images/ellis_bw_1.webp",
-        "image_overlay_opacity": 0,
-        "image_height": "medium",
-        "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-b99e0aef-894a-4801-8a10-2f8cd240c82b",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
-      }
+      "settings": {}
     },
     "newsletter_pUTXa7": {
       "type": "newsletter",
@@ -383,13 +383,13 @@
     }
   },
   "order": [
-    "17576675617bf295b1",
     "featured_collection",
     "featured_product_qeKEfy",
+    "image_banner_UDnyDY",
     "collection_list_RkRH6j",
     "collage_WcCWD4",
     "collection_list_eJtPzU",
-    "image_banner_UDnyDY",
+    "17576675617bf295b1",
     "newsletter_pUTXa7"
   ]
 }
