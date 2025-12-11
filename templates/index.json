@@ -327,6 +327,49 @@
         "padding_bottom": 84
       }
     },
+    "rich_text_ciRMeg": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_LdLkgB": {
+          "type": "heading",
+          "settings": {
+            "heading": "<em>Understated elegance... </em>",
+            "heading_size": "h1"
+          }
+        },
+        "text_tyixcP": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        },
+        "button_YVcnYR": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_LdLkgB",
+        "text_tyixcP",
+        "button_YVcnYR"
+      ],
+      "name": "The Considered Dress...",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "scheme-2",
+        "full_width": true,
+        "padding_top": 100,
+        "padding_bottom": 0
+      }
+    },
     "featured_product_qeKEfy": {
       "type": "featured-product",
       "blocks": {
@@ -390,11 +433,11 @@
         "media_size": "small",
         "constrain_to_viewport": true,
         "media_fit": "contain",
-        "media_position": "right",
+        "media_position": "left",
         "image_zoom": "hover",
         "hide_variants": false,
         "enable_video_looping": false,
-        "padding_top": 36,
+        "padding_top": 0,
         "padding_bottom": 36
       }
     },
@@ -590,6 +633,7 @@
     "featured_product_9tJMze",
     "collage_WcCWD4",
     "featured_product_TUg7i4",
+    "rich_text_ciRMeg",
     "featured_product_qeKEfy",
     "collection_list_RkRH6j",
     "collection_list_eJtPzU",
