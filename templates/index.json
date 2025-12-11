@@ -75,10 +75,6 @@
       ],
       "settings": {}
     },
-    "17574570769a040456": {
-      "type": "_blocks",
-      "settings": {}
-    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -437,7 +433,6 @@
   },
   "order": [
     "17576675617bf295b1",
-    "17574570769a040456",
     "featured_collection",
     "featured_product_qeKEfy",
     "collection_list_RkRH6j",
