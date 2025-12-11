@@ -49,7 +49,7 @@
         "image_overlay_opacity": 0,
         "image_height": "medium",
         "image_behavior": "none",
-        "desktop_content_position": "middle-center",
+        "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
         "color_scheme": "scheme-b99e0aef-894a-4801-8a10-2f8cd240c82b",
