@@ -160,12 +160,6 @@
     "collage_WcCWD4": {
       "type": "collage",
       "blocks": {
-        "image_Dkt98h": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/image3.jpg"
-          }
-        },
         "image_EFD4gh": {
           "type": "image",
           "settings": {
@@ -177,18 +171,24 @@
           "settings": {
             "image": "shopify://shop_images/ellis-dress-details3.webp"
           }
+        },
+        "image_Dkt98h": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image3.jpg"
+          }
         }
       },
       "block_order": [
-        "image_Dkt98h",
         "image_EFD4gh",
-        "image_PB6fzB"
+        "image_PB6fzB",
+        "image_Dkt98h"
       ],
       "name": "t:sections.collage.presets.name",
       "settings": {
         "heading": "",
         "heading_size": "h1",
-        "desktop_layout": "left",
+        "desktop_layout": "right",
         "mobile_layout": "collage",
         "card_styles": "none",
         "color_scheme": "scheme-2",
