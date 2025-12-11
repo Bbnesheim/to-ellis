@@ -10,6 +10,30 @@
   }
 }
 
+/* Gradually reduce product title size from 660px viewport width and down
+   to help prevent wrapping on narrow cards. */
+@media screen and (max-width: 660px) {
+  .section-featured-collection .product-card-wrapper .card__heading {
+    /*
+      Fluid font size between ~1.4rem on very small screens and
+      the default 2.2rem around 660px.
+    */
+    font-size: clamp(1.4rem, 0.8rem + 2vw, calc(var(--font-heading-scale) * 2.2rem));
+  }
+}
+
+/* Featured collection price tweaks – scale prices down smoothly
+   below 425px so they fit better on very small screens. */
+@media screen and (max-width: 425px) {
+  .section-featured-collection .product-card-wrapper .price {
+    font-size: clamp(1.2rem, 0.9rem + 1.2vw, 1.6rem);
+  }
+
+  .section-featured-collection .product-card-wrapper .price--on-sale .price-item--regular {
+    font-size: clamp(1.0rem, 0.8rem + 0.8vw, 1.3rem);
+  }
+}
+
 .section-featured-collection .product-card-wrapper .card__heading .full-unstyled-link {
   display: inline-block;
   text-decoration: none !important;
