@@ -334,13 +334,13 @@
       "name": "t:sections.image-banner.presets.name",
       "settings": {
         "image": "shopify://shop_images/ellis_bw_1.webp",
-        "image_overlay_opacity": 20,
+        "image_overlay_opacity": 0,
         "image_height": "medium",
         "image_behavior": "none",
-        "desktop_content_position": "middle-center",
+        "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
-        "color_scheme": "scheme-f5a20548-bb2a-496e-a7dc-205bb24bd6d4",
+        "color_scheme": "scheme-b99e0aef-894a-4801-8a10-2f8cd240c82b",
         "stack_images_on_mobile": false,
         "mobile_content_alignment": "center",
         "show_text_below": false
