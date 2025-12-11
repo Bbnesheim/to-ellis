@@ -361,6 +361,15 @@ a.product__text {
   margin-bottom: 0.6rem;
 }
 
+/* Subtle "bump" animation when quantity changes */
+.quantity__input {
+  transition: transform var(--duration-medium) ease;
+}
+
+.quantity.quantity--bump .quantity__input {
+  transform: scale(1.12);
+}
+
 .price-per-item__label.form__label {
   margin-bottom: 0rem;
 }

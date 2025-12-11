@@ -70,7 +70,9 @@ variant-selects {
   letter-spacing: 0.05rem;
   line-height: 1;
   text-align: center;
-  transition: border var(--duration-short) ease;
+  transition:
+    border var(--duration-short) ease,
+    transform var(--duration-short) ease;
   cursor: pointer;
   position: relative;
 }
@@ -90,6 +92,7 @@ variant-selects {
 
 .product-form__input--pill input[type='radio'] + label:hover {
   border-color: rgb(var(--color-foreground));
+  transform: scale(1.03);
 }
 
 .product-form__input--pill input[type='radio']:checked + label {
@@ -153,8 +156,9 @@ variant-selects {
 
 @media screen and (max-width: 749px) {
   .product-form__input--pill input[type='radio'] + label {
-    margin: 1rem 0.8rem 0.1rem 0;
-    padding: 0.2rem 1rem;
+    /* Tighter spacing between pills on mobile */
+    margin: 0.5rem 0.5rem 0.1rem 0;
+    padding: 0.1rem 0.8rem;
     font-size: 1rem;
     letter-spacing: 0.04rem;
   }

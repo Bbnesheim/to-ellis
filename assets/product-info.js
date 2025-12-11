@@ -40,9 +40,29 @@ if (!customElements.get('product-info')) {
         if (!this.quantityForm) return;
 
         this.setQuantityBoundries();
+        this.initQuantityAnimation();
         if (!this.dataset.originalSection) {
           this.cartUpdateUnsubscriber = subscribe(PUB_SUB_EVENTS.cartUpdate, this.fetchQuantityRules.bind(this));
         }
+      }
+
+      initQuantityAnimation() {
+        const quantityWrapper = this.quantityForm.querySelector('.quantity');
+        if (!quantityWrapper) return;
+
+        const bump = () => {
+          quantityWrapper.classList.remove('quantity--bump');
+          // Force reflow so the animation can retrigger
+          // eslint-disable-next-line no-unused-expressions
+          quantityWrapper.offsetWidth;
+          quantityWrapper.classList.add('quantity--bump');
+        };
+
+        const inputs = this.quantityForm.querySelectorAll('.quantity__button, .quantity__input');
+        inputs.forEach((el) => {
+          el.addEventListener('click', bump);
+          el.addEventListener('change', bump);
+        });
       }
 
       disconnectedCallback() {

@@ -75,7 +75,72 @@
 }
 
 .section-featured-product .product__title {
-  /* Keep featured product titles visually strong but allow the global heading
-     scale to control their actual size so they don’t blow up across breakpoints. */
+  /* Keep featured product titles visually strong. */
   font-weight: 600;
+}
+
+/* Gradually scale the featured product title with the viewport so it remains
+   prominent on large screens but doesn’t overwhelm smaller layouts. */
+.section-featured-product .product__title.h0,
+.section-featured-product .product__title.h1,
+.section-featured-product .product__title.h2,
+.section-featured-product .product__title.product__title--mobile {
+  font-size: clamp(
+    calc(var(--font-heading-scale) * 2.2rem),   /* smallest */
+    calc(var(--font-heading-scale) * 1.4rem + 1.6vw),
+    calc(var(--font-heading-scale) * 3.8rem)    /* largest */
+  );
+}
+
+/* Match tax + shipping line to the section’s medium-blue link tone. */
+.section-featured-product .product__tax {
+  color: rgba(var(--color-link), var(--alpha-link));
+}
+
+/* Make supporting text (vendor, labels, captions) follow the same
+   medium-blue scheme as the rest of the section. */
+.section-featured-product .product__info-container .product__text,
+.section-featured-product .product__info-container .form__label,
+.section-featured-product .product__info-container .subtitle,
+.section-featured-product .product__info-container .caption,
+.section-featured-product .product__info-container .caption-large {
+  color: rgba(var(--color-link), var(--alpha-link));
+}
+
+/* Ensure the primary button colors follow the active color scheme
+   instead of a hard-coded blue. */
+.section-featured-product .product-form__primary-cta .product-form__submit {
+  background-color: rgba(var(--color-button), var(--alpha-button-background));
+  border-color: rgba(var(--color-button), var(--alpha-button-border));
+  color: rgb(var(--color-button-text));
+}
+
+.section-featured-product .product-form__primary-cta .product-form__submit:hover,
+.section-featured-product .product-form__primary-cta .product-form__submit:focus-visible {
+  background-color: rgba(var(--color-button), var(--alpha-button-background));
+  border-color: rgba(var(--color-button), var(--alpha-button-border));
+}
+
+/* Share + view-details hover: remove underline and use a soft gradient
+   text effect instead. */
+.section-featured-product .share-button__button,
+.section-featured-product .product__view-details {
+  text-decoration: none;
+}
+
+.section-featured-product .share-button__button:hover,
+.section-featured-product .share-button__button:focus-visible,
+.section-featured-product .product__view-details:hover,
+.section-featured-product .product__view-details:focus-visible {
+  text-decoration: none !important;
+  background-image: linear-gradient(
+    90deg,
+    rgba(var(--color-link), var(--alpha-link)),
+    rgb(var(--color-foreground))
+  );
+  background-size: 200% 100%;
+  background-position: 0 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
