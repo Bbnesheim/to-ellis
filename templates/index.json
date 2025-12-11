@@ -15,7 +15,7 @@
         "heading_ziEwE3": {
           "type": "heading",
           "settings": {
-            "heading": "Discover collection",
+            "heading": "",
             "heading_size": "h2"
           }
         },
@@ -29,8 +29,8 @@
         "buttons_TMkK9w": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "",
-            "button_link_1": "shopify://blogs/inspiration-to-ellis",
+            "button_label_1": "Discover Collection",
+            "button_link_1": "shopify://collections/all-products",
             "button_style_secondary_1": true,
             "button_label_2": "",
             "button_link_2": "shopify://blogs/inspiration-to-ellis",
