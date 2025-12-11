@@ -89,13 +89,6 @@
     "collage_WcCWD4": {
       "type": "collage",
       "blocks": {
-        "product_4bMwM3": {
-          "type": "product",
-          "settings": {
-            "product": "ellis-dress-white",
-            "second_image": true
-          }
-        },
         "image_Dkt98h": {
           "type": "image",
           "settings": {
@@ -107,12 +100,18 @@
           "settings": {
             "image": "shopify://shop_images/white-silk-satin.jpg"
           }
+        },
+        "image_EFD4gh": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ellis-dress-details4.webp"
+          }
         }
       },
       "block_order": [
-        "product_4bMwM3",
         "image_Dkt98h",
-        "image_PB6fzB"
+        "image_PB6fzB",
+        "image_EFD4gh"
       ],
       "name": "t:sections.collage.presets.name",
       "settings": {
