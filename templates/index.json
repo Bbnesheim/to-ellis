@@ -29,7 +29,7 @@
         "buttons_TMkK9w": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Discover Collection",
+            "button_label_1": "Discover The Collection",
             "button_link_1": "shopify://collections/all-products",
             "button_style_secondary_1": true,
             "button_label_2": "",
@@ -46,13 +46,14 @@
       "name": "t:sections.image-banner.presets.name",
       "settings": {
         "image": "shopify://shop_images/ellis_bw_1.webp",
+        "image_2": "shopify://shop_images/martha_black_4.webp",
         "image_overlay_opacity": 0,
         "image_height": "medium",
         "image_behavior": "none",
         "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
-        "color_scheme": "scheme-b99e0aef-894a-4801-8a10-2f8cd240c82b",
+        "color_scheme": "scheme-2",
         "stack_images_on_mobile": false,
         "mobile_content_alignment": "center",
         "show_text_below": false
