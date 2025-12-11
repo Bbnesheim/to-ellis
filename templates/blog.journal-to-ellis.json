@@ -11,7 +11,6 @@
   "sections": {
     "main": {
       "type": "main-blog",
-      "disabled": true,
       "settings": {
         "layout": "collage",
         "show_image": true,
@@ -21,10 +20,6 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "17563885029473bb74": {
-      "type": "_blocks",
-      "settings": {}
     },
     "featured_blog_WbicrL": {
       "type": "featured-blog",
@@ -81,12 +76,120 @@
         "show_text_below": true,
         "accessibility_info": "Slideshow about our brand"
       }
+    },
+    "17563885029473bb74": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "blocks_cCr6Bi": {
+      "type": "_blocks",
+      "blocks": {
+        "journal_JJWcbV": {
+          "type": "journal",
+          "settings": {
+            "enable_animation": true,
+            "animation_type": "book_entrance",
+            "animation_duration": 1.2,
+            "animation_delay": 0.3,
+            "animation_easing": "ease-out",
+            "content_animation_duration": 0.8,
+            "element_animation_duration": 0.6,
+            "stagger_delay": 0.2,
+            "typing_duration": 3,
+            "hover_effects": true,
+            "book_spine_effect": true,
+            "spine_width": 8,
+            "spine_offset": 15,
+            "spine_color": "#8B4513",
+            "page_lines": true,
+            "line_spacing": 28,
+            "line_color": "#e8e8e8",
+            "line_opacity": 30,
+            "blog_title": "A Quiet Afternoon",
+            "show_date": true,
+            "blog_date": "March 15, 2024",
+            "blog_excerpt": "<p>Sometimes the most beautiful moments are found in the quiet spaces between our busy days...</p>",
+            "signature_text": "With love, Ellis",
+            "signature_alignment": "right",
+            "show_signature_logo": false,
+            "signature_logo_size": 60,
+            "signature_logo_spacing": 15,
+            "text_block_1": "<p>Dear Journal,</p><p>Today feels like one of those days where everything seems to align perfectly. The morning light filtered through my window in the most beautiful way, casting gentle shadows across my desk where I'm writing this.</p>",
+            "text_1_alignment": "left",
+            "text_block_2": "<p>There's something magical about putting pen to paper (or in this case, fingers to keyboard) and letting thoughts flow freely. It's in these quiet moments that I find clarity and peace.</p>",
+            "text_2_alignment": "left",
+            "text_block_3": "<p>I've been thinking about how important it is to document these small, precious moments. They may seem ordinary now, but I know that someday I'll look back on these words and remember exactly how I felt in this moment.</p>",
+            "text_3_alignment": "center",
+            "text_block_4": "<p>Life has a way of moving so quickly that we forget to pause and appreciate the beauty in the everyday. But here, in this space, time slows down and I can simply be present.</p>",
+            "text_4_alignment": "left",
+            "text_block_5": "",
+            "text_5_alignment": "right",
+            "heading_font": "serif",
+            "body_font": "serif",
+            "title_size": 36,
+            "date_size": 16,
+            "excerpt_size": 18,
+            "body_size": 16,
+            "signature_size": 18,
+            "line_height": 160,
+            "mobile_title_size": 28,
+            "mobile_excerpt_size": 16,
+            "mobile_body_size": 18,
+            "mobile_signature_size": 16,
+            "background_color": "#faf9f7",
+            "background_gradient": "",
+            "content_background": "#ffffff",
+            "title_color": "#2c2c2c",
+            "date_color": "#8a8a8a",
+            "excerpt_color": "#5a5a5a",
+            "body_color": "#3c3c3c",
+            "signature_color": "#6a6a6a",
+            "border_color": "#e8e8e8",
+            "content_width": 750,
+            "page_padding": 40,
+            "content_padding": 60,
+            "mobile_padding": 20,
+            "mobile_content_padding": 30,
+            "header_spacing": 40,
+            "title_spacing": 15,
+            "date_spacing": 20,
+            "excerpt_spacing": 30,
+            "paragraph_spacing": 25,
+            "signature_spacing": 50,
+            "header_alignment": "center",
+            "content_shadow": true,
+            "content_border_radius": 8,
+            "show_header_border": true,
+            "show_signature_border": true,
+            "background_size": "cover",
+            "background_position_x": 50,
+            "background_position_y": 50,
+            "background_attachment": "scroll",
+            "background_scale": 100,
+            "background_image_opacity": 30,
+            "background_blur": 0,
+            "texture_opacity": 15,
+            "show_decorative_top": false,
+            "show_decorative_bottom": false,
+            "decorative_size": 100,
+            "decorative_opacity": 60,
+            "decorative_spacing": 30
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "journal_JJWcbV"
+      ],
+      "name": "Animated journal book",
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "17563885029473bb74",
     "featured_blog_WbicrL",
-    "slideshow_krBhmn"
+    "slideshow_krBhmn",
+    "17563885029473bb74",
+    "blocks_cCr6Bi"
   ]
 }
