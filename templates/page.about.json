@@ -216,7 +216,7 @@
         "heading_C7TfjY": {
           "type": "heading",
           "settings": {
-            "heading": "READ MORE ABOUT OUR STORY",
+            "heading": "",
             "heading_size": "h1"
           }
         },
@@ -230,9 +230,9 @@
         "buttons_4DYRdn": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "TO JOURNAL",
-            "button_link_1": "",
-            "button_style_secondary_1": false,
+            "button_label_1": "Read more..",
+            "button_link_1": "shopify://blogs/inspiration-to-ellis",
+            "button_style_secondary_1": true,
             "button_label_2": "",
             "button_link_2": "",
             "button_style_secondary_2": false
@@ -247,11 +247,11 @@
       "name": "t:sections.image-banner.presets.name",
       "settings": {
         "image": "shopify://shop_images/ellis_bw_1.webp",
-        "image_overlay_opacity": 10,
+        "image_overlay_opacity": 0,
         "image_height": "small",
         "image_behavior": "none",
-        "desktop_content_position": "bottom-right",
-        "desktop_content_alignment": "right",
+        "desktop_content_position": "top-left",
+        "desktop_content_alignment": "left",
         "show_text_box": false,
         "color_scheme": "scheme-2",
         "stack_images_on_mobile": false,
