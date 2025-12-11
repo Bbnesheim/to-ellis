@@ -44,7 +44,7 @@
           "type": "heading",
           "settings": {
             "heading": "The Ellis Dress",
-            "heading_size": "h1"
+            "heading_size": "h2"
           }
         },
         "text_cFHTX8": {
@@ -95,23 +95,23 @@
             "image": "shopify://shop_images/image3.jpg"
           }
         },
-        "image_PB6fzB": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/white-silk-satin.jpg"
-          }
-        },
         "image_EFD4gh": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/ellis-dress-details4.webp"
           }
+        },
+        "image_PB6fzB": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ellis-dress-details3.webp"
+          }
         }
       },
       "block_order": [
         "image_Dkt98h",
-        "image_PB6fzB",
-        "image_EFD4gh"
+        "image_EFD4gh",
+        "image_PB6fzB"
       ],
       "name": "t:sections.collage.presets.name",
       "settings": {
