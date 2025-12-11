@@ -58,13 +58,56 @@
         "show_text_below": false
       }
     },
+    "rich_text_TaPAgf": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_beXFgm": {
+          "type": "heading",
+          "settings": {
+            "heading": "<em>New arrivals</em>",
+            "heading_size": "h1"
+          }
+        },
+        "text_UwqQPR": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        },
+        "button_JCDAgP": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_beXFgm",
+        "text_UwqQPR",
+        "button_JCDAgP"
+      ],
+      "name": "The Considered Dress...",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "scheme-2",
+        "full_width": true,
+        "padding_top": 32,
+        "padding_bottom": 0
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "name": "New Arrivals",
       "settings": {
         "collection": "new-arrivals",
         "products_to_show": 8,
-        "title": "<em>New Arrivals</em>",
+        "title": "",
         "heading_size": "h0",
         "description": "",
         "show_description": false,
@@ -83,7 +126,7 @@
         "quick_add": "none",
         "columns_mobile": "2",
         "swipe_on_mobile": true,
-        "padding_top": 44,
+        "padding_top": 4,
         "padding_bottom": 36
       }
     },
@@ -628,6 +671,7 @@
   },
   "order": [
     "image_banner_UDnyDY",
+    "rich_text_TaPAgf",
     "featured_collection",
     "rich_text_BjXG7K",
     "featured_product_9tJMze",
