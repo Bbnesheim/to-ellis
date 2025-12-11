@@ -75,6 +75,11 @@
   margin-bottom: 1rem;
 }
 
+/* Make collection titles (including Featured collection heading) bold */
+.collection__title .title {
+  font-weight: 700;
+}
+
 @media screen and (min-width: 990px) {
   .collection__title--desktop-slider .title {
     margin-bottom: 2.5rem;

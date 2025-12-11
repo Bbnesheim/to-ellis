@@ -128,7 +128,8 @@
                   show_rating: section.settings.show_rating,
                   skip_styles: skip_card_product_styles,
                   section_id: section.id,
-                  quick_add: section.settings.quick_add
+                  quick_add: section.settings.quick_add,
+                  color_scheme: section.settings.color_scheme
                 %}
               </li>
               {%- assign skip_card_product_styles = true -%}
@@ -158,7 +159,8 @@
                 media_aspect_ratio: section.settings.image_ratio,
                 image_shape: section.settings.image_shape,
                 lazy_load: false,
-                placeholder_image: placeholder_image
+                placeholder_image: placeholder_image,
+                color_scheme: section.settings.color_scheme
               %}
             </li>
           {%- endfor -%}

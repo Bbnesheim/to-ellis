@@ -608,6 +608,12 @@ details > * {
   color: currentColor;
 }
 
+/* Ensure bold markup from the rich text editor actually looks bold */
+.inline-richtext strong,
+.inline-richtext b {
+  font-weight: 700;
+}
+
 .underlined-link:hover,
 .customer a:hover,
 .inline-richtext a:hover {

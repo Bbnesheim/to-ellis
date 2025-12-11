@@ -48,6 +48,13 @@
   border: var(--border-width) solid rgba(var(--color-foreground), var(--border-opacity));
 }
 
+/* Product cards (card style): use the color scheme's Secondary background
+   as the card shell background so merchants control card color via the
+   "Secondary background" field in the scheme editor. */
+.contains-card--product .card--card {
+  background: rgb(var(--color-background-2));
+}
+
 .card--card:after,
 .card--standard .card__inner:after {
   content: '';
@@ -436,6 +443,23 @@
 .card--horizontal .card__badge,
 .card--horizontal.card--text .card__inner {
   display: none;
+}
+
+/* Override for product cards using the "card" style.
+   When card style is enabled on product grids, we still want
+   the product title, price, and badges to be visible inside
+   the bordered card shell. Limit the override to
+   .product-card-wrapper so article cards and other uses
+   keep the original behavior. */
+/* Override for product cards using the "card" style.
+   When card style is enabled on product grids, we still want
+   badges to appear inside the bordered card shell, but we keep
+   the product title and price in the normal card body below the
+   image (handled by the second card__content in card-product.liquid).
+   Limit the override to .product-card-wrapper so article cards
+   and other uses keep the original behavior. */
+.product-card-wrapper .card--card.card--media > .card__content .card__badge {
+  display: block;
 }
 
 .card--extend-height {
