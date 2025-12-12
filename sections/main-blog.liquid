@@ -1,5 +1,8 @@
 {{ 'component-article-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.layout == 'flip' -%}
+  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 {{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
@@ -22,27 +25,89 @@
       {{ blog.title | escape }}
     </h1>
 
-    <div class="blog-articles {% if section.settings.layout == 'collage' %}blog-articles--collage{% endif %}">
-      {%- for article in blog.articles -%}
-        <div
-          class="blog-articles__article article{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {% if settings.animations_reveal_on_scroll %}
-            data-cascade
-            style="--animation-order: {{ forloop.index }};"
-          {% endif %}
+    {%- if section.settings.layout == 'flip' -%}
+      <slider-component class="blog-flip" aria-label="{{ blog.title | escape }}">
+        <ul
+          id="Slider-{{ section.id }}"
+          class="blog-articles blog-articles--flip slider slider--everywhere"
+          role="list"
         >
-          {%- render 'article-card',
-            article: article,
-            media_height: section.settings.image_height,
-            media_aspect_ratio: article.image.aspect_ratio,
-            show_image: section.settings.show_image,
-            show_date: section.settings.show_date,
-            show_author: section.settings.show_author,
-            show_excerpt: true
-          -%}
+          {%- for article in blog.articles -%}
+            <li
+              id="Slide-{{ section.id }}-{{ forloop.index }}"
+              class="blog-articles__article blog-flip__page slider__slide{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+              {% if settings.animations_reveal_on_scroll %}
+                data-cascade
+                style="--animation-order: {{ forloop.index }};"
+              {% endif %}
+            >
+              <div class="blog-flip__paper">
+                {%- render 'article-card',
+                  article: article,
+                  media_height: section.settings.image_height,
+                  media_aspect_ratio: article.image.aspect_ratio,
+                  show_image: section.settings.show_image,
+                  show_date: section.settings.show_date,
+                  show_author: section.settings.show_author,
+                  show_excerpt: true
+                -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        <div class="slider-buttons">
+          <button
+            type="button"
+            class="slider-button slider-button--prev"
+            name="previous"
+            aria-label="{{ 'general.slider.previous_slide' | t }}"
+          >
+            <span class="svg-wrapper">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
+          </button>
+          <div class="slider-counter caption">
+            <span class="slider-counter--current">1</span>
+            <span aria-hidden="true"> / </span>
+            <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+            <span class="slider-counter--total">{{ blog.articles_count }}</span>
+          </div>
+          <button
+            type="button"
+            class="slider-button slider-button--next"
+            name="next"
+            aria-label="{{ 'general.slider.next_slide' | t }}"
+          >
+            <span class="svg-wrapper">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
+          </button>
         </div>
-      {%- endfor -%}
-    </div>
+      </slider-component>
+    {%- else -%}
+      <div class="blog-articles {% if section.settings.layout == 'collage' %}blog-articles--collage{% endif %}">
+        {%- for article in blog.articles -%}
+          <div
+            class="blog-articles__article article{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+          >
+            {%- render 'article-card',
+              article: article,
+              media_height: section.settings.image_height,
+              media_aspect_ratio: article.image.aspect_ratio,
+              show_image: section.settings.show_image,
+              show_date: section.settings.show_date,
+              show_author: section.settings.show_author,
+              show_excerpt: true
+            -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
 
     {%- if paginate.pages > 1 -%}
       {%- render 'pagination', paginate: paginate -%}
@@ -67,6 +132,10 @@
         {
           "value": "collage",
           "label": "t:sections.main-blog.settings.layout.options__2.label"
+        },
+        {
+          "value": "flip",
+          "label": "Flip journal"
         }
       ],
       "default": "collage",

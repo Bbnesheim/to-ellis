@@ -2,6 +2,12 @@
   height: 100%;
 }
 
+.blog .page-width-desktop {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media screen and (min-width: 990px) {
   .grid--1-col-desktop .article-card .card__content {
     text-align: center;

@@ -1,3 +1,9 @@
+.main-blog.page-width {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .blog-articles {
   display: grid;
   grid-gap: 1rem;
@@ -58,4 +64,134 @@
   .blog-articles--collage > *:nth-child(3n + 2):last-child .article-card__image--large .ratio::before {
     padding-bottom: 82.5rem;
   }
+}
+
+/*
+  Flip journal layout (main blog)
+  - Uses the existing Dawn slider-component behavior (scroll-snap + prev/next buttons)
+  - Styles each article card as a “page” with a left binder margin
+*/
+
+
+.blog-articles--flip {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: clamp(1.6rem, 2vw, 3.2rem);
+  padding: 1rem 0 2rem;
+  scroll-padding-left: 1.5rem;
+}
+
+/* Fix to show some space at the end of our slider in all browsers */
+.blog-articles--flip:after {
+  content: '';
+  width: 0;
+  padding-left: 1.5rem;
+}
+
+.blog-articles--flip .blog-flip__page {
+  flex: 0 0 min(88vw, 58rem);
+}
+
+@media screen and (min-width: 750px) {
+  .blog-articles--flip .blog-flip__page {
+    flex-basis: min(70vw, 66rem);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .blog-articles--flip {
+    scroll-padding-left: 5rem;
+  }
+
+  .blog-articles--flip:after {
+    padding-left: 5rem;
+  }
+
+  .blog-articles--flip .blog-flip__page {
+    flex-basis: min(60vw, 72rem);
+  }
+}
+
+.blog-articles--flip .blog-flip__paper {
+  position: relative;
+  height: 100%;
+  padding: 2.4rem 2.2rem 2.2rem 5.2rem;
+  border-radius: 0;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.14);
+  box-shadow: none;
+  background-color: rgb(var(--color-background));
+  background-image:
+    /* vertical margin line */
+    linear-gradient(
+      to right,
+      transparent 3.6rem,
+      rgba(var(--color-foreground), 0.10) 3.6rem,
+      rgba(var(--color-foreground), 0.10) 3.7rem,
+      transparent 3.7rem
+    ),
+    /* ruled paper lines */
+    repeating-linear-gradient(
+      to bottom,
+      rgba(var(--color-foreground), 0.06) 0,
+      rgba(var(--color-foreground), 0.06) 0.1rem,
+      transparent 0.1rem,
+      transparent 3.2rem
+    );
+}
+
+/* binder strip */
+.blog-articles--flip .blog-flip__paper:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3.6rem;
+  border-radius: 0;
+  background: rgba(var(--color-foreground), 0.04);
+  border-right: 0.1rem solid rgba(var(--color-foreground), 0.12);
+  box-shadow: inset -0.5rem 0 1.2rem rgba(0, 0, 0, 0.06);
+}
+
+/* binder holes */
+.blog-articles--flip .blog-flip__paper:after {
+  content: '';
+  position: absolute;
+  left: 1.2rem;
+  top: 2rem;
+  bottom: 2rem;
+  width: 1.2rem;
+  opacity: 0.35;
+  background: repeating-radial-gradient(
+    circle,
+    rgba(var(--color-foreground), 0.65) 0 0.16rem,
+    transparent 0.18rem 1.7rem
+  );
+}
+
+/* Let the journal paper supply the visual container */
+.blog-articles--flip .article {
+  display: block;
+}
+
+.blog-articles--flip .article-card-wrapper {
+  width: 100%;
+}
+
+.blog-articles--flip .card.article-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.blog-articles--flip .article-card .card__information {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
+.blog-articles--flip .article-card__image-wrapper {
+  border-radius: 0;
+  overflow: hidden;
 }
