@@ -68,130 +68,319 @@
 
 /*
   Flip journal layout (main blog)
-  - Uses the existing Dawn slider-component behavior (scroll-snap + prev/next buttons)
-  - Styles each article card as a “page” with a left binder margin
+  - Fixed book width: 900px
+  - Desktop spread: two pages (~425px each) with a center spine (~50px)
+  - Mobile: one page focus, with a page-turn within each spread every other click
 */
 
+.blog-flip {
+  --blog-flip-width: 900px;
+  --blog-flip-page-width: 425px;
+  --blog-flip-spine-width: 50px;
 
-.blog-articles--flip {
-  display: flex;
-  flex-wrap: nowrap;
+  --blog-flip-paper-pad: 2.2rem;
+  --blog-flip-inner-pad: 4.4rem;
+  --blog-flip-rule-gap: 3.2rem;
+
+  max-width: var(--blog-flip-width);
+  margin: 0 auto;
+  position: relative;
+}
+
+.blog-flip__spread {
+  width: 100%;
+  display: none;
+  grid-template-columns: var(--blog-flip-page-width) var(--blog-flip-page-width);
+  column-gap: var(--blog-flip-spine-width);
+  justify-content: center;
   align-items: stretch;
-  gap: clamp(1.6rem, 2vw, 3.2rem);
-  padding: 1rem 0 2rem;
-  scroll-padding-left: 1.5rem;
+  position: relative;
 }
 
-/* Fix to show some space at the end of our slider in all browsers */
-.blog-articles--flip:after {
+.blog-flip:not(.is-initialized) .blog-flip__spread:last-child {
+  display: grid;
+}
+
+.blog-flip__spread.is-active {
+  display: grid;
+}
+
+/* spine seam centered in the 50px gap */
+.blog-flip__spread:before {
   content: '';
-  width: 0;
-  padding-left: 1.5rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: var(--blog-flip-spine-width);
+  transform: translateX(-50%);
+  background: rgba(var(--color-foreground), 0.02);
+  border-left: 0.1rem solid rgba(var(--color-foreground), 0.10);
+  border-right: 0.1rem solid rgba(var(--color-foreground), 0.10);
+  pointer-events: none;
 }
 
-.blog-articles--flip .blog-flip__page {
-  flex: 0 0 min(88vw, 58rem);
+.blog-flip__page {
+  min-width: 0;
 }
 
-@media screen and (min-width: 750px) {
-  .blog-articles--flip .blog-flip__page {
-    flex-basis: min(70vw, 66rem);
-  }
-}
-
-@media screen and (min-width: 990px) {
-  .blog-articles--flip {
-    scroll-padding-left: 5rem;
-  }
-
-  .blog-articles--flip:after {
-    padding-left: 5rem;
-  }
-
-  .blog-articles--flip .blog-flip__page {
-    flex-basis: min(60vw, 72rem);
-  }
-}
-
-.blog-articles--flip .blog-flip__paper {
+.blog-flip__paper {
   position: relative;
   height: 100%;
-  padding: 2.4rem 2.2rem 2.2rem 5.2rem;
+  padding: var(--blog-flip-paper-pad);
   border-radius: 0;
   border: 0.1rem solid rgba(var(--color-foreground), 0.14);
   box-shadow: none;
   background-color: rgb(var(--color-background));
-  background-image:
-    /* vertical margin line */
-    linear-gradient(
-      to right,
-      transparent 3.6rem,
-      rgba(var(--color-foreground), 0.10) 3.6rem,
-      rgba(var(--color-foreground), 0.10) 3.7rem,
-      transparent 3.7rem
-    ),
-    /* ruled paper lines */
-    repeating-linear-gradient(
-      to bottom,
-      rgba(var(--color-foreground), 0.06) 0,
-      rgba(var(--color-foreground), 0.06) 0.1rem,
-      transparent 0.1rem,
-      transparent 3.2rem
-    );
-}
-
-/* binder strip */
-.blog-articles--flip .blog-flip__paper:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3.6rem;
-  border-radius: 0;
-  background: rgba(var(--color-foreground), 0.04);
-  border-right: 0.1rem solid rgba(var(--color-foreground), 0.12);
-  box-shadow: inset -0.5rem 0 1.2rem rgba(0, 0, 0, 0.06);
-}
-
-/* binder holes */
-.blog-articles--flip .blog-flip__paper:after {
-  content: '';
-  position: absolute;
-  left: 1.2rem;
-  top: 2rem;
-  bottom: 2rem;
-  width: 1.2rem;
-  opacity: 0.35;
-  background: repeating-radial-gradient(
-    circle,
-    rgba(var(--color-foreground), 0.65) 0 0.16rem,
-    transparent 0.18rem 1.7rem
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(var(--color-foreground), 0.06) 0,
+    rgba(var(--color-foreground), 0.06) 0.1rem,
+    transparent 0.1rem,
+    transparent var(--blog-flip-rule-gap)
   );
 }
 
-/* Let the journal paper supply the visual container */
-.blog-articles--flip .article {
+.blog-flip__paper--blank {
+  background-image: none;
+}
+
+/* inner margins (towards spine) */
+.blog-flip__paper--left {
+  padding-right: var(--blog-flip-inner-pad);
+}
+
+.blog-flip__paper--right {
+  padding-left: var(--blog-flip-inner-pad);
+}
+
+/* vertical margin line inside each page */
+.blog-flip__paper--left:before,
+.blog-flip__paper--right:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0.1rem;
+  background: rgba(var(--color-foreground), 0.10);
+}
+
+.blog-flip__paper--left:before {
+  right: calc(var(--blog-flip-inner-pad) - 1.8rem);
+}
+
+.blog-flip__paper--right:before {
+  left: calc(var(--blog-flip-inner-pad) - 1.8rem);
+}
+
+/* Let the paper be the visual container */
+.blog-flip .article {
   display: block;
 }
 
-.blog-articles--flip .article-card-wrapper {
+.blog-flip .article-card-wrapper {
   width: 100%;
 }
 
-.blog-articles--flip .card.article-card {
+.blog-flip .card.article-card {
   background: transparent;
   border: none;
   box-shadow: none;
 }
 
-.blog-articles--flip .article-card .card__information {
+.blog-flip .article-card .card__information {
   padding-left: 0;
   padding-right: 0;
 }
 
-
-.blog-articles--flip .article-card__image-wrapper {
+.blog-flip .article-card__image-wrapper {
   border-radius: 0;
   overflow: hidden;
+}
+
+.blog-flip__controls {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.blog-flip__button {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: #8A9BB7;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.blog-flip__button:hover {
+  text-decoration-thickness: 0.2rem;
+}
+
+.blog-flip__button[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 750px) {
+  /* Reserve space so bottom-corner controls don't overlap content */
+  .blog-flip__paper {
+    padding-bottom: calc(var(--blog-flip-paper-pad) + 3.2rem);
+  }
+
+  /* Only one control per page on desktop (prev on left, next on right) */
+  .blog-flip__page--left [data-blog-flip-next] {
+    display: none;
+  }
+
+  .blog-flip__page--right [data-blog-flip-prev] {
+    display: none;
+  }
+
+  /* Pin controls to the bottom corners */
+  .blog-flip__controls {
+    position: absolute;
+    bottom: 1.6rem;
+    left: 1.6rem;
+    right: 1.6rem;
+    margin-top: 0;
+    justify-content: space-between;
+    pointer-events: none; /* allow clicks only on the buttons */
+  }
+
+  .blog-flip__button {
+    pointer-events: auto;
+  }
+
+  .blog-flip__page--left .blog-flip__controls {
+    right: auto;
+  }
+
+  .blog-flip__page--right .blog-flip__controls {
+    left: auto;
+  }
+}
+
+/* Desktop animations when moving between spreads */
+@media screen and (min-width: 750px) {
+  .blog-flip__spread {
+    perspective: 1600px;
+  }
+
+  .blog-flip__page--right {
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  .blog-flip__page--left {
+    transform-origin: right center;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  .blog-flip__spread.is-turning-next .blog-flip__page--left {
+    animation: blog-flip-turn-next 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .blog-flip__spread.is-turning-prev .blog-flip__page--right {
+    animation: blog-flip-turn-prev 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  @keyframes blog-flip-turn-prev {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(-160deg);
+    }
+  }
+
+  @keyframes blog-flip-turn-next {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(160deg);
+    }
+  }
+}
+
+/* Mobile: one page focus + within-spread flip */
+@media screen and (max-width: 749px) {
+  .blog-flip {
+    --blog-flip-width: 100%;
+    --blog-flip-page-width: 100%;
+    --blog-flip-spine-width: 0px;
+  }
+
+  .blog-flip__spread {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .blog-flip__spread:before {
+    display: none;
+  }
+
+  .blog-flip__page {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* Pin controls to bottom corners on the visible page */
+  .blog-flip__paper {
+    padding-bottom: calc(var(--blog-flip-paper-pad) + 3.2rem);
+  }
+
+  .blog-flip__controls {
+    position: absolute;
+    bottom: 1.6rem;
+    left: 1.6rem;
+    right: 1.6rem;
+    margin-top: 0;
+    pointer-events: none;
+  }
+
+  .blog-flip__button {
+    pointer-events: auto;
+  }
+
+  /* Only show controls for the page that's currently visible */
+  .blog-flip__page--left .blog-flip__controls {
+    opacity: 0;
+  }
+
+  .blog-flip__page--right .blog-flip__controls {
+    opacity: 1;
+  }
+
+  .blog-flip__spread.is-showing-left .blog-flip__page--left .blog-flip__controls {
+    opacity: 1;
+  }
+
+  .blog-flip__spread.is-showing-left .blog-flip__page--right .blog-flip__controls {
+    opacity: 0;
+  }
+
+  .blog-flip__page--left {
+    z-index: 1;
+  }
+
+  .blog-flip__page--right {
+    z-index: 2;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .blog-flip__spread.is-showing-left .blog-flip__page--right {
+    transform: rotateY(-180deg);
+  }
 }

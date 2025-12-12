@@ -1,8 +1,5 @@
 {{ 'component-article-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
-{%- if section.settings.layout == 'flip' -%}
-  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
 {{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
@@ -25,66 +22,90 @@
       {{ blog.title | escape }}
     </h1>
 
-    {%- if section.settings.layout == 'flip' -%}
-      <slider-component class="blog-flip" aria-label="{{ blog.title | escape }}">
-        <ul
-          id="Slider-{{ section.id }}"
-          class="blog-articles blog-articles--flip slider slider--everywhere"
-          role="list"
-        >
-          {%- for article in blog.articles -%}
-            <li
-              id="Slide-{{ section.id }}-{{ forloop.index }}"
-              class="blog-articles__article blog-flip__page slider__slide{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-              {% if settings.animations_reveal_on_scroll %}
-                data-cascade
-                style="--animation-order: {{ forloop.index }};"
-              {% endif %}
-            >
-              <div class="blog-flip__paper">
+{%- if section.settings.layout == 'flip' -%}
+      <script src="{{ 'blog-flip.js' | asset_url }}" defer="defer"></script>
+
+      {%- assign ordered_articles = blog.articles | reverse -%}
+      {%- assign needs_leading_blank = ordered_articles.size | modulo: 2 -%}
+
+      <div class="blog-flip" data-blog-flip>
+        {%- if needs_leading_blank == 1 and ordered_articles.size > 0 -%}
+          {%- assign first_article = ordered_articles.first -%}
+          <div class="blog-flip__spread" data-blog-flip-spread data-has-left="false">
+            <div class="blog-flip__page blog-flip__page--left">
+              <div class="blog-flip__paper blog-flip__paper--blank" aria-hidden="true"></div>
+            </div>
+            <div class="blog-flip__page blog-flip__page--right">
+              <div class="blog-flip__paper blog-flip__paper--right">
                 {%- render 'article-card',
-                  article: article,
+                  article: first_article,
                   media_height: section.settings.image_height,
-                  media_aspect_ratio: article.image.aspect_ratio,
+                  media_aspect_ratio: first_article.image.aspect_ratio,
                   show_image: section.settings.show_image,
                   show_date: section.settings.show_date,
                   show_author: section.settings.show_author,
                   show_excerpt: true
                 -%}
-              </div>
-            </li>
-          {%- endfor -%}
-        </ul>
 
-        <div class="slider-buttons">
-          <button
-            type="button"
-            class="slider-button slider-button--prev"
-            name="previous"
-            aria-label="{{ 'general.slider.previous_slide' | t }}"
-          >
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
-          </button>
-          <div class="slider-counter caption">
-            <span class="slider-counter--current">1</span>
-            <span aria-hidden="true"> / </span>
-            <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-            <span class="slider-counter--total">{{ blog.articles_count }}</span>
+                <nav class="blog-flip__controls" aria-label="Journal navigation">
+                  <button type="button" class="blog-flip__button" data-blog-flip-prev>Previous</button>
+                  <button type="button" class="blog-flip__button" data-blog-flip-next>Next</button>
+                </nav>
+              </div>
+            </div>
           </div>
-          <button
-            type="button"
-            class="slider-button slider-button--next"
-            name="next"
-            aria-label="{{ 'general.slider.next_slide' | t }}"
-          >
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
-          </button>
-        </div>
-      </slider-component>
+        {%- endif -%}
+
+        {%- assign offset_start = 0 -%}
+        {%- if needs_leading_blank == 1 -%}
+          {%- assign offset_start = 1 -%}
+        {%- endif -%}
+
+        {%- for article in ordered_articles offset: offset_start -%}
+          {%- assign is_left_page = forloop.index0 | modulo: 2 -%}
+          {%- if is_left_page == 0 -%}
+            <div class="blog-flip__spread" data-blog-flip-spread data-has-left="true">
+              <div class="blog-flip__page blog-flip__page--left">
+                <div class="blog-flip__paper blog-flip__paper--left">
+                  {%- render 'article-card',
+                    article: article,
+                    media_height: section.settings.image_height,
+                    media_aspect_ratio: article.image.aspect_ratio,
+                    show_image: section.settings.show_image,
+                    show_date: section.settings.show_date,
+                    show_author: section.settings.show_author,
+                    show_excerpt: true
+                  -%}
+
+                  <nav class="blog-flip__controls" aria-label="Journal navigation">
+                    <button type="button" class="blog-flip__button" data-blog-flip-prev>Previous</button>
+                    <button type="button" class="blog-flip__button" data-blog-flip-next>Next</button>
+                  </nav>
+                </div>
+              </div>
+          {%- else -%}
+              <div class="blog-flip__page blog-flip__page--right">
+                <div class="blog-flip__paper blog-flip__paper--right">
+                  {%- render 'article-card',
+                    article: article,
+                    media_height: section.settings.image_height,
+                    media_aspect_ratio: article.image.aspect_ratio,
+                    show_image: section.settings.show_image,
+                    show_date: section.settings.show_date,
+                    show_author: section.settings.show_author,
+                    show_excerpt: true
+                  -%}
+
+                  <nav class="blog-flip__controls" aria-label="Journal navigation">
+                    <button type="button" class="blog-flip__button" data-blog-flip-prev>Previous</button>
+                    <button type="button" class="blog-flip__button" data-blog-flip-next>Next</button>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
     {%- else -%}
       <div class="blog-articles {% if section.settings.layout == 'collage' %}blog-articles--collage{% endif %}">
         {%- for article in blog.articles -%}
