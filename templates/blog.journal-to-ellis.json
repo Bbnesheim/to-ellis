@@ -12,7 +12,7 @@
     "main": {
       "type": "main-blog",
       "settings": {
-        "layout": "collage",
+        "layout": "flip",
         "show_image": true,
         "image_height": "medium",
         "show_date": true,
@@ -100,7 +100,7 @@
             "book_spine_effect": true,
             "spine_width": 8,
             "spine_offset": 15,
-            "spine_color": "#8B4513",
+            "spine_color": "#8b4513",
             "page_lines": true,
             "line_spacing": 28,
             "line_color": "#e8e8e8",
