@@ -1,86 +1,123 @@
 {{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
 
 <article class="article-template">
-  {%- for block in section.blocks -%}
-    {%- case block.type -%}
-      {%- when '@app' -%}
-        <div class="page-width page-width--narrow">
-          {% render block %}
-        </div>
-      {%- when 'featured_image' -%}
-        {%- if article.image -%}
-          <div
-            class="article-template__hero-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+  {%- if section.blocks.size > 0 -%}
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}
+          <div class="page-width page-width--narrow">
+            {% render block %}
+          </div>
+        {%- when 'featured_image' -%}
+          {%- if article.image -%}
+            <div
+              class="article-template__hero-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <div
+                class="article-template__hero-{{ block.settings.image_height }} media"
+                {% if block.settings.image_height == 'adapt' and article.image %}
+                  style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
+                {% endif %}
+              >
+                <img
+                  srcset="
+                    {% if article.image.width >= 350 %}{{ article.image | image_url: width: 350 }} 350w,{% endif %}
+                    {% if article.image.width >= 750 %}{{ article.image | image_url: width: 750 }} 750w,{% endif %}
+                    {% if article.image.width >= 1100 %}{{ article.image | image_url: width: 1100 }} 1100w,{% endif %}
+                    {% if article.image.width >= 1500 %}{{ article.image | image_url: width: 1500 }} 1500w,{% endif %}
+                    {% if article.image.width >= 2200 %}{{ article.image | image_url: width: 2200 }} 2200w,{% endif %}
+                    {% if article.image.width >= 3000 %}{{ article.image | image_url: width: 3000 }} 3000w,{% endif %}
+                    {{ article.image | image_url }} {{ article.image.width }}w
+                  "
+                  sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 }}px, (min-width: 750px) calc(100vw - 10rem), 100vw"
+                  src="{{ article.image | image_url: width: 1100 }}"
+                  loading="eager"
+                  fetchpriority="high"
+                  width="{{ article.image.width }}"
+                  height="{{ article.image.height }}"
+                  alt="{{ article.image.alt | escape }}"
+                >
+              </div>
+            </div>
+          {%- endif -%}
+
+        {%- when 'title' -%}
+          <header
+            class="page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
             {{ block.shopify_attributes }}
           >
-            <div
-              class="article-template__hero-{{ block.settings.image_height }} media"
-              {% if block.settings.image_height == 'adapt' and article.image %}
-                style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
-              {% endif %}
-            >
-              <img
-                srcset="
-                  {% if article.image.width >= 350 %}{{ article.image | image_url: width: 350 }} 350w,{% endif %}
-                  {% if article.image.width >= 750 %}{{ article.image | image_url: width: 750 }} 750w,{% endif %}
-                  {% if article.image.width >= 1100 %}{{ article.image | image_url: width: 1100 }} 1100w,{% endif %}
-                  {% if article.image.width >= 1500 %}{{ article.image | image_url: width: 1500 }} 1500w,{% endif %}
-                  {% if article.image.width >= 2200 %}{{ article.image | image_url: width: 2200 }} 2200w,{% endif %}
-                  {% if article.image.width >= 3000 %}{{ article.image | image_url: width: 3000 }} 3000w,{% endif %}
-                  {{ article.image | image_url }} {{ article.image.width }}w
-                "
-                sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 }}px, (min-width: 750px) calc(100vw - 10rem), 100vw"
-                src="{{ article.image | image_url: width: 1100 }}"
-                loading="eager"
-                fetchpriority="high"
-                width="{{ article.image.width }}"
-                height="{{ article.image.height }}"
-                alt="{{ article.image.alt | escape }}"
-              >
-            </div>
-          </div>
-        {%- endif -%}
+            <h1 class="article-template__title">
+              {{ article.title | escape }}
+            </h1>
+            {%- if block.settings.blog_show_date -%}
+              <span class="circle-divider caption-with-letter-spacing">
+                {{- article.published_at | time_tag: format: 'date' -}}
+              </span>
+            {%- endif -%}
+            {%- if block.settings.blog_show_author -%}
+              <span class="caption-with-letter-spacing">
+                <span>{{ article.author }}</span>
+              </span>
+            {%- endif -%}
+          </header>
 
-      {%- when 'title' -%}
-        <header
-          class="page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-          {{ block.shopify_attributes }}
-        >
-          <h1
-            class="article-template__title"
+        {%- when 'content' -%}
+          <div
+            class="article-template__content page-width page-width--narrow rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {{ block.shopify_attributes }}
           >
-            {{ article.title | escape }}
-          </h1>
-          {%- if block.settings.blog_show_date -%}
-            <span class="circle-divider caption-with-letter-spacing">
-              {{- article.published_at | time_tag: format: 'date' -}}
-            </span>
-          {%- endif -%}
-          {%- if block.settings.blog_show_author -%}
-            <span class="caption-with-letter-spacing">
-              <span>{{ article.author }}</span>
-            </span>
-          {%- endif -%}
-        </header>
+            {{ article.content }}
+          </div>
 
-      {%- when 'content' -%}
+        {%- when 'share' -%}
+          <div
+            class="article-template__social-sharing page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {% assign share_url = request.origin | append: article.url %}
+            {% render 'share-button', block: block, share_link: share_url %}
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- if article.image -%}
+      <div class="article-template__hero-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
         <div
-          class="article-template__content page-width page-width--narrow rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {{ block.shopify_attributes }}
+          class="article-template__hero-adapt media"
+          style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
         >
-          {{ article.content }}
+          <img
+            srcset="
+              {% if article.image.width >= 350 %}{{ article.image | image_url: width: 350 }} 350w,{% endif %}
+              {% if article.image.width >= 750 %}{{ article.image | image_url: width: 750 }} 750w,{% endif %}
+              {% if article.image.width >= 1100 %}{{ article.image | image_url: width: 1100 }} 1100w,{% endif %}
+              {% if article.image.width >= 1500 %}{{ article.image | image_url: width: 1500 }} 1500w,{% endif %}
+              {% if article.image.width >= 2200 %}{{ article.image | image_url: width: 2200 }} 2200w,{% endif %}
+              {% if article.image.width >= 3000 %}{{ article.image | image_url: width: 3000 }} 3000w,{% endif %}
+              {{ article.image | image_url }} {{ article.image.width }}w
+            "
+            sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 }}px, (min-width: 750px) calc(100vw - 10rem), 100vw"
+            src="{{ article.image | image_url: width: 1100 }}"
+            loading="eager"
+            fetchpriority="high"
+            width="{{ article.image.width }}"
+            height="{{ article.image.height }}"
+            alt="{{ article.image.alt | escape }}"
+          >
         </div>
+      </div>
+    {%- endif -%}
 
-      {%- when 'share' -%}
-        <div
-          class="article-template__social-sharing page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {{ block.shopify_attributes }}
-        >
-          {% assign share_url = request.origin | append: article.url %}
-          {% render 'share-button', block: block, share_link: share_url %}
-        </div>
-    {%- endcase -%}
-  {%- endfor -%}
+    <header class="page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      <h1 class="article-template__title">{{ article.title | escape }}</h1>
+      <span class="circle-divider caption-with-letter-spacing">{{- article.published_at | time_tag: format: 'date' -}}</span>
+    </header>
+
+    <div class="article-template__content page-width page-width--narrow rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {{ article.content }}
+    </div>
+  {%- endif -%}
 
   <div class="article-template__back element-margin-top center{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <a href="{{ blog.url }}" class="article-template__link link animate-arrow">
