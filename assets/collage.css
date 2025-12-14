@@ -218,6 +218,32 @@
 .collage-card .deferred-media {
   height: 100%;
   overflow: visible;
+  position: relative;
+}
+
+/* When deferred-media loads, Dawn hides the poster with display:none.
+   For collage autoplay videos we keep the poster in-flow (but invisible)
+   so the ratio sizing is preserved and the video doesn't expand/collapse. */
+.collage-card .deferred-media[loaded] > .deferred-media__poster {
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Ensure the loaded media stays inside the collage card bounds */
+.collage-card .deferred-media > iframe,
+.collage-card .deferred-media > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: calc(var(--border-radius) - var(--border-width) - var(--image-padding));
+}
+
+.collage-card .deferred-media > video {
+  object-fit: cover;
 }
 
 .collage-card__link {
