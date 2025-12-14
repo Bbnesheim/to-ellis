@@ -145,6 +145,7 @@
   width: 100%;
   display: none;
   grid-template-columns: var(--blog-flip-page-width) var(--blog-flip-page-width);
+  grid-template-rows: 1fr;
   column-gap: 0;
   justify-content: center;
   align-items: stretch;
@@ -152,7 +153,7 @@
   z-index: 1; /* above cover texture */
 
   /* Keep spreads a consistent height so page turning doesn't shift layout */
-  min-height: var(--blog-flip-book-height);
+  height: var(--blog-flip-book-height);
 }
 
 .blog-flip:not(.is-initialized) .blog-flip__spread:last-child {
@@ -192,6 +193,7 @@
 
 .blog-flip__page {
   min-width: 0;
+  height: 100%;
 }
 
 .blog-flip__paper {
@@ -275,6 +277,30 @@
   content: none;
 }
 
+/*
+  Prevent Dawn hover-lift animations from lifting the whole "page" card.
+  We only animate the image wrapper on hover.
+
+  Note: Dawn applies these transforms from the <body> class (animate--hover-*).
+*/
+body.animate--hover-3d-lift .blog-flip .card-wrapper:hover .card--card,
+body.animate--hover-3d-lift .blog-flip .card-wrapper:hover .card--standard .card__inner,
+body.animate--hover-vertical-lift .blog-flip .card-wrapper:hover .card--card,
+body.animate--hover-vertical-lift .blog-flip .card-wrapper:hover .card--standard .card__inner,
+body.animate--hover-vertical-lift .blog-flip .card-wrapper:active .card--card,
+body.animate--hover-vertical-lift .blog-flip .card-wrapper:active .card--standard .card__inner {
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+body.animate--hover-3d-lift .blog-flip .card-wrapper:hover .card--card:after,
+body.animate--hover-3d-lift .blog-flip .card-wrapper:hover .card--standard .card__inner:after,
+body.animate--hover-3d-lift .blog-flip .card-wrapper:hover .card--standard .card__media:after,
+body.animate--hover-3d-lift .blog-flip .card-wrapper:hover .card--card:before {
+  content: none !important;
+}
+
 @media screen and (min-width: 750px) {
   /* The snippet renders a duplicate .card__content outside .card__inner;
      hide it so the in-inner content can sit in the grid next to the image. */
@@ -348,24 +374,6 @@
     display: block !important;
   }
 
-  /*
-    Dawn global hover setting (animate--hover-3d-lift) rotates the whole .card__inner.
-    For the flip journal we only want the image to have motion, not the full page.
-  */
-  .blog-flip .card-wrapper:hover .card--standard .card__inner,
-  .blog-flip .card-wrapper:hover .card--card {
-    transform: none !important;
-    filter: none !important;
-    box-shadow: none !important;
-  }
-
-  .blog-flip .card-wrapper:hover .card--standard .card__inner:after,
-  .blog-flip .card-wrapper:hover .card--card:after,
-  .blog-flip .card-wrapper:hover .card--standard .card__media:after,
-  .blog-flip .card-wrapper:hover .card--card:before {
-    content: none !important;
-  }
-
   /* Apply a subtle tilt to the image only */
   .blog-flip .article-card__image-wrapper.card__media {
     transition: transform var(--duration-long) ease, box-shadow var(--duration-long) ease;
@@ -402,14 +410,39 @@
   }
 }
 
-/* Mobile: keep a simple vertical stack */
+/* Mobile: flip journal breakpoints */
+
+/* Shared mobile rules (<= 749px) */
 @media screen and (max-width: 749px) {
+  /* The snippet renders a duplicate .card__content outside .card__inner; hide it in flip mode */
   .blog-flip .article-card > .card__content {
     display: none;
   }
 
+  /* Ensure inner title/meta/excerpt are visible (Dawn hides these for standard cards) */
+  .blog-flip .article-card .card__inner .card__content,
+  .blog-flip .article-card .card__inner .card__information {
+    display: block !important;
+  }
+
+  /* Keep the card body clean inside the "paper" */
+  .blog-flip .card__content {
+    padding: 0;
+  }
+}
+
+/* 600px–749px: image LEFT, text RIGHT (per page) */
+@media screen and (min-width: 600px) and (max-width: 749px) {
   .blog-flip .article-card.card--media .card__inner {
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 38%) minmax(0, 62%);
+    grid-template-rows: auto;
+    column-gap: 1.6rem;
+    align-items: start;
+    align-content: start;
+
+    height: 100%;
+    min-height: 0;
   }
 
   .blog-flip .article-card__image-wrapper.card__media {
@@ -419,13 +452,59 @@
     bottom: auto !important;
     left: auto !important;
 
-    margin: 0 0 1.4rem 0;
+    margin: 0;
     width: 100%;
     aspect-ratio: 2 / 3;
+    max-height: clamp(24rem, 45vh, 34rem);
+
     overflow: hidden;
     border-radius: 0.8rem;
     background: var(--blog-flip-paper-color);
     padding: 0.2rem;
+  }
+
+  /* Use remaining page height for text; allow scroll so fixed book height remains stable */
+  .blog-flip .card__content {
+    min-height: 0;
+    overflow: auto;
+  }
+}
+
+/* <= 599px: stack image above text */
+@media screen and (max-width: 599px) {
+  .blog-flip .article-card.card--media .card__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .blog-flip .article-card__image-wrapper.card__media {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    margin: 0;
+    width: 100%;
+
+    /* Avoid a huge portrait frame on wide phones */
+    height: clamp(20rem, 36vh, 30rem);
+    aspect-ratio: auto;
+
+    flex: 0 0 auto;
+    overflow: hidden;
+    border-radius: 0.8rem;
+    background: var(--blog-flip-paper-color);
+    padding: 0.2rem;
+  }
+
+  .blog-flip .card__content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
   }
 }
 
@@ -488,74 +567,118 @@
   overflow: hidden;
 }
 
-.blog-flip__controls {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 1.2rem;
+.blog-flip__paper {
+  /* Reserve room for the action links (Read more / Share) that are pinned to the bottom */
+  padding-bottom: calc(var(--blog-flip-paper-pad) + 6.2rem);
 }
 
-.blog-flip__button {
-  appearance: none;
+.blog-flip__actions {
+  position: absolute;
+  bottom: 1.6rem;
+  left: var(--blog-flip-paper-pad);
+  right: var(--blog-flip-paper-pad);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.6rem;
+  z-index: 2;
+}
+
+.blog-flip__action-link {
+  font-size: 1.4rem;
+  color: #8A9BB7;
   background: transparent;
   border: none;
   padding: 0;
-  font: inherit;
-  color: #8A9BB7;
-  cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 0.3rem;
 }
 
-.blog-flip__button:hover {
+.blog-flip__action-link:hover {
   text-decoration-thickness: 0.2rem;
 }
 
-.blog-flip__button[disabled] {
-  opacity: 0.4;
-  cursor: not-allowed;
-  text-decoration: none;
+.blog-flip__action-link:focus-visible {
+  outline: none;
+  text-decoration-thickness: 0.2rem;
 }
 
-@media screen and (min-width: 750px) {
-  /* Reserve space so bottom-corner controls don't overlap content */
-  .blog-flip__paper {
-    padding-bottom: calc(var(--blog-flip-paper-pad) + 3.2rem);
-  }
-
-  /* Only one control per page on desktop (prev on left, next on right) */
-  .blog-flip__page--left [data-blog-flip-next] {
-    display: none;
-  }
-
-  .blog-flip__page--right [data-blog-flip-prev] {
-    display: none;
-  }
-
-  /* Pin controls to the bottom corners */
-  .blog-flip__controls {
-    position: absolute;
-    bottom: 1.6rem;
-    left: 1.6rem;
-    right: 1.6rem;
-    margin-top: 0;
-    justify-content: space-between;
-    pointer-events: none; /* allow clicks only on the buttons */
-  }
-
-  .blog-flip__button {
-    pointer-events: auto;
-  }
-
-  .blog-flip__page--left .blog-flip__controls {
-    right: auto;
-  }
-
-  .blog-flip__page--right .blog-flip__controls {
-    left: auto;
-  }
+/* Make the Share button look like elegant text (no CTA styling) */
+.blog-flip .share-button__button {
+  min-height: auto;
+  padding: 0;
+  font-size: 1.4rem;
+  color: #8A9BB7;
 }
 
+.blog-flip .share-button__button .svg-wrapper {
+  margin-right: 0.6rem;
+}
+
+/* Share dropdown: open upward so it doesn’t get clipped below the paper */
+.blog-flip .share-button__fallback {
+  top: auto;
+  bottom: 3.2rem;
+}
+
+.blog-flip__nav {
+  /* container exists only so buttons stay within the active spread for JS enable/disable */
+}
+
+.blog-flip__nav-button {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 0;
+
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  color: #8A9BB7;
+  z-index: 60;
+}
+
+.blog-flip__nav-button .svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blog-flip__nav-button .svg-wrapper svg {
+  width: 2.0rem;
+  height: 2.0rem;
+}
+
+.blog-flip__nav-button--prev {
+  left: 3.0rem;
+}
+
+.blog-flip__nav-button--prev .svg-wrapper {
+  transform: rotate(180deg);
+}
+
+.blog-flip__nav-button--next {
+  right: 1.2rem;
+}
+
+.blog-flip__nav-button:hover .svg-wrapper {
+  transform: scale(1.08);
+}
+
+.blog-flip__nav-button--prev:hover .svg-wrapper {
+  transform: rotate(180deg) scale(1.08);
+}
+
+.blog-flip__nav-button[disabled] {
+  opacity: 0.25;
+  cursor: default;
+}
 /* Desktop animations when moving between spreads */
 @media screen and (min-width: 750px) {
   .blog-flip__spread {
@@ -618,11 +741,22 @@
     /* Slightly shorter on mobile to reduce scroll while keeping stable height */
     --blog-flip-book-height: clamp(54rem, 70vh, 72rem);
   }
+}
+
+/* Small phones: make the book a bit taller so the first paragraph doesn’t get cramped */
+@media screen and (max-width: 400px) {
+  .blog-flip {
+    --blog-flip-book-height: clamp(60rem, 78vh, 78rem);
+  }
+}
+
+@media screen and (max-width: 749px) {
 
   .blog-flip__spread {
     grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     column-gap: 0;
-    min-height: var(--blog-flip-book-height);
+    height: var(--blog-flip-book-height);
   }
 
   .blog-flip__spread:before {
@@ -634,40 +768,6 @@
     grid-row: 1;
   }
 
-  /* Pin controls to bottom corners on the visible page */
-  .blog-flip__paper {
-    padding-bottom: calc(var(--blog-flip-paper-pad) + 3.2rem);
-  }
-
-  .blog-flip__controls {
-    position: absolute;
-    bottom: 1.6rem;
-    left: 1.6rem;
-    right: 1.6rem;
-    margin-top: 0;
-    pointer-events: none;
-  }
-
-  .blog-flip__button {
-    pointer-events: auto;
-  }
-
-  /* Only show controls for the page that's currently visible */
-  .blog-flip__page--left .blog-flip__controls {
-    opacity: 0;
-  }
-
-  .blog-flip__page--right .blog-flip__controls {
-    opacity: 1;
-  }
-
-  .blog-flip__spread.is-showing-left .blog-flip__page--left .blog-flip__controls {
-    opacity: 1;
-  }
-
-  .blog-flip__spread.is-showing-left .blog-flip__page--right .blog-flip__controls {
-    opacity: 0;
-  }
 
   .blog-flip__page--left {
     z-index: 1;

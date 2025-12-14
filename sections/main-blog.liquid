@@ -26,6 +26,7 @@
 
 {%- if section.settings.layout == 'flip' -%}
       <script src="{{ 'blog-flip.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
 
       {%- assign ordered_articles = blog.articles | reverse -%}
       {%- assign needs_leading_blank = ordered_articles.size | modulo: 2 -%}
@@ -49,12 +50,80 @@
                   show_excerpt: true
                 -%}
 
-                <nav class="blog-flip__controls" aria-label="Journal navigation">
-                  <button type="button" class="blog-flip__button" data-blog-flip-prev>Previous</button>
-                  <button type="button" class="blog-flip__button" data-blog-flip-next>Next</button>
-                </nav>
+                <div class="blog-flip__actions">
+                  <share-button id="Share-{{ section.id }}-{{ first_article.id }}" class="share-button">
+                    <button class="share-button__button hidden" type="button">
+                      <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
+                      Share
+                    </button>
+                    <details id="Details-share-{{ section.id }}-{{ first_article.id }}">
+                      <summary class="share-button__button">
+                        <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
+                        Share
+                      </summary>
+                      <div class="share-button__fallback motion-reduce">
+                        <div class="field">
+                          <span
+                            id="ShareMessage-{{ section.id }}-{{ first_article.id }}"
+                            class="share-button__message hidden"
+                            role="status"
+                          ></span>
+                          <input
+                            type="text"
+                            class="field__input"
+                            id="ShareUrl-{{ section.id }}-{{ first_article.id }}"
+                            value="{{ request.origin }}{{ first_article.url }}"
+                            placeholder="{{ 'general.share.share_url' | t }}"
+                            onclick="this.select();"
+                            readonly
+                          >
+                          <label class="field__label" for="ShareUrl-{{ section.id }}-{{ first_article.id }}">{{ 'general.share.share_url' | t }}</label>
+                        </div>
+                        <button class="share-button__close hidden" type="button">
+                          <span class="svg-wrapper">
+                            {{- 'icon-close.svg' | inline_asset_content -}}
+                          </span>
+                          <span class="visually-hidden">{{ 'general.share.close' | t }}</span>
+                        </button>
+                        <button class="share-button__copy" type="button">
+                          <span class="svg-wrapper">
+                            {{- 'icon-copy.svg' | inline_asset_content -}}
+                          </span>
+                          <span class="visually-hidden">{{ 'general.share.copy_to_clipboard' | t }}</span>
+                        </button>
+                      </div>
+                    </details>
+                  </share-button>
+
+                  <a
+                    href="{{ first_article.url }}"
+                    class="blog-flip__action-link"
+                    aria-label="{{ 'blogs.article.read_more_title' | t: title: first_article.title | escape }}"
+                  >
+                    Read more
+                  </a>
+                </div>
               </div>
             </div>
+
+            <nav class="blog-flip__nav" aria-label="Journal navigation">
+              <button
+                type="button"
+                class="blog-flip__nav-button blog-flip__nav-button--prev"
+                data-blog-flip-prev
+                aria-label="{{ 'general.pagination.previous' | t }}"
+              >
+                <span class="svg-wrapper">{{ 'icon-arrow.svg' | inline_asset_content }}</span>
+              </button>
+              <button
+                type="button"
+                class="blog-flip__nav-button blog-flip__nav-button--next"
+                data-blog-flip-next
+                aria-label="{{ 'general.pagination.next' | t }}"
+              >
+                <span class="svg-wrapper">{{ 'icon-arrow.svg' | inline_asset_content }}</span>
+              </button>
+            </nav>
           </div>
         {%- endif -%}
 
@@ -79,10 +148,59 @@
                     show_excerpt: true
                   -%}
 
-                  <nav class="blog-flip__controls" aria-label="Journal navigation">
-                    <button type="button" class="blog-flip__button" data-blog-flip-prev>Previous</button>
-                    <button type="button" class="blog-flip__button" data-blog-flip-next>Next</button>
-                  </nav>
+                  <div class="blog-flip__actions">
+                    <share-button id="Share-{{ section.id }}-{{ article.id }}" class="share-button">
+                      <button class="share-button__button hidden" type="button">
+                        <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
+                        Share
+                      </button>
+                      <details id="Details-share-{{ section.id }}-{{ article.id }}">
+                        <summary class="share-button__button">
+                          <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
+                          Share
+                        </summary>
+                        <div class="share-button__fallback motion-reduce">
+                          <div class="field">
+                            <span
+                              id="ShareMessage-{{ section.id }}-{{ article.id }}"
+                              class="share-button__message hidden"
+                              role="status"
+                            ></span>
+                            <input
+                              type="text"
+                              class="field__input"
+                              id="ShareUrl-{{ section.id }}-{{ article.id }}"
+                              value="{{ request.origin }}{{ article.url }}"
+                              placeholder="{{ 'general.share.share_url' | t }}"
+                              onclick="this.select();"
+                              readonly
+                            >
+                            <label class="field__label" for="ShareUrl-{{ section.id }}-{{ article.id }}">{{ 'general.share.share_url' | t }}</label>
+                          </div>
+                          <button class="share-button__close hidden" type="button">
+                            <span class="svg-wrapper">
+                              {{- 'icon-close.svg' | inline_asset_content -}}
+                            </span>
+                            <span class="visually-hidden">{{ 'general.share.close' | t }}</span>
+                          </button>
+                          <button class="share-button__copy" type="button">
+                            <span class="svg-wrapper">
+                              {{- 'icon-copy.svg' | inline_asset_content -}}
+                            </span>
+                            <span class="visually-hidden">{{ 'general.share.copy_to_clipboard' | t }}</span>
+                          </button>
+                        </div>
+                      </details>
+                    </share-button>
+
+                    <a
+                      href="{{ article.url }}"
+                      class="blog-flip__action-link"
+                      aria-label="{{ 'blogs.article.read_more_title' | t: title: article.title | escape }}"
+                    >
+                      Read more
+                    </a>
+                  </div>
                 </div>
               </div>
           {%- else -%}
@@ -98,12 +216,80 @@
                     show_excerpt: true
                   -%}
 
-                  <nav class="blog-flip__controls" aria-label="Journal navigation">
-                    <button type="button" class="blog-flip__button" data-blog-flip-prev>Previous</button>
-                    <button type="button" class="blog-flip__button" data-blog-flip-next>Next</button>
-                  </nav>
+                  <div class="blog-flip__actions">
+                    <share-button id="Share-{{ section.id }}-{{ article.id }}" class="share-button">
+                      <button class="share-button__button hidden" type="button">
+                        <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
+                        Share
+                      </button>
+                      <details id="Details-share-{{ section.id }}-{{ article.id }}">
+                        <summary class="share-button__button">
+                          <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
+                          Share
+                        </summary>
+                        <div class="share-button__fallback motion-reduce">
+                          <div class="field">
+                            <span
+                              id="ShareMessage-{{ section.id }}-{{ article.id }}"
+                              class="share-button__message hidden"
+                              role="status"
+                            ></span>
+                            <input
+                              type="text"
+                              class="field__input"
+                              id="ShareUrl-{{ section.id }}-{{ article.id }}"
+                              value="{{ request.origin }}{{ article.url }}"
+                              placeholder="{{ 'general.share.share_url' | t }}"
+                              onclick="this.select();"
+                              readonly
+                            >
+                            <label class="field__label" for="ShareUrl-{{ section.id }}-{{ article.id }}">{{ 'general.share.share_url' | t }}</label>
+                          </div>
+                          <button class="share-button__close hidden" type="button">
+                            <span class="svg-wrapper">
+                              {{- 'icon-close.svg' | inline_asset_content -}}
+                            </span>
+                            <span class="visually-hidden">{{ 'general.share.close' | t }}</span>
+                          </button>
+                          <button class="share-button__copy" type="button">
+                            <span class="svg-wrapper">
+                              {{- 'icon-copy.svg' | inline_asset_content -}}
+                            </span>
+                            <span class="visually-hidden">{{ 'general.share.copy_to_clipboard' | t }}</span>
+                          </button>
+                        </div>
+                      </details>
+                    </share-button>
+
+                    <a
+                      href="{{ article.url }}"
+                      class="blog-flip__action-link"
+                      aria-label="{{ 'blogs.article.read_more_title' | t: title: article.title | escape }}"
+                    >
+                      Read more
+                    </a>
+                  </div>
                 </div>
               </div>
+
+              <nav class="blog-flip__nav" aria-label="Journal navigation">
+                <button
+                  type="button"
+                  class="blog-flip__nav-button blog-flip__nav-button--prev"
+                  data-blog-flip-prev
+                  aria-label="{{ 'general.pagination.previous' | t }}"
+                >
+                  <span class="svg-wrapper">{{ 'icon-arrow.svg' | inline_asset_content }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="blog-flip__nav-button blog-flip__nav-button--next"
+                  data-blog-flip-next
+                  aria-label="{{ 'general.pagination.next' | t }}"
+                >
+                  <span class="svg-wrapper">{{ 'icon-arrow.svg' | inline_asset_content }}</span>
+                </button>
+              </nav>
             </div>
           {%- endif -%}
         {%- endfor -%}
