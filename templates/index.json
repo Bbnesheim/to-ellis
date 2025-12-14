@@ -426,6 +426,7 @@
         "video_nnMajW": {
           "type": "video",
           "settings": {
+            "video": "shopify://files/videos/IMG_9330.MOV",
             "video_url": "",
             "description": "Describe the video"
           }
@@ -586,7 +587,8 @@
         "video_pdpfnT": {
           "type": "video",
           "settings": {
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video": "shopify://files/videos/IMG_9283.mp4",
+            "video_url": "",
             "description": "Describe the video"
           }
         }
