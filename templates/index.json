@@ -197,7 +197,7 @@
         "featured_collection_TyzhYU": {
           "type": "featured_collection",
           "settings": {
-            "collection": "all-products"
+            "collection": "all"
           }
         }
       },
