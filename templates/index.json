@@ -426,7 +426,7 @@
         "video_nnMajW": {
           "type": "video",
           "settings": {
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url": "",
             "description": "Describe the video"
           }
         },
