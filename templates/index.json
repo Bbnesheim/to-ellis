@@ -414,6 +414,46 @@
         "padding_bottom": 84
       }
     },
+    "collage_A9BfNr": {
+      "type": "collage",
+      "blocks": {
+        "image_cDwKpB": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ellis-4.webp"
+          }
+        },
+        "video_nnMajW": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "description": "Describe the video"
+          }
+        },
+        "image_jpyrWH": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ellis-5.webp"
+          }
+        }
+      },
+      "block_order": [
+        "image_cDwKpB",
+        "video_nnMajW",
+        "image_jpyrWH"
+      ],
+      "name": "Ellis Collage",
+      "settings": {
+        "heading": "",
+        "heading_size": "h1",
+        "desktop_layout": "left",
+        "mobile_layout": "column",
+        "card_styles": "product-card-wrapper",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "rich_text_ciRMeg": {
       "type": "rich-text",
       "blocks": {
@@ -526,6 +566,46 @@
         "enable_video_looping": false,
         "padding_top": 0,
         "padding_bottom": 88
+      }
+    },
+    "collage_BfGPmY": {
+      "type": "collage",
+      "blocks": {
+        "image_rEtdig": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ellis-1.webp"
+          }
+        },
+        "image_mm3K9C": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ellis-2.webp"
+          }
+        },
+        "video_pdpfnT": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "description": "Describe the video"
+          }
+        }
+      },
+      "block_order": [
+        "image_rEtdig",
+        "image_mm3K9C",
+        "video_pdpfnT"
+      ],
+      "name": "Martha collage",
+      "settings": {
+        "heading": "",
+        "heading_size": "h1",
+        "desktop_layout": "left",
+        "mobile_layout": "column",
+        "card_styles": "product-card-wrapper",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "collection_list_RkRH6j": {
@@ -722,8 +802,10 @@
     "collage_WcCWD4",
     "rich_text_fJ8xKM",
     "featured_product_TUg7i4",
+    "collage_A9BfNr",
     "rich_text_ciRMeg",
     "featured_product_qeKEfy",
+    "collage_BfGPmY",
     "collection_list_RkRH6j",
     "collection_list_eJtPzU",
     "17576675617bf295b1",
