@@ -30,7 +30,7 @@
           "type": "buttons",
           "settings": {
             "button_label_1": "Discover The Collection",
-            "button_link_1": "shopify://collections/all-products",
+            "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": true,
             "button_label_2": "",
             "button_link_2": "shopify://blogs/inspiration-to-ellis",
@@ -628,7 +628,7 @@
         "featured_collection_TyzhYU": {
           "type": "featured_collection",
           "settings": {
-            "collection": "all-products"
+            "collection": "all"
           }
         }
       },
