@@ -15,7 +15,9 @@ Once you understand those, use the commands below to run and validate the theme.
 
 ## Commands & Development Workflow
 
-This repo is a standalone Shopify theme (Dawn-derived) with no custom build system or test harness inside the repo. Development is done via the Shopify CLI and the online theme editor.
+This repo is a standalone Shopify theme (Dawn-derived) with no custom bundler/build pipeline. Development is done via the Shopify CLI and the online theme editor.
+
+This repo *does* include a small Node/Jest-based test harness (`tests/`) for selected Liquid, JS, and CSS behavior.
 
 ### Prerequisites
 - Shopify CLI is installed (already available at `shopify` on this machine).
@@ -75,7 +77,11 @@ cd /home/ben/projects/to-ellis
 npm test
 ```
 
-This runs the Jest test suite (currently covering the featured product title rendering logic).
+This runs the Jest test suite. Current coverage includes:
+- Liquid rendering invariants (e.g. `sections/featured-product.liquid`).
+- Section behavior rendered in LiquidJS + JSDOM (e.g. `sections/main-footer.liquid`, `sections/footer-trust.liquid`).
+- Front-end JS behavior in JSDOM (e.g. `assets/cart.js`).
+- CSS invariants for the blog flip layout (e.g. `assets/section-main-blog.css`).
 
 You should still:
 - Use `shopify theme check` as the closest thing to static analysis for Liquid/CSS.
@@ -91,7 +97,7 @@ This is a Dawn-derived Online Store 2.0 theme with the standard Shopify structur
   - `password.liquid` – layout for password-protected storefront.
 - `templates/` – JSON templates defining which sections appear on each route (home, collection, product, blog, article, search, customer pages, etc.).
 - `sections/` – top-level, configurable page sections (`main-*` sections, header/footer groups, featured collection, contact form, etc.).
-- `blocks/` – **custom AI-generated block-style components** used inside `_blocks` sections and custom templates (e.g. `custom-header.liquid`, `journal.liquid`, `comprehensive-footer.liquid`, `hero-banner.liquid`, `logo-banner.liquid`).
+- `blocks/` – custom block-style components used inside `_blocks` sections and custom templates (currently: `custom-header.liquid`, `journal.liquid`, `hero-banner.liquid`, `logo-banner.liquid`).
 - `snippets/` – reusable partials (`meta-tags`, `header-mega-menu`, `cart-drawer`, `price`, `facets`, `product-media-gallery`, etc.).
 - `assets/` – JS, CSS, and images for the theme (e.g. `global.js`, `base.css`, `cart.js`, many component/section CSS files, SVG icons).
 - `config/` – global theme settings and presets (`settings_schema.json`, `settings_data.json`).
@@ -170,20 +176,20 @@ The footer mirrors the header group pattern using `sections/footer-group.json`:
 - `footer_trust_*` – a dedicated footer trust section (`footer-trust.liquid`) with four columns (Customer Service, Easy Returns, Safe Payments, Quick Shipping). Settings control:
   - Colors via theme color schemes, typography via global fonts, and shared text sizing.
   - Icons and per-column popup content for detailed messaging.
-- `blocks_BgQYqV` – another `_blocks` section using a `comprehensive-footer` block, acting as the main footer content:
-  - Newsletter area (logo, copy, label/placeholder/button text, success message).
-  - Two configurable nav columns (about/help links).
-  - Social links (Instagram, Facebook, TikTok, Tise, etc.).
-  - Payment icons (Visa, Mastercard, Apple Pay, Klarna, PayPal, Stripe) with sizes and padding.
-  - Fine-grained color/background/border settings for each logical area.
+- `blocks_BgQYqV` – the main footer content, implemented as `sections/main-footer.liquid` (newsletter, link groups, social, and payment icons).
 - `blocks_4G3Vey` – a placeholder `_blocks` section labeled "Logo Section" for future design.
 - `footer` – the original Dawn `footer.liquid` section, currently **disabled** but still present.
+
+Note: `sections/ellis-footer.liquid` also exists in the repo as an alternative footer implementation, but it is not wired into the active `footer-group.json`.
 
 `sections/footer.liquid` is still the canonical Dawn footer implementation but is effectively wrapped/augmented by the group JSON and custom blocks when enabled.
 
 When editing the footer:
-- Prefer to adjust the AI-generated footer blocks via their schemas (in `blocks/*.liquid`) and the `footer-group.json` config.
-- Use `footer.liquid` only if you want to change the fallback/legacy footer behavior.
+- Prefer to adjust the active sections and their schema/settings:
+  - `sections/footer-trust.liquid`
+  - `sections/main-footer.liquid`
+  - `sections/footer-group.json` (wiring + settings values)
+- Use `sections/footer.liquid` only if you want to change the fallback/legacy footer behavior.
 
 ### Home page & sections (templates/index.json + sections/* + blocks/*)
 
@@ -212,11 +218,10 @@ When adding new homepage content:
 
 ### Journal / blog experience (templates/blog.journal-to-ellis.json + blocks/journal.liquid)
 
-The template `templates/blog.journal-to-ellis.json` defines a highly customized **journal-style blog layout**:
-
-- It includes the standard `main-blog` section but marks it `"disabled": true`.
-- Instead, it uses an `_blocks` section that mounts a single `journal` block (`blocks/journal.liquid`).
-- Additional sections like `featured-blog` and `slideshow` are appended below the journal block.
+The template `templates/blog.journal-to-ellis.json` defines a journal-style blog route combining:
+- A standard blog feed via `sections/main-blog.liquid` (currently configured with `layout: "flip"`).
+- A hero, art-directed story via an `_blocks` section mounting the `journal` block (`blocks/journal.liquid`).
+- Additional optional sections like `featured-blog` and `slideshow` (currently disabled by default in the template).
 
 `blocks/journal.liquid` implements a fully styled “journal book” reader:
 

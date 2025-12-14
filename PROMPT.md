@@ -8,7 +8,7 @@ For visual and tone decisions, consult `BRAND_GUIDE.md`.
 ---
 
 ## 1. Project in one paragraph
-To Ellis is a Norwegian womens dress and clothing brand with a **small, premium assortment** (currently 3 products in 2 styles: Martha and Ellis). The store must feel intimate, romantic, and high-end, with **deep product storytelling** and a **journal-style editorial experience**, while still behaving like a fast, modern Dawn store. The primary market is Norway, with clear communication of **fit, materials, shipping, returns, and payments** (Klarna, Vipps, Visa, PayPal).
+To Ellis is a Norwegian womens dress and clothing brand with a **small, premium assortment** (currently 3 products in 2 styles: Martha and Ellis). The store must feel intimate, romantic, and high-end, with **deep product storytelling** and a **journal-style editorial experience**, while still behaving like a fast, modern Dawn store. The primary market is Norway, with clear communication of **fit, materials, shipping, returns, and payments** (only what is actually enabled in Shopify; Vipps/Klarna are in progress).
 
 ---
 
@@ -21,7 +21,9 @@ To Ellis is a Norwegian womens dress and clothing brand with a **small, premium 
 2. A storefront that:
    - Highlights **Martha Dress** and **Ellis Dress** (Pure White, Dark Blue) with rich PDPs.
    - Uses the **home hero video banner** and supporting sections for discovery.
-   - Implements a **journal** page using `blog.journal-to-ellis.json` + `blocks/journal.liquid`.
+   - Implements a **journal** experience using `templates/blog.journal-to-ellis.json`:
+     - A blog feed rendered by `sections/main-blog.liquid` in `layout: "flip"` mode.
+     - A hero, art-directed story rendered by `blocks/journal.liquid` mounted via an `_blocks` section.
    - Surfaces **shipping & returns** and **legal** information clearly.
 
 Do **not** redesign everything from scratch. Extend and refine what is already in this theme.
@@ -69,26 +71,25 @@ When you change or add code:
   - Use existing blocks (collapsible tabs, custom liquid, complementary products) where helpful.
 
 ### 4.3 Journal page
-- Use `blog.journal-to-ellis.json` + `blocks/journal.liquid` to present a **single hero article** with:
+- Use `templates/blog.journal-to-ellis.json` + `blocks/journal.liquid` to present a **hero, art-directed story** with:
   - Title, date, excerpt.
   - Several long-form paragraphs.
   - Signature area (text + optional logo).
   - Background image, paper texture, subtle animation configured via block settings.
+- The Journal route also includes a standard blog feed rendered by `sections/main-blog.liquid` in `layout: "flip"` mode; changes to the *feed* belong in `sections/main-blog.liquid` / CSS, while changes to the *hero story* belong in `blocks/journal.liquid`.
 - Ensure that a non-technical editor can adjust copy, fonts, spacing, and decorative elements via the theme editor.
 
 ### 4.4 Shipping, returns, and policies
-- Implement pages/sections that reflect the client outline in `CLIENT_PRODUCT_INFO_AND_POLICIES.md` and `PRD.md`:
-  - Shipping via **Bring**, free shipping within Norway.
-  - **14-day** returns window with clear conditions.
-  - Distinction between **store credit** (full value, free returns) and **refund** (return cost deducted, e.g. 200 NOK for Norway, original shipping non-refundable).
-  - Sale items still returnable within 14 days (per Norwegian law).
-  - Explicit note that original shipping, international duties and taxes are non-refundable.
+- Implement pages/sections that reflect `CLIENT_PRODUCT_INFO_AND_POLICIES.md` and `PRD.md`:
+  - Shipping via **Bring** (if active), standard shipping **199 NOK** (domestic and international).
+  - **30-day** returns window with clear conditions.
+  - If you offer store credit vs refund, keep the distinction clear and keep any fees/deductions accurate.
+  - Explicit note that original shipping, international duties and taxes are non-refundable (if that remains policy).
 - Replace any legacy brand name in policy source text with **To Ellis**.
 
 ### 4.5 Payment methods
-- The front-end (footer icons, copy) must match actual gateways configured in Shopify:
-  - Klarna, Vipps, Visa, PayPal.
-- Do not display payment methods that are not actually enabled.
+- The front-end (footer icons, copy) must match actual gateways configured in Shopify.
+- Vipps and Klarna are **not enabled yet** (in progress) — do not display or claim them until they’re enabled.
 
 ---
 
@@ -125,11 +126,11 @@ Use these tests to decide if work is complete. They are **observable behaviors**
 
 ### AT-5: Policies & footer
 - There is a visible route (nav, footer, or both) to:
-  - A shipping/returns page (or combined policy page) summarizing Bring, free shipping in Norway, 14-day returns, store-credit vs refund differences, and non-refundable items.
+  - A shipping/returns page (or combined policy page) summarizing Bring (if active), standard shipping 199 NOK (domestic/international), 30-day returns, store-credit vs refund differences (if offered), and non-refundable items.
   - Legal pages (Terms, Privacy, Cookie/Policy) as required by Shopify.
 - Footer displays:
   - Social links configured in `footer-group.json`.
-  - Payment icons that match active methods (Klarna, Vipps if available, Visa, PayPal).
+  - Payment icons that match *actual enabled* methods (do not show/claim Vipps or Klarna until enabled).
 
 ### AT-6: Technical quality
 - Core templates (home, collection, PDPs, journal) are:

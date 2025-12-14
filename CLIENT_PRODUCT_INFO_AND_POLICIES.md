@@ -50,13 +50,13 @@ These points should be reflected consistently in the final on-site product descr
 
 ### Shipping
 
-- Carrier: **Bring**.  
-- **Free shipping** within Norway (cost is included in the product price).
+- Carrier: **Bring** (if this is still the active carrier).
+- **Standard shipping:** **199 NOK** (domestic and international).
 
-### Returns (Norway)
+### Returns
 
 - **Return window:**  
-  - Returns must be initiated and shipped within **14 days** after the customer receives the order.
+  - **30 days**.
 
 - **Item condition requirements:**  
   - Items must be unused.  
@@ -85,7 +85,7 @@ These points should be reflected consistently in the final on-site product descr
 
 #### Sale items
 
-- Under Norwegian consumer law, sale items are still **eligible for return within 14 days**.
+- Sale items are eligible for return within the same **30-day** return window (unless you later define a separate sale-item exception).
 
 #### Non‑refundable costs
 
@@ -95,14 +95,47 @@ These points should be reflected consistently in the final on-site product descr
 
 ## Payment methods
 
-Client’s preferred payment options:
+### Currently (do not claim what’s not enabled)
 
-- Klarna  
-- Vipps  
-- Visa  
-- PayPal
+At this time, the store does **not** take:
 
-These should be enabled/verified in Shopify Payments (or via relevant providers) to match the on-site messaging.
+- Vipps
+- Klarna
+
+Ensure all on-site copy and icons reflect only the payment methods that are actually enabled in Shopify.
+
+### In progress / planned
+
+- Vipps (in the works)
+- Klarna (in the works)
+
+## Current repo/theme configuration notes (needs alignment)
+
+These notes describe what is *currently* configured in this repo (mostly in auto-generated JSON), and where it conflicts with the client outline above.
+
+### Footer trust popups (copy mismatch)
+
+In `sections/footer-group.json`, the trust-section popup copy currently contains placeholder/legacy text that should be reviewed against the *current* policies:
+
+- **Easy Returns** popup currently says **30 days** (this is OK).
+- **Safe Payments** popup currently mentions Klarna (and other methods). Since Vipps/Klarna are **not enabled yet**, ensure this copy does **not** claim Vipps/Klarna.
+- **Quick Shipping** popup currently uses generic “ROUND SHIPPING / EXPRESS 2ND DAY SHIPPING” language; update to reflect the current standard shipping price (**199 NOK**, domestic and international) and whatever delivery-time wording you want to commit to.
+
+### Footer payment icons (visual mismatch)
+
+In `sections/footer-group.json` → `main-footer` → `payments_row`, the footer currently displays icons including Visa, Mastercard, Apple Pay, PayPal, and Stripe, and is configured with `use_dynamic_icons: true`.
+
+Ensure the icon row matches *actual enabled payment types*.
+- Do **not** add Vipps/Klarna icons until those gateways are actually enabled.
+
+### Contact/company details
+
+`templates/page.contact.json` currently includes:
+- Email: `elisabeth@toellis.com`
+- Org. nr: `935 950 740`
+- Address: `Sjoarbakken 6 C, 5411 Stord, Norway`
+
+If any of these change, update the contact page sections (`sections/contact-info.liquid` + `sections/contact-form-support.liquid`) via the theme editor so the JSON stays in sync.
 
 ## QR codes & Shopify setup
 

@@ -15,7 +15,7 @@ Current assortment (at time of writing):
   - Expresses the To Ellis brand: romantic, refined, Norwegian, detail-focused.
   - Presents a small curated set of dresses with deep storytelling (fit, details, feel).
   - Serves primarily Norwegian customers with clear information on fit, materials, shipping, and returns.
-  - Provides a frictionless purchase flow with preferred local payment methods (Klarna, Vipps, Visa, PayPal).
+  - Provides a frictionless purchase flow with the payment methods that are actually enabled in Shopify (do not claim Vipps/Klarna until they are enabled).
 
 ### 1.3 Success criteria (high level)
 - Customers can discover and purchase any To Ellis dress on mobile or desktop within a few steps.
@@ -48,7 +48,7 @@ Current assortment (at time of writing):
 - J1: Land on home page → understand the brand → browse featured collections → open a product page → add to cart → checkout.
 - J2: Arrive from social media or campaign → land directly on a product page → read detailed description, materials, fit, feel → view photos → purchase.
 - J3: Explore Journal → read Ellis story and editorial content → navigate to featured products or collections.
-- J4: Before purchasing → read shipping and returns policies → confirm that free shipping and 14-day returns meet expectations → proceed to checkout.
+- J4: Before purchasing → read shipping and returns policies → confirm that standard shipping (199 NOK) and 30-day returns meet expectations → proceed to checkout.
 
 ## 4. Current theme architecture (audit summary)
 
@@ -56,23 +56,35 @@ Based on the Dawn-derived theme in this repository, key architectural elements a
 
 - Layout
   - `layout/theme.liquid` is the single base layout.
-  - Handles meta tags, fonts, global CSS (`base.css`), and JS (`global.js`, `cart-drawer.js`, `predictive-search.js`, etc.).
-  - Defines global CSS variables from `settings_schema.json` (typography, colors, spacing, cards, inputs, variant pills).
+  - Handles meta tags, fonts, global CSS (`base.css`), and JS (`global.js`, `cart.js`, `cart-notification.js`, `cart-drawer.js`, `predictive-search.js`, etc.).
+  - Defines global CSS variables from `settings_schema.json` + `settings_data.json` (typography, colors, spacing, cards, inputs, variant pills).
   - Renders header and footer via `sections/header-group.json` and `sections/footer-group.json`.
 
 - Sections
   - Main content sections: `sections/main-product.liquid`, `main-collection-product-grid.liquid`, `main-page.liquid`, `main-blog.liquid`, `main-article.liquid`, `main-search.liquid`, etc.
-  - Home sections configured in `templates/index.json`: hero video banner (custom `hero-banner` block via `_blocks` section), featured collection, featured product, collage, collection lists, image banner.
-  - Header and footer group sections (`header-group.json`, `footer-group.json`) orchestrate multiple underlying sections and custom blocks.
+  - Home sections configured in `templates/index.json`: multiple rich-text + featured-product sections, collages, collection lists, plus a custom hero video banner implemented as an `_blocks` section mounting the `hero-banner` block.
+  - Header and footer group sections (`header-group.json`, `footer-group.json`) orchestrate multiple underlying sections.
+  - Contact/support sections exist in-repo and are wired in `templates/page.contact.json`:
+    - `sections/contact-info.liquid`
+    - `sections/contact-form-support.liquid`
 
 - Blocks (custom components)
-  - `blocks/custom-header.liquid`: AI-generated, highly configurable header component with logo placement, navigation, hover animations, dropdown imagery, and icon/localization layout.
-  - `blocks/journal.liquid`: AI-generated journal-style blog layout used by `templates/blog.journal-to-ellis.json` to present long-form content like a designed book.
-- `blocks/comprehensive-footer.liquid` and `sections/footer-trust.liquid`: complex footer and trust-section components providing newsletter, nav, social, payment icons, and trust columns.
+  - `blocks/hero-banner.liquid`: custom hero video banner block mounted via `_blocks` sections.
+  - `blocks/journal.liquid`: AI-generated animated journal book block mounted via `_blocks` sections.
+  - `blocks/custom-header.liquid`: AI-generated header block (present in repo; currently the live header is implemented via `sections/overlay-header.liquid` inside `sections/header-group.json`).
+  - `blocks/logo-banner.liquid`: simple logo/brand banner block.
+
+- Footer implementation
+  - The active footer group (`sections/footer-group.json`) currently uses:
+    - `sections/footer-trust.liquid` (trust columns with popups)
+    - `sections/main-footer.liquid` (newsletter, link columns, social, and payments)
+  - `sections/footer.liquid` (Dawn footer) is present but disabled in the group.
+  - `sections/ellis-footer.liquid` exists as an alternative footer implementation (present in repo; not used by the current footer group).
 
 - Templates
-  - `templates/index.json`: strongly customized home page wired to `_blocks` hero section, featured collections, featured product, collage, journal teaser.
-  - `templates/blog.journal-to-ellis.json`: auto-generated template for the journal page, disabling the default main blog section in favor of the custom `journal` block.
+  - `templates/index.json`: strongly customized home page using standard sections plus an `_blocks` hero with the `hero-banner` block.
+  - `templates/blog.journal-to-ellis.json`: auto-generated template for the Journal blog route; it currently uses `sections/main-blog.liquid` with `layout: "flip"` and also mounts the `journal` block via an `_blocks` section.
+  - Additional custom page templates exist in repo (e.g. `templates/page.about.json`, `templates/page.contact.json`, `templates/page.faq.json`).
   - Standard Dawn templates for products, collections, pages, blog, articles, search, and customer pages.
 
 This PRD builds on these existing structures rather than replacing them.
@@ -97,7 +109,7 @@ Functional requirements are grouped by area and numbered FR-x.
     - Newsletter subscription block with brand-aligned copy and To Ellis logo.
     - Two or more link columns for About/Story, Help & Contacts, and policy links.
     - Social links (Instagram, Facebook, TikTok, Tise, YouTube as applicable).
-    - Payment icons reflecting Klarna, Vipps (if feasible), Visa, PayPal and other enabled gateways.
+    - Payment icons reflecting the payment methods that are actually enabled (do not claim Vipps/Klarna until enabled).
 
 - FR-3: Localization and currency language selectors
   - Use Dawn’s built-in country and language selectors in the header/footer where enabled.
@@ -173,17 +185,17 @@ Functional requirements are grouped by area and numbered FR-x.
 
 - FR-14: Shipping information
   - Provide a dedicated shipping or shipping-and-returns page (or section in FAQ/policy pages) that clearly states:
-    - Shipping provider: Bring.
-    - Free shipping within Norway (cost included in product price).
+    - Shipping provider: Bring (if active).
+    - Standard shipping: **199 NOK** (domestic and international).
 
 - FR-15: Returns policy
-  - Provide a returns policy page reflecting client outline:
-    - 14-day return window from the date the order is received.
+  - Provide a returns policy page reflecting the current store policy:
+    - 30-day return window from the date the order is received.
     - Conditions: items unused, all original tags and security ribbons intact, returned in original packaging.
     - Return options: store credit or refund, with clear explanation of differences.
     - Store credit: full item value, free return shipping in Norway, issued within 10 business days of receiving the return.
     - Refunds: return shipping cost (e.g., 200 NOK within Norway) deducted when using prepaid label; original shipping non-refundable; refunds processed within up to 30 business days.
-    - Sale items still eligible for 14-day return under Norwegian consumer law.
+    - Sale items eligible for return within the same 30-day return window (unless you later define a separate sale-item exception).
     - Non-refundable costs: original shipping, international duties, and taxes.
     - All references should use the To Ellis brand name (not any legacy brand from source text).
 
@@ -195,11 +207,8 @@ Functional requirements are grouped by area and numbered FR-x.
   - Link these clearly in the footer.
 
 - FR-17: Payment methods
-  - Ensure the storefront shows and uses the client’s preferred payment options:
-    - Klarna.
-    - Vipps.
-    - Visa.
-    - PayPal.
+  - Ensure the storefront only shows and claims payment methods that are actually enabled in Shopify.
+  - Vipps and Klarna are planned/in progress; do not show them until they are enabled.
   - Payment icons in the footer must match the actual configured gateways.
 
 ### 5.7 Customer account and transactional flows
@@ -210,14 +219,14 @@ Functional requirements are grouped by area and numbered FR-x.
     - Access to order history, addresses.
 
 - FR-19: Cart and checkout
-  - Use Dawn’s standard cart (and cart drawer, if enabled) to show selected dresses, quantities, and totals.
+  - Use Dawn’s standard cart and cart feedback UI (cart page and/or cart notification, based on theme settings) to show selected dresses, quantities, and totals.
   - Ensure taxes and shipping are displayed in accordance with Shopify and Norwegian law.
 
 ### 5.8 Content management and editing
 
 - FR-20: Theme editor usability
   - All key homepage, header/footer, PDP, and journal content should be editable via sections/blocks in the Shopify theme editor without code changes.
-  - Custom blocks (hero-banner, journal, trust section, comprehensive footer) must have sensible defaults and help text.
+  - Custom blocks/sections used for major experiences (hero-banner, journal, footer-trust, main-footer, overlay-header) must have sensible defaults and help text.
 
 ### 5.9 Contact and support
 
@@ -265,7 +274,7 @@ Functional requirements are grouped by area and numbered FR-x.
   - Accurate, up-to-date product data and photos from client (e.g., promised product imagery by a specific Monday 17 November).
   - Confirmation of exact fabric composition for Ellis Dress.
   - Final decisions on return shipping cost (e.g., 200 NOK) and whether this should be dynamic.
-  - Actual configuration of Klarna, Vipps, Visa, and PayPal in the Shopify admin.
+  - Actual configuration of payment methods in the Shopify admin; do not claim Vipps/Klarna until they are enabled.
 
 - Risks
   - Manual edits to auto-generated JSON templates (e.g., `blog.journal-to-ellis.json`) may be overwritten by Shopify; structural changes should be made via sections/blocks.
@@ -277,7 +286,7 @@ The implementation is considered acceptable when:
 
 - AC-1: A customer can land on the home page, see the To Ellis hero, discover Martha and Ellis dresses via featured sections or collections, and reach a PDP on both mobile and desktop.
 - AC-2: PDPs for Martha and Ellis show correct pricing, fit, material (for Martha; Ellis when available), and rich descriptions matching the client’s guidelines.
-- AC-3: A shipping and returns page (or equivalent section) clearly documents free shipping within Norway, 14-day returns, conditions, store-credit vs refund options, and non-refundable costs.
+- AC-3: A shipping and returns page (or equivalent section) clearly documents standard shipping (199 NOK domestic/international), 30-day returns, conditions, store-credit vs refund options (if offered), and non-refundable costs.
 - AC-4: Footer shows accurate payment icons and links to legal and policy pages.
 - AC-5: Journal page renders correctly using the custom journal block and can be edited via the theme editor.
 - AC-6: Storefront works across common modern browsers on mobile and desktop without layout breakage.

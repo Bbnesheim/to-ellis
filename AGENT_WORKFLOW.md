@@ -29,7 +29,7 @@ Responsible for:
   - Martha Dress and Ellis Dress descriptions (fit, details, feel).
   - Size/fit guidance and care instructions.
 - Drafting and maintaining policy pages:
-  - Shipping & returns (Bring, free shipping in Norway, 14-day window, store-credit vs refund).
+  - Shipping & returns (standard shipping 199 NOK domestic/international, 30-day returns, store-credit vs refund if offered).
   - Legal pages (Terms, Privacy, Cookies/Policy) in line with Shopify’s standard structure.
 - Writing journal content using the `journal` block schema.
 
@@ -71,8 +71,8 @@ Responsible for:
 
 - Shopify admin configuration that must match theme expectations:
   - Navigation menus (main menu, footer menus) aligning with visible links.
-  - Payment methods: Klarna, Vipps, Visa, PayPal.
-  - Shipping profiles and rates (Bring, free shipping in Norway).
+  - Payment methods: ensure the theme only claims what is actually enabled (Vipps/Klarna are in progress; do not claim them until enabled).
+  - Shipping profiles and rates (standard shipping 199 NOK domestic/international).
   - Legal pages (Terms, Privacy, etc.) and linking them in the footer.
 - Coordinating theme settings with admin configuration (e.g., correct color schemes, typography, cart type).
 
@@ -102,7 +102,7 @@ Workflow:
    - AT-5: Policies & footer.
    - AT-6: Technical quality.
 2. Test on at least one mobile and one desktop viewport.
-3. Check keyboard navigation for header menus, cart drawer, and journal where applicable.
+3. Check keyboard navigation for header menus, cart UI (cart page / notification / drawer depending on theme settings), and journal where applicable.
 4. Flag issues back to the Theme or Content Agent with concrete observations (URL, viewport, steps to reproduce).
 
 ---
@@ -125,7 +125,7 @@ Workflow:
 ### 3.2 Updating shipping and returns policy
 
 1. Content Agent:
-   - Update the policy page text to reflect the latest client rules (Bring, free shipping, 14-day returns, store credit vs refund, non-refundable items) using `CLIENT_PRODUCT_INFO_AND_POLICIES.md`.
+   - Update the policy page text to reflect the latest rules (standard shipping 199 NOK domestic/international, 30-day returns, store credit vs refund if offered, non-refundable items) using `CLIENT_PRODUCT_INFO_AND_POLICIES.md`.
 2. Integration Agent:
    - Ensure the updated policy page is linked from the footer and any PDP snippets or tabs referencing shipping/returns.
 3. Theme Agent:
@@ -138,8 +138,9 @@ Workflow:
 1. Content Agent:
    - Draft or update journal copy (title, date, paragraphs, signature) in the theme editor using the `journal` block.
 2. Theme Agent (if layout change is needed):
-   - Modify `blocks/journal.liquid` for styling or structural changes.
-   - Avoid hand-editing `blog.journal-to-ellis.json` beyond what the editor can safely reproduce.
+   - Modify `blocks/journal.liquid` for the hero/story layout and styling.
+   - Modify `sections/main-blog.liquid` / related assets for the blog feed (e.g. `layout: "flip"`).
+   - Avoid hand-editing `templates/blog.journal-to-ellis.json` beyond what the editor can safely reproduce.
 3. QA Agent:
    - Verify AT-4 (Journal experience) on mobile and desktop.
 

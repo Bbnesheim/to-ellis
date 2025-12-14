@@ -37,17 +37,21 @@ All colours below are taken from `config/settings_data.json` (current theme sett
 
 **Text / core ink**
 
-- **Deep blue-charcoal** – `#121826`  
-  - Primary text colour in the live theme (overrides Dawn’s default `#121212`).  
-  - Use for all main body copy, headings, and navigation text.
+- **Ink (deep blue-charcoal)** – `#121826`
+  - Used in key areas via explicit section settings (e.g. the custom overlay header and main footer section settings).
+  - Use for primary headings and body copy when you control text color directly.
+
+- **Dusty blue (accent + sometimes “scheme text”)** – `#8A9BB7`
+  - This color is used heavily as the `text` value in multiple Shopify color schemes in `settings_data.json`.
+  - Treat it as an accent/secondary ink (links, subtle headings, UI accents) unless the section design explicitly intends for the whole section to be “dusty-blue ink on ivory”.
 
 ### 2.2 Brand accents
 
 Pulled from colour schemes and sections:
 
-- **Periwinkle mist** – `#D7DFEA`  
-  - Used as a background (e.g. scheme-3) and as a highlight in hero & footer.  
-  - Good for soft emphasis blocks and ribbons.
+- **Periwinkle mist** – `#D7DFEA`
+  - Used primarily for soft UI accents (notably as button backgrounds in multiple schemes) and as a gentle highlight in the hero banner gradient.
+  - Good for subtle emphasis without introducing a loud accent color.
 - **Dusty blue** – `#8A9BB7`  
   - Primary action/brand accent colour (buttons, links, hover states).  
   - Used prominently in footer newsletter button and header hover text.
@@ -56,55 +60,56 @@ Pulled from colour schemes and sections:
 - **Warm sand / gold-beige** – `#B1A785`  
   - Used as an accent button colour in one scheme.  
   - Reserve for special CTAs or seasonal highlights so it doesn’t compete with dusty blue.
-- **Wine / deep plum** – `#6F2634`  
-  - Used in journal book spine colour.  
-  - Use for very subtle, editorial accents (lines, rules, or small icons), not for large backgrounds.
+- **Wine / deep plum** – `#6F2634`
+  - Present as a full background in one of the custom color schemes (`scheme-221766d3-…`).
+  - Use for editorial/campaign moments sparingly (it’s the heaviest color in the palette). Note: the journal block’s “spine” color is configurable and is currently set via template settings (defaulting to a brown tone in `templates/blog.journal-to-ellis.json`).
 
 ### 2.3 Scheme guidance
 
 From `settings_data.color_schemes` (current theme instance):
 
-- **Scheme-1** – Base layout
-  - Background: `#F7F3EE`  
-  - Text: `#121826`  
-  - Button: `#D7DFEA`, Button label: `#F9F8F7`
-  - Use as the default base (body, header, most surfaces).
+- **Scheme-1**
+  - Background: `#f7f3ee`
+  - Text: `#8a9bb7`
+  - Button: `#d7dfea`, Button label: `#f9f8f7`
+  - Use as the default neutral base. If you need darker primary text, set it via section settings (e.g. `#121826`).
 
-- **Scheme-2** – Light overlay / inverted
-  - Background: `#F9F8F7`  
-  - Text: `#F9F8F7` (used over darker elements)  
-  - Button: `#F1F5F9`, Button label: `#121826`
-  - Use only where text sits on a darker or photographic background.
+- **Scheme-2**
+  - Background: `#f9f8f7`
+  - Text: `#8a9bb7`
+  - Button: `#f1f5f9`, Button label: `#8a9bb7`
+  - Use for light, airy sections (home bands, product grids) where dusty-blue text is acceptable.
 
-- **Scheme-3** – Soft blue feature
-  - Background: `#D7DFEA`  
-  - Text: `#121826`  
-  - Button: `#8A9BB7`
-  - Good for feature bands (e.g. category callouts, trust sections) that still feel calm.
+- **Scheme-3**
+  - Background: `#f7f3ee`
+  - Text: `#8a9bb7`
+  - Button: `#8a9bb7`, Button label: `#f9f8f7`
+  - Strong “dusty blue” CTA scheme; good for CTAs that should still feel calm.
 
-- **Scheme-4** – Blue highlight
-  - Background: `#D7DFEA`  
-  - Text: `#121826`  
-  - Button: `#FFFFFF`, Button label: `#121212`
-  - Used for sale or highlight badges; keep usage limited so it remains special.
+- **Scheme-4**
+  - Background: `#f1f5f9`
+  - Text: `#8a9bb7`
+  - Button: `#f1f5f9`, Button label: `#8a9bb7`
+  - Use for structured bands (collages, collections) and light UI surfaces.
 
-- **Scheme-5** – Strong blue
-  - Background: `#334FB4` (vivid blue)  
-  - Text: `#FFFFFF`
-  - Use very sparingly (if at all) – this is the loudest colour in the system and can easily overpower the tone.
+- **Scheme-5**
+  - Background: `#f1f5f9`
+  - Text: `#1d1f25`
+  - Button: `#ffffff`, Button label: `#334fb4`
+  - Use sparingly for “higher contrast” sections (e.g. footer trust), while keeping the palette restrained.
 
-- **Custom schemes** (IDs like `scheme-b99e…`, `scheme-2217…`, `scheme-2619…`, `scheme-f5a2…`)
-  - Combine the base neutrals with accents like dusty blue, wine, and beige.  
-  - When assigning them to sections, keep a consistent logic:  
-    - Warm neutrals for stories and PDP content.  
-    - Blues for structure (navigation blocks, informational bands).  
-    - Wine/beige only for subtle editorial or campaign moments.
+- **Custom schemes (UUID suffixes)**
+  - `scheme-221766d3-…`: plum/wine background (`#6f2634`) with light text (`#f9f8f7`) and periwinkle button (`#d7dfea`).
+  - `scheme-26194e4e-…`: dusty blue background (`#8a9bb7`) with ink text (`#121826`) and sand button (`#b1a785`).
+  - `scheme-b99e0aef-…`: very close to scheme-1 but with stronger CTA (button `#8a9bb7`).
+  - `scheme-f5a20548-…`: inverse/novelty variant where background + text are both light (`#f7f3ee`) and buttons are also light.
 
 **General guidance**
 
 - Prefer **single-colour backgrounds**; gradients exist but are used minimally.
-- Use **dusty blue (`#8A9BB7`) for interactive states** (buttons, hovers, selected nav) rather than introducing new accent colours.
-- Maintain high contrast between text and background; avoid placing light text on pale backgrounds.
+- Keep the palette tight: neutrals (`#f7f3ee`, `#f9f8f7`, `#f1f5f9`) + dusty blue (`#8a9bb7`) + ink (`#121826`) + occasional sand (`#b1a785`) / plum (`#6f2634`).
+- Maintain high contrast between text and background; don’t rely solely on dusty blue for long-form body text.
+
 
 ---
 
@@ -130,9 +135,9 @@ If you ever introduce a separate body sans-serif, keep Cormorant for H1–H3 and
 
 Derived from theme settings and existing sections:
 
-- Global scales:  
-  - `heading_scale`: 105%  
-  - `body_scale`: 120%
+- Global scales (from `config/settings_data.json`):
+  - `heading_scale`: 135
+  - `body_scale`: 120
 
 **Desktop (guideline values):**
 
@@ -181,9 +186,9 @@ From `settings_schema.json` / `settings_data.json`:
 
 ### 4.2 Surfaces and cards
 
-- **Corners**:  
-  - Cards, buttons, text boxes, and images all have **0px radius** in the current theme.  
-  - This keeps the aesthetic sharp and tailored, like pressed seams.
+- **Corners**:
+  - The theme is currently configured with **8px radius** for most UI surfaces (buttons, cards, media, inputs) via `config/settings_data.json`.
+  - This keeps the look soft and premium (not overly rounded), and matches the existing hero button + journal card styling.
 - **Shadows**:  
   - Most shadows are set to **0 opacity**; where used (popups, drawers) they are minimal.  
   - Avoid heavy drop shadows or glows.
@@ -193,8 +198,8 @@ From `settings_schema.json` / `settings_data.json`:
 ### 4.3 Buttons and controls
 
 - Buttons:
-  - Primary buttons often use dusty blue or periwinkle with light labels.  
-  - Shape is rectangular with no radius; feel should be quiet, not pill-like.
+  - Primary buttons often use dusty blue or periwinkle with light labels.
+  - Default button radius is **8px**; keep it consistent unless a section explicitly needs a different treatment.
 - Variant pills:
   - Pill radius (`40px`) is used for size/variant pills; keep their look minimal and match theme colours.
 - Inputs (forms, newsletter, search):
