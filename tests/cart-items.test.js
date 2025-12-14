@@ -23,6 +23,10 @@ beforeAll(() => {
     measureFromMarker: jest.fn(),
   };
 
+  global.PUB_SUB_EVENTS = {
+    cartUpdate: 'cart-update',
+  };
+
   global.publish = jest.fn(() => Promise.resolve());
 
   // cart Strings used in the happy path for live-region updates
@@ -161,7 +165,7 @@ function mockCartChangeFetch({
 
 async function waitForCartUpdate() {
   // Allow pending microtasks (the fetch + .text() + .then chain) to run
-  await new Promise((resolve) => setImmediate(resolve));
+  await new Promise((resolve) => setTimeout(resolve, 0));
 }
 
 describe('CartItems section rendering and footer total updates', () => {

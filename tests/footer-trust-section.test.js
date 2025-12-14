@@ -9,7 +9,12 @@ let sectionTemplateSource;
 
 beforeAll(() => {
   const templatePath = path.join(__dirname, '..', 'sections', 'footer-trust.liquid');
-  sectionTemplateSource = fs.readFileSync(templatePath, 'utf8');
+  const rawSource = fs.readFileSync(templatePath, 'utf8');
+  sectionTemplateSource = rawSource
+    // Shopify-only blocks LiquidJS doesn't understand
+    .replace(/\{%-?\s*style\s*-?%\}[\s\S]*?\{%-?\s*endstyle\s*-?%\}/g, '')
+    .replace(/\{%-?\s*schema\s*-?%\}[\s\S]*?\{%-?\s*endschema\s*-?%\}/g, '')
+    .replace(/\{%-?\s*javascript\s*-?%\}[\s\S]*?\{%-?\s*endjavascript\s*-?%\}/g, '');
 
   engine = new Liquid();
 

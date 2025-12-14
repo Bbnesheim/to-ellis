@@ -1,0 +1,10 @@
+# Node / Jest test harness
+node_modules/
+package.json
+package-lock.json
+tests/
+
+# VCS / editor
+.git/
+.gitignore
+.DS_Store

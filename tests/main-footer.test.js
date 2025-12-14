@@ -11,8 +11,15 @@ beforeAll(() => {
   const templatePath = path.join(__dirname, '..', 'sections', 'main-footer.liquid');
   const rawSource = fs.readFileSync(templatePath, 'utf8');
 
+  const stripShopifyBlocks = (source) =>
+    source
+      // Shopify-only blocks LiquidJS doesn't understand
+      .replace(/\{%-?\s*style\s*-?%\}[\s\S]*?\{%-?\s*endstyle\s*-?%\}/g, '')
+      .replace(/\{%-?\s*schema\s*-?%\}[\s\S]*?\{%-?\s*endschema\s*-?%\}/g, '')
+      .replace(/\{%-?\s*javascript\s*-?%\}[\s\S]*?\{%-?\s*endjavascript\s*-?%\}/g, '');
+
   // Replace Shopify's `form` block tag with a plain HTML <form> so LiquidJS can render it
-  templateSource = rawSource
+  templateSource = stripShopifyBlocks(rawSource)
     .replace(
       /\{%[\s-]*form\s+'customer'[^%]*id:\s*'FooterNewsletter'[^%]*class:\s*'to-footer-newsletter__form-{{ footer_id }}'[^%]*%}/,
       '<form id="FooterNewsletter" class="to-footer-newsletter__form-{{ footer_id }}">',
