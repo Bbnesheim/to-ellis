@@ -17,10 +17,12 @@
 {%- endstyle -%}
 
 {%- paginate blog.articles by 6 -%}
-  <div class="main-blog page-width section-{{ section.id }}-padding">
-    <h1 class="title--primary{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {{ blog.title | escape }}
-    </h1>
+  <div class="main-blog page-width section-{{ section.id }}-padding{% if section.settings.layout == 'flip' %} main-blog--flip{% endif %}">
+    {%- unless section.settings.layout == 'flip' -%}
+      <h1 class="title--primary{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        {{ blog.title | escape }}
+      </h1>
+    {%- endunless -%}
 
 {%- if section.settings.layout == 'flip' -%}
       <script src="{{ 'blog-flip.js' | asset_url }}" defer="defer"></script>

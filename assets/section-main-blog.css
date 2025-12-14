@@ -4,6 +4,15 @@
   margin-right: auto;
 }
 
+/* Flip journal should use the full available viewport width (until mobile rules kick in) */
+.main-blog.page-width.main-blog--flip {
+  max-width: 100%;
+
+  /* Override Dawn's wider page padding so the book can breathe on large screens */
+  padding-left: clamp(1.2rem, 3vw, 6rem);
+  padding-right: clamp(1.2rem, 3vw, 6rem);
+}
+
 .blog-articles {
   display: grid;
   grid-gap: 1rem;
@@ -68,33 +77,82 @@
 
 /*
   Flip journal layout (main blog)
-  - Fixed book width: 900px
-  - Desktop spread: two pages (~425px each) with a center spine (~50px)
+  Goal: make the layout feel like an open book
+  - Desktop: two pages with a visible spine + outer "cover" margin
   - Mobile: one page focus, with a page-turn within each spread every other click
 */
 
 .blog-flip {
-  --blog-flip-width: 900px;
-  --blog-flip-page-width: 425px;
-  --blog-flip-spine-width: 50px;
+  /* Overall book size (fill the container responsively) */
+  --blog-flip-width: 100%;
 
-  --blog-flip-paper-pad: 2.2rem;
-  --blog-flip-inner-pad: 4.4rem;
+  /* Pages + center seam */
+  --blog-flip-page-width: minmax(0, 1fr);
+  --blog-flip-seam-width: 0.3rem;
+
+  /* "Cover" margin around the open pages (reduced further) */
+  --blog-flip-cover-pad: clamp(0.8rem, 1.1vw, 1.6rem);
+  --blog-flip-cover-radius: 1.6rem;
+
+  /* Cover colors (brand warm neutrals) */
+  --blog-flip-cover-base: #b1a785;
+  --blog-flip-cover-deep: #817c69;
+
+  /* Paper styling */
+  --blog-flip-paper-color: #f7f3ee; /* ivory / paper */
+  --blog-flip-paper-pad: 1.4rem;
+  --blog-flip-inner-pad: 2.4rem;
   --blog-flip-rule-gap: 3.2rem;
+  --blog-flip-paper-radius: 1.0rem;
+
+  /* Fixed book height so the layout doesn't jump between spreads */
+  --blog-flip-book-height: clamp(56rem, 72vh, 78rem);
 
   max-width: var(--blog-flip-width);
   margin: 0 auto;
   position: relative;
+  padding: var(--blog-flip-cover-pad);
+  border-radius: var(--blog-flip-cover-radius);
+
+  /* Warm "cover" frame + gentle depth (lighter than before) */
+  background-color: var(--blog-flip-cover-base);
+  background: linear-gradient(135deg, #c8c0a3, var(--blog-flip-cover-base));
+  border-color: var(--blog-flip-cover-deep);
+  border: 0.1rem solid var(--blog-flip-cover-deep);
+  box-shadow:
+    0 1.4rem 3.2rem rgba(0, 0, 0, 0.10),
+    inset 0 0 0 0.1rem rgba(255, 255, 255, 0.20);
+}
+
+/* Fine grain texture over the cover */
+.blog-flip:before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--blog-flip-cover-radius);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0,
+    rgba(255, 255, 255, 0.18) 1px,
+    transparent 1px,
+    transparent 6px
+  );
+  opacity: 0.35;
+  pointer-events: none;
 }
 
 .blog-flip__spread {
   width: 100%;
   display: none;
   grid-template-columns: var(--blog-flip-page-width) var(--blog-flip-page-width);
-  column-gap: var(--blog-flip-spine-width);
+  column-gap: 0;
   justify-content: center;
   align-items: stretch;
   position: relative;
+  z-index: 1; /* above cover texture */
+
+  /* Keep spreads a consistent height so page turning doesn't shift layout */
+  min-height: var(--blog-flip-book-height);
 }
 
 .blog-flip:not(.is-initialized) .blog-flip__spread:last-child {
@@ -105,18 +163,30 @@
   display: grid;
 }
 
-/* spine seam centered in the 50px gap */
+/* Thin page seam (like a book gutter) */
 .blog-flip__spread:before {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50%;
-  width: var(--blog-flip-spine-width);
+  width: var(--blog-flip-seam-width);
   transform: translateX(-50%);
-  background: rgba(var(--color-foreground), 0.02);
-  border-left: 0.1rem solid rgba(var(--color-foreground), 0.10);
-  border-right: 0.1rem solid rgba(var(--color-foreground), 0.10);
+
+  /* A slightly warm seam so it feels like paper shadows, not a divider bar */
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.08),
+    rgba(0, 0, 0, 0.02),
+    rgba(0, 0, 0, 0.08)
+  );
+
+  /* Soft depth between pages */
+  box-shadow:
+    0 0 1.4rem rgba(0, 0, 0, 0.18),
+    inset 0 0 0 0.1rem rgba(0, 0, 0, 0.06);
+
+  border-radius: 1rem;
   pointer-events: none;
 }
 
@@ -128,17 +198,34 @@
   position: relative;
   height: 100%;
   padding: var(--blog-flip-paper-pad);
-  border-radius: 0;
-  border: 0.1rem solid rgba(var(--color-foreground), 0.14);
-  box-shadow: none;
-  background-color: rgb(var(--color-background));
-  background-image: repeating-linear-gradient(
-    to bottom,
-    rgba(var(--color-foreground), 0.06) 0,
-    rgba(var(--color-foreground), 0.06) 0.1rem,
-    transparent 0.1rem,
-    transparent var(--blog-flip-rule-gap)
-  );
+  border: 0.1rem solid rgba(var(--color-foreground), 0.10);
+  background-color: var(--blog-flip-paper-color);
+  overflow: hidden;
+
+  /* Slight vignette at outer edges to mimic stacked pages */
+  background-image:
+    radial-gradient(circle at left center, rgba(0, 0, 0, 0.06), transparent 48%),
+    radial-gradient(circle at right center, rgba(0, 0, 0, 0.06), transparent 48%),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(var(--color-foreground), 0.05) 0,
+      rgba(var(--color-foreground), 0.05) 0.1rem,
+      transparent 0.1rem,
+      transparent var(--blog-flip-rule-gap)
+    );
+
+  box-shadow: 0 0.8rem 2.2rem rgba(0, 0, 0, 0.08);
+}
+
+/* Paper corners (rounded only on the outer edges, like a book) */
+.blog-flip__paper--left {
+  border-radius: var(--blog-flip-paper-radius) 0 0 var(--blog-flip-paper-radius);
+  box-shadow: -0.6rem 0.8rem 2.2rem rgba(0, 0, 0, 0.08);
+}
+
+.blog-flip__paper--right {
+  border-radius: 0 var(--blog-flip-paper-radius) var(--blog-flip-paper-radius) 0;
+  box-shadow: 0.6rem 0.8rem 2.2rem rgba(0, 0, 0, 0.08);
 }
 
 .blog-flip__paper--blank {
@@ -178,6 +265,202 @@
   display: block;
 }
 
+/*
+  Flip journal article-card layout tweaks
+  - show image in a 2:3 frame (portrait) without cropping
+  - place text in a column next to the image
+  - mirror layout per page (left page: image left, right page: image right)
+*/
+.blog-flip .article-card.card--media .card__inner.ratio::before {
+  content: none;
+}
+
+@media screen and (min-width: 750px) {
+  /* The snippet renders a duplicate .card__content outside .card__inner;
+     hide it so the in-inner content can sit in the grid next to the image. */
+  .blog-flip .article-card > .card__content {
+    display: none;
+  }
+
+  /*
+    Two-column page layout inside each page:
+    - Outside column: image
+    - Inside column: text (closer to the center seam)
+  */
+  .blog-flip .article-card.card--media .card__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 38%) minmax(0, 62%);
+    grid-template-rows: auto;
+    grid-auto-flow: column;
+    column-gap: 2.2rem;
+    align-items: start;
+    align-content: start;
+  }
+
+  /* Mirror on the right page (text inside, image outside) */
+  .blog-flip__page--right .article-card.card--media .card__inner {
+    grid-template-columns: minmax(0, 62%) minmax(0, 38%);
+  }
+
+  /*
+    Dawn sets .card__media to position:absolute;
+    force it back into normal flow so the grid can lay out image + text.
+  */
+  .blog-flip .article-card__image-wrapper.card__media {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    grid-row: 1;
+    align-self: start;
+
+    margin: 0;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    border-radius: 0.8rem;
+    background: var(--blog-flip-paper-color);
+
+    /* slightly inset from outer edge so it doesn't feel glued to the border */
+    padding: 0.2rem;
+  }
+
+  .blog-flip .card__content {
+    grid-row: 1;
+    padding: 0;
+    align-self: start;
+    margin-top: 0;
+  }
+
+  .blog-flip .card__information {
+    align-self: start;
+  }
+
+  /*
+    Dawn hides article text inside .card__inner for some card styles.
+    In the flip journal we rely on the inner content (we hide the duplicate outer content),
+    so we must force the title/meta/excerpt back on.
+  */
+  .blog-flip .article-card .card__inner .card__content,
+  .blog-flip .article-card .card__inner .card__information {
+    display: block !important;
+  }
+
+  /*
+    Dawn global hover setting (animate--hover-3d-lift) rotates the whole .card__inner.
+    For the flip journal we only want the image to have motion, not the full page.
+  */
+  .blog-flip .card-wrapper:hover .card--standard .card__inner,
+  .blog-flip .card-wrapper:hover .card--card {
+    transform: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+  }
+
+  .blog-flip .card-wrapper:hover .card--standard .card__inner:after,
+  .blog-flip .card-wrapper:hover .card--card:after,
+  .blog-flip .card-wrapper:hover .card--standard .card__media:after,
+  .blog-flip .card-wrapper:hover .card--card:before {
+    content: none !important;
+  }
+
+  /* Apply a subtle tilt to the image only */
+  .blog-flip .article-card__image-wrapper.card__media {
+    transition: transform var(--duration-long) ease, box-shadow var(--duration-long) ease;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  .blog-flip__page--left .card-wrapper:hover .article-card__image-wrapper.card__media {
+    transform: rotate(-1deg) translateY(-0.2rem);
+    box-shadow: -0.6rem 1.2rem 2.4rem rgba(0, 0, 0, 0.12);
+  }
+
+  .blog-flip__page--right .card-wrapper:hover .article-card__image-wrapper.card__media {
+    transform: rotate(1deg) translateY(-0.2rem);
+    box-shadow: 0.6rem 1.2rem 2.4rem rgba(0, 0, 0, 0.12);
+  }
+
+  /* Left page ordering */
+  .blog-flip__page--left .article-card__image-wrapper.card__media {
+    grid-column: 1;
+  }
+
+  .blog-flip__page--left .card__content {
+    grid-column: 2;
+  }
+
+  /* Right page ordering */
+  .blog-flip__page--right .article-card__image-wrapper.card__media {
+    grid-column: 2;
+  }
+
+  .blog-flip__page--right .card__content {
+    grid-column: 1;
+  }
+}
+
+/* Mobile: keep a simple vertical stack */
+@media screen and (max-width: 749px) {
+  .blog-flip .article-card > .card__content {
+    display: none;
+  }
+
+  .blog-flip .article-card.card--media .card__inner {
+    display: block;
+  }
+
+  .blog-flip .article-card__image-wrapper.card__media {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    margin: 0 0 1.4rem 0;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    border-radius: 0.8rem;
+    background: var(--blog-flip-paper-color);
+    padding: 0.2rem;
+  }
+}
+
+.blog-flip .article-card__image.media {
+  position: absolute;
+  inset: 0;
+  padding-bottom: 0 !important;
+}
+
+.blog-flip .article-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Increase text sizes inside the pages */
+.blog-flip .card__heading {
+  font-size: clamp(2.2rem, 1.6vw, 2.8rem);
+  line-height: 1.15;
+}
+
+.blog-flip .article-card__info {
+  font-size: 1.25rem;
+}
+
+.blog-flip .article-card__excerpt {
+  font-size: 1.6rem;
+  line-height: 1.7;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+
 .blog-flip .article-card-wrapper {
   width: 100%;
 }
@@ -186,6 +469,13 @@
   background: transparent;
   border: none;
   box-shadow: none;
+}
+
+/* Ensure no inner card shells paint white backgrounds over the "paper" */
+.blog-flip .article-card .card__inner,
+.blog-flip .article-card .card__content,
+.blog-flip .article-card .card__information {
+  background: transparent;
 }
 
 .blog-flip .article-card .card__information {
@@ -284,11 +574,18 @@
     backface-visibility: hidden;
   }
 
-  .blog-flip__spread.is-turning-next .blog-flip__page--left {
+  /*
+    Required direction:
+    - Desktop Previous (older): LEFT page flips to the right
+    - Desktop Next (newer): RIGHT page flips to the left
+  */
+  .blog-flip__spread.is-turning-prev .blog-flip__page--left {
+    z-index: 3;
     animation: blog-flip-turn-next 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
-  .blog-flip__spread.is-turning-prev .blog-flip__page--right {
+  .blog-flip__spread.is-turning-next .blog-flip__page--right {
+    z-index: 3;
     animation: blog-flip-turn-prev 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
@@ -316,12 +613,16 @@
   .blog-flip {
     --blog-flip-width: 100%;
     --blog-flip-page-width: 100%;
-    --blog-flip-spine-width: 0px;
+    --blog-flip-seam-width: 0px;
+
+    /* Slightly shorter on mobile to reduce scroll while keeping stable height */
+    --blog-flip-book-height: clamp(54rem, 70vh, 72rem);
   }
 
   .blog-flip__spread {
     grid-template-columns: 1fr;
     column-gap: 0;
+    min-height: var(--blog-flip-book-height);
   }
 
   .blog-flip__spread:before {
