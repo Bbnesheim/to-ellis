@@ -48,7 +48,7 @@
         "image": "shopify://shop_images/ellis_bw_1.webp",
         "image_2": "shopify://shop_images/martha_black_4.webp",
         "image_overlay_opacity": 0,
-        "image_height": "medium",
+        "image_height": "large",
         "image_behavior": "none",
         "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
