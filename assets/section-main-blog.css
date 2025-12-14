@@ -476,8 +476,9 @@ body.animate--hover-3d-lift .blog-flip .card-wrapper:hover .card--card:before {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
-    height: 100%;
-    min-height: 0;
+
+    /* Let the page height grow with content */
+    height: auto;
   }
 
   .blog-flip .article-card__image-wrapper.card__media {
@@ -501,10 +502,11 @@ body.animate--hover-3d-lift .blog-flip .card-wrapper:hover .card--card:before {
     padding: 0.2rem;
   }
 
+  /* Let text flow naturally (no internal scroll container) */
   .blog-flip .card__content {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: auto;
+    flex: 0 0 auto;
+    min-height: auto;
+    overflow: visible;
   }
 }
 
@@ -783,5 +785,24 @@ body.animate--hover-3d-lift .blog-flip .card-wrapper:hover .card--card:before {
 
   .blog-flip__spread.is-showing-left .blog-flip__page--right {
     transform: rotateY(-180deg);
+  }
+}
+
+/* <= 599px: let cover/binder grow with the page content (no fixed book height) */
+@media screen and (max-width: 599px) {
+  .blog-flip {
+    --blog-flip-book-height: auto;
+  }
+
+  .blog-flip__spread {
+    height: auto;
+  }
+
+  /* Ensure excerpt isn't visually clipped by the default line clamp */
+  .blog-flip .article-card__excerpt {
+    display: block;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+    overflow: visible;
   }
 }
