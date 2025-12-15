@@ -269,7 +269,7 @@ Voice and tone are inferred from the product descriptions and journal content.
 ### 6.3 Policies & transactional copy
 
 - For shipping and returns:
-  - Be **clear and direct** about conditions (Bring, free shipping in Norway, 14-day returns, store credit vs refund, non-refundable costs).  
+  - Be **clear and direct** about conditions (Bring, 199 NOK standard shipping, 30-day returns, store credit vs refund, non-refundable costs).  
   - Use the same calm tone as the rest of the site.
 - For CTA buttons:
   - Use simple verbs (e.g. "Kjøp nå", "Legg i handlekurv", "Les journalen").  

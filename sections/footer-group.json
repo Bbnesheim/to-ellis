@@ -20,7 +20,7 @@
             "icon": "shopify://shop_images/customer_service.svg",
             "title": "Customer Service",
             "popup_title": "Customer Service",
-            "popup_text": "<p>Our customer service team is here to help you.<br/><br/>Contact us Monday through Sunday from 9.00-17.00.<br/><br/>By phone: +47 472 33 500<br/>By e-mail and by chat: <a href=\"/pages/about\" title=\"ABOUT\">Click here</a></p>"
+"popup_text": "<p>Vi er her for å hjelpe deg med spørsmål om bestilling, levering og retur.<br/><br/>Kontakt oss på <a href=\\"mailto:hello@toellis.com\\">hello@toellis.com</a> eller via kontaktsiden: <a href=\\"/pages/contact\\">Kontakt oss</a>.</p>"
           }
         },
         "trust_item_JAwEiU": {
@@ -29,7 +29,7 @@
             "icon": "shopify://shop_images/free_returns.svg",
             "title": "Easy Returns",
             "popup_title": "Easy Returns",
-            "popup_text": "<p>To return a product, please register your return on your “Shipment Confirmation” email or by logging in to your ToEllis.com account. You have 30 days from the delivery of your order to return a product purchased from ToEllis.com.</p>"
+"popup_text": "<p>Du har <strong>30 dager</strong> fra du mottar bestillingen til å registrere retur (frivillig returordning).<br/><br/>I tillegg har du som forbruker normalt <strong>14 dagers angrerett</strong> ved nettkjøp.<br/><br/>Retur registreres via ordrebekreftelse/frakt-epost eller ved å logge inn på din To Ellis-konto. For hjelp: <a href=\\"mailto:hello@toellis.com\\">hello@toellis.com</a>.</p>"
           }
         },
         "trust_item_nwqmib": {
@@ -38,7 +38,7 @@
             "icon": "shopify://shop_images/Safe_secure_payments.svg",
             "title": "Safe Payments",
             "popup_title": "Safe Payments",
-            "popup_text": "<p>All payment information will be SSL coded for transmission to protect your card data and to ensure that it cannot be used by anyone else.<br/><br/>The following payment methods are available on the To Ellis Online Experience: Apple Pay, VISA, Mastercard, American Express, PayPal, and 4 Interest Free Payments with Klarna.</p>"
+"popup_text": "<p>Betaling behandles sikkert i Shopify Checkout. All betalingsinformasjon overføres kryptert.<br/><br/>Tilgjengelige betalingsmetoder vises i kassen.</p>"
           }
         },
         "trust_item_PphDnB": {
@@ -47,7 +47,7 @@
             "icon": "shopify://shop_images/free_shipping.svg",
             "title": "Quick Shipping",
             "popup_title": "Quick Shipping",
-            "popup_text": "<p>ROUND SHIPPING Arrives within 5 to 7 business days from when it is shipped.<br/><br/><br/>EXPRESS 2ND DAY SHIPPING Arrives within 2 business days if the order is placed before 11:00 AM.</p>"
+"popup_text": "<p>Vi sender med Bring.<br/><br/><strong>Standard frakt:</strong> 199 NOK (bekreftes i kassen).<br/><strong>Leveringstid:</strong> Estimat vises i kassen og kan variere etter destinasjon.<br/><br/>Du mottar sporingsinformasjon på e-post når pakken er sendt.</p>"
           }
         }
       },

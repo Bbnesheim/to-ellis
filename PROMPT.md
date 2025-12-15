@@ -82,9 +82,12 @@ When you change or add code:
 ### 4.4 Shipping, returns, and policies
 - Implement pages/sections that reflect `CLIENT_PRODUCT_INFO_AND_POLICIES.md` and `PRD.md`:
   - Shipping via **Bring** (if active), standard shipping **199 NOK** (domestic and international).
-  - **30-day** returns window with clear conditions.
-  - If you offer store credit vs refund, keep the distinction clear and keep any fees/deductions accurate.
-  - Explicit note that original shipping, international duties and taxes are non-refundable (if that remains policy).
+  - Clearly distinguish:
+    - Statutory **14-day right of withdrawal (Angrerett)** for online purchases (where applicable).
+    - Voluntary **30-day** return window with clear conditions.
+  - If you offer store credit vs refund, keep the distinction clear (within statutory withdrawal, customers must be able to choose a **refund**).
+  - Do not claim “shipping is non-refundable” in a way that conflicts with statutory withdrawal rights (standard outbound delivery cost is typically refundable on statutory withdrawal).
+  - International duties/taxes/import fees (if applicable) are generally non-refundable.
 - Replace any legacy brand name in policy source text with **To Ellis**.
 
 ### 4.5 Payment methods

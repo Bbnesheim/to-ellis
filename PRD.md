@@ -189,14 +189,17 @@ Functional requirements are grouped by area and numbered FR-x.
     - Standard shipping: **199 NOK** (domestic and international).
 
 - FR-15: Returns policy
-  - Provide a returns policy page reflecting the current store policy:
-    - 30-day return window from the date the order is received.
+  - Provide a returns policy page reflecting the current store policy and mandatory consumer rights:
+    - Statutory **14-day right of withdrawal (Angrerett)** for online purchases (where applicable) in addition to any voluntary return policy.
+    - Voluntary **30-day** return window from the date the order is received.
     - Conditions: items unused, all original tags and security ribbons intact, returned in original packaging.
     - Return options: store credit or refund, with clear explanation of differences.
+      - Within the statutory withdrawal period, customers must be able to choose a **refund** (store credit optional).
     - Store credit: full item value, free return shipping in Norway, issued within 10 business days of receiving the return.
-    - Refunds: return shipping cost (e.g., 200 NOK within Norway) deducted when using prepaid label; original shipping non-refundable; refunds processed within up to 30 business days.
+    - Refunds: issued to the original payment method; processed within statutory timelines (typically within 14 days of notice, with the ability to wait until goods are returned / proof of shipment); return shipping cost may be deducted when using a prepaid label outside “free return” flows (e.g. 200 NOK within Norway — confirm final amount).
+    - Shipping cost refunds: for statutory withdrawal, refund the **standard outbound delivery cost** (not any extra cost for upgraded shipping).
     - Sale items eligible for return within the same 30-day return window (unless you later define a separate sale-item exception).
-    - Non-refundable costs: original shipping, international duties, and taxes.
+    - Non-refundable costs: international duties/taxes/import fees (if applicable).
     - All references should use the To Ellis brand name (not any legacy brand from source text).
 
 - FR-16: Legal pages
@@ -286,7 +289,7 @@ The implementation is considered acceptable when:
 
 - AC-1: A customer can land on the home page, see the To Ellis hero, discover Martha and Ellis dresses via featured sections or collections, and reach a PDP on both mobile and desktop.
 - AC-2: PDPs for Martha and Ellis show correct pricing, fit, material (for Martha; Ellis when available), and rich descriptions matching the client’s guidelines.
-- AC-3: A shipping and returns page (or equivalent section) clearly documents standard shipping (199 NOK domestic/international), 30-day returns, conditions, store-credit vs refund options (if offered), and non-refundable costs.
+- AC-3: A shipping and returns page (or equivalent section) clearly documents standard shipping (199 NOK domestic/international), statutory 14-day right of withdrawal (where applicable), 30-day voluntary returns, conditions, store-credit vs refund options (if offered), and non-refundable costs.
 - AC-4: Footer shows accurate payment icons and links to legal and policy pages.
 - AC-5: Journal page renders correctly using the custom journal block and can be edited via the theme editor.
 - AC-6: Storefront works across common modern browsers on mobile and desktop without layout breakage.
