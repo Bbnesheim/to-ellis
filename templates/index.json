@@ -335,6 +335,40 @@
         "padding_bottom": 64
       }
     },
+    "newsletter_49DYWU": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_iiH4nE": {
+          "type": "heading",
+          "settings": {
+            "heading": "<em>Sign up for 10% off on your first order</em>",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph_kfJR8b": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Be the first to know about new collections and exclusive offers.</p>"
+          }
+        },
+        "email_form_T4cA8z": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_iiH4nE",
+        "paragraph_kfJR8b",
+        "email_form_T4cA8z"
+      ],
+      "name": "t:sections.newsletter.presets.name",
+      "settings": {
+        "color_scheme": "scheme-f5a20548-bb2a-496e-a7dc-205bb24bd6d4",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
     "featured_product_TUg7i4": {
       "type": "featured-product",
       "blocks": {
@@ -758,40 +792,6 @@
         "hero_banner_mrC9BX"
       ],
       "settings": {}
-    },
-    "newsletter_49DYWU": {
-      "type": "newsletter",
-      "blocks": {
-        "heading_iiH4nE": {
-          "type": "heading",
-          "settings": {
-            "heading": "<em>Sign up for 10% off on your first order</em>",
-            "heading_size": "h1"
-          }
-        },
-        "paragraph_kfJR8b": {
-          "type": "paragraph",
-          "settings": {
-            "text": "<p>Be the first to know about new collections and exclusive offers.</p>"
-          }
-        },
-        "email_form_T4cA8z": {
-          "type": "email_form",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "heading_iiH4nE",
-        "paragraph_kfJR8b",
-        "email_form_T4cA8z"
-      ],
-      "name": "t:sections.newsletter.presets.name",
-      "settings": {
-        "color_scheme": "scheme-f5a20548-bb2a-496e-a7dc-205bb24bd6d4",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
     }
   },
   "order": [
@@ -804,12 +804,12 @@
     "rich_text_fJ8xKM",
     "featured_product_TUg7i4",
     "collage_A9BfNr",
+    "newsletter_49DYWU",
     "rich_text_ciRMeg",
     "featured_product_qeKEfy",
     "collage_BfGPmY",
     "collection_list_RkRH6j",
     "collection_list_eJtPzU",
-    "17576675617bf295b1",
-    "newsletter_49DYWU"
+    "17576675617bf295b1"
   ]
 }
