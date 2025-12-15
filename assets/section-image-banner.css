@@ -491,5 +491,145 @@
   }
 }
 
+/* Split two-image treatment (brand) */
+@media screen and (min-width: 750px) {
+  .banner--two-images:not(.banner--stacked) {
+    --banner-split-left: #8a9bb7;
+    --banner-split-right: #d7dfea;
+    --banner-split-hover: #121826;
 
+    /*
+      We need two states:
+      - default: hard 50/50 split at the image seam
+      - hover: animate both sides to the hover color
 
+      We do this by making a 300% wide gradient:
+      - first third = hard 50/50 split
+      - last third  = solid hover color
+      Then we animate background-position from 0% -> 100%.
+
+      In a 300% background, the first third is 0%..33.333%.
+      The 50% point *within that third* is 16.666% overall.
+    */
+    --banner-split-anim-gradient: linear-gradient(
+      90deg,
+      var(--banner-split-left) 0%,
+      var(--banner-split-left) 16.666%,
+      var(--banner-split-right) 16.666%,
+      var(--banner-split-right) 33.333%,
+      /* middle third: gentle blend toward hover */
+      var(--banner-split-left) 33.333%,
+      var(--banner-split-hover) 50%,
+      var(--banner-split-right) 66.666%,
+      /* last third: solid hover */
+      var(--banner-split-hover) 66.666%,
+      var(--banner-split-hover) 100%
+    );
+
+    --banner-split-anim-size: 300% 100%;
+    --banner-split-anim-pos: 0% 50%;
+    --banner-split-anim-pos-hover: 100% 50%;
+
+    --banner-split-anim-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --banner-split-anim-duration: 900ms;
+  }
+
+  /* The markup adds `page-width` here; remove constraints so the 50% split aligns with the image seam */
+  .banner--two-images:not(.banner--stacked) .banner__content.page-width {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* No container styling */
+  .banner--two-images:not(.banner--stacked) .banner__box {
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  /* Split-color text (default) with animated transition to hover color */
+  .banner--two-images:not(.banner--stacked) .banner__heading,
+  .banner--two-images:not(.banner--stacked) .banner__text,
+  .banner--two-images:not(.banner--stacked) .banner__buttons .button {
+    background-image: var(--banner-split-anim-gradient);
+    background-repeat: no-repeat;
+    background-size: var(--banner-split-anim-size);
+    background-position: var(--banner-split-anim-pos);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    transition: background-position var(--banner-split-anim-duration) var(--banner-split-anim-ease);
+  }
+
+  .banner--two-images:not(.banner--stacked):hover .banner__heading,
+  .banner--two-images:not(.banner--stacked):hover .banner__text,
+  .banner--two-images:not(.banner--stacked):hover .banner__buttons .button {
+    background-position: var(--banner-split-anim-pos-hover);
+  }
+
+  /* Button: outline + text only (no fill), outline also split 50/50 at seam */
+  .banner--two-images:not(.banner--stacked) .banner__buttons .button {
+    --alpha-button-background: 0;
+
+    border: 0;
+    background-color: transparent;
+
+    /* Split/animate the CTA label the same way as heading/text */
+    background-image: var(--banner-split-anim-gradient);
+    background-repeat: no-repeat;
+    background-size: var(--banner-split-anim-size);
+    background-position: var(--banner-split-anim-pos);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    transition: background-position var(--banner-split-anim-duration) var(--banner-split-anim-ease);
+  }
+
+  /* Kill Dawn shadow layer */
+  .banner--two-images:not(.banner--stacked) .banner__buttons .button {
+    isolation: isolate;
+  }
+
+  .banner--two-images:not(.banner--stacked) .banner__buttons .button::before {
+    content: none;
+  }
+
+  /*
+    Custom gradient border without filling the inside.
+    Uses masking to cut out the center so only the 1px outline remains.
+  */
+  .banner--two-images:not(.banner--stacked) .banner__buttons .button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--buttons-radius);
+    padding: 1px; /* border thickness */
+
+    background-image: var(--banner-split-anim-gradient);
+    background-size: var(--banner-split-anim-size);
+    background-position: var(--banner-split-anim-pos);
+
+    /* Ensure border sits behind the text */
+    z-index: 0;
+
+    /* Cut out the middle so there is no fill */
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    pointer-events: none;
+
+    transition: background-position var(--banner-split-anim-duration) var(--banner-split-anim-ease);
+  }
+
+  .banner--two-images:not(.banner--stacked):hover .banner__buttons .button::after {
+    background-position: var(--banner-split-anim-pos-hover);
+  }
+}
