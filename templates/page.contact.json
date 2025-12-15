@@ -24,7 +24,7 @@
           "type": "kontakt_card",
           "settings": {
             "title": "Contact information",
-"text": "<p><strong>Email:</strong> <a href=\\"mailto:hello@toellis.com\\">hello@toellis.com</a><br/><strong>Instagram:</strong> @toellis_official<br/><strong>Opening hours:</strong> Every day</p>",
+            "text": "<p><strong>Email:</strong> <a href=\"mailto:hello@toellis.com\">hello@toellis.com</a><br/><strong>Instagram:</strong> @toellis_official<br/><strong>Opening hours:</strong> Every day</p>",
             "note": ""
           }
         },

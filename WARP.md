@@ -216,34 +216,16 @@ When adding new homepage content:
 - Decide whether it should be a new **section** in `sections/` or an additional **block** inside an existing `_blocks` container.
 - Prefer using existing patterns (`hero-banner`, `collection-list`, `collage`) for new marketing experiences, and extend them with new settings before creating completely new sections.
 
-### Journal / blog experience (templates/blog.journal-to-ellis.json + blocks/journal.liquid)
+### Journal / blog experience (templates/blog.journal-to-ellis.json + templates/article.journal.json)
 
-The template `templates/blog.journal-to-ellis.json` defines a journal-style blog route combining:
-- A standard blog feed via `sections/main-blog.liquid` (currently configured with `layout: "flip"`).
-- A hero, art-directed story via an `_blocks` section mounting the `journal` block (`blocks/journal.liquid`).
-- Additional optional sections like `featured-blog` and `slideshow` (currently disabled by default in the template).
+The journal experience is split across:
 
-`blocks/journal.liquid` implements a fully styled “journal book” reader:
-
-- Uses two Shopify fonts (`heading_font`, `body_font`) and emits their `@font-face` definitions.
-- Creates a full-viewport background layer that optionally:
-  - Displays a background image with configurable size, position, attachment, opacity, blur, and scale.
-  - Falls back to a subtle pattern when no image is set.
-- Draws a “book” content card with:
-  - Optional paper texture overlay.
-  - Optional page lines drawn via `repeating-linear-gradient`.
-  - Optional spine effect (border-left) to mimic a bound book.
-- Supports scroll/entrance animations:
-  - 3D-ish entrance transform for the book wrapper.
-  - Separate fade/slide animations for header, content, and per-paragraph text blocks.
-- Content fields include:
-  - Blog title, date, excerpt, multiple long-form text blocks, and a signature area.
-  - Signature alignment (left/center/right) and optional signature logo.
-  - Decorative SVG asset (e.g. brand mark) placed at the top or bottom.
+- Blog feed: `templates/blog.journal-to-ellis.json` renders a standard blog feed via `sections/main-blog.liquid` (currently configured with `layout: "flip"`).
+- Journal articles: `templates/article.journal.json` renders the journal article experience via `sections/journal-article.liquid`.
 
 Important:
-- The top-of-file comment in `blog.journal-to-ellis.json` warns that the template is auto-generated and may be overwritten by Shopify’s theme editor. Avoid hand-editing that JSON in ways that can’t be reproduced via the editor.
-- Structural or styling changes to the journal experience should be made in `blocks/journal.liquid` rather than only in the template JSON.
+- Templates in `templates/` are auto-generated and may be overwritten by Shopify’s theme editor.
+- Structural/styling changes to the journal article experience should be made in `sections/journal-article.liquid`.
 
 ### Product page (sections/main-product.liquid)
 

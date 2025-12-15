@@ -28,7 +28,7 @@ Current assortment (at time of writing):
 - Customization of a Dawn-derived Shopify theme for To Ellis, including:
   - Home page storytelling and product discovery.
   - Collection listing and product detail templates for Martha and Ellis styles.
-  - A custom journal/blog experience based on the existing journal block and template.
+  - A custom journal/blog experience based on the journal templates and the `journal-article` section.
   - Header and footer systems, including trust elements, navigation, localization toggles, and social links.
   - Content and theme configuration for shipping, returns, policies, and payment information.
 - Configuration of basic Shopify settings to align with To Ellis requirements (navigation, payment methods, shipping profiles, legal pages).
@@ -70,9 +70,11 @@ Based on the Dawn-derived theme in this repository, key architectural elements a
 
 - Blocks (custom components)
   - `blocks/hero-banner.liquid`: custom hero video banner block mounted via `_blocks` sections.
-  - `blocks/journal.liquid`: AI-generated animated journal book block mounted via `_blocks` sections.
   - `blocks/custom-header.liquid`: AI-generated header block (present in repo; currently the live header is implemented via `sections/overlay-header.liquid` inside `sections/header-group.json`).
   - `blocks/logo-banner.liquid`: simple logo/brand banner block.
+
+- Journal article section
+  - `sections/journal-article.liquid`: the journal “book” article experience (used by `templates/article.journal.json`).
 
 - Footer implementation
   - The active footer group (`sections/footer-group.json`) currently uses:
@@ -83,7 +85,8 @@ Based on the Dawn-derived theme in this repository, key architectural elements a
 
 - Templates
   - `templates/index.json`: strongly customized home page using standard sections plus an `_blocks` hero with the `hero-banner` block.
-  - `templates/blog.journal-to-ellis.json`: auto-generated template for the Journal blog route; it currently uses `sections/main-blog.liquid` with `layout: "flip"` and also mounts the `journal` block via an `_blocks` section.
+  - `templates/blog.journal-to-ellis.json`: auto-generated template for the Journal blog route; uses `sections/main-blog.liquid` with `layout: "flip"`.
+  - `templates/article.journal.json`: auto-generated template for journal article pages; uses `sections/journal-article.liquid`.
   - Additional custom page templates exist in repo (e.g. `templates/page.about.json`, `templates/page.contact.json`, `templates/page.faq.json`).
   - Standard Dawn templates for products, collections, pages, blog, articles, search, and customer pages.
 
@@ -172,14 +175,13 @@ Functional requirements are grouped by area and numbered FR-x.
 
 ### 5.5 Journal and editorial content
 
-- FR-12: Journal template
-  - Use `templates/blog.journal-to-ellis.json` with the `journal` block to provide a journal-style page that:
-    - Displays a single, highly art-directed article with title, date, excerpt, multiple text sections, and signature.
-    - Supports background images, paper-like textures, spine effect, decorative SVG, and scroll/entrance animations.
+- FR-12: Journal templates
+  - Blog feed: `templates/blog.journal-to-ellis.json` renders a standard blog feed via `sections/main-blog.liquid` (`layout: "flip"`).
+  - Journal articles: `templates/article.journal.json` renders the journal article experience via `sections/journal-article.liquid`, supporting background images, paper-like textures, spine effect, and subtle animations.
 
 - FR-13: Journal content editing
-  - Ensure that the content fields in `blocks/journal.liquid` are exposed and editable in the theme editor so non-technical editors can maintain the story.
-  - The auto-generated JSON template may be overwritten by Shopify; structural changes must be done via the block, not direct JSON edits.
+  - Ensure that the content fields in `sections/journal-article.liquid` are exposed and editable in the theme editor so non-technical editors can maintain the story.
+  - Templates in `templates/` may be overwritten by Shopify; structural changes must be done via the section, not direct JSON edits.
 
 ### 5.6 Policies, shipping, returns, and payments
 
@@ -291,7 +293,7 @@ The implementation is considered acceptable when:
 - AC-2: PDPs for Martha and Ellis show correct pricing, fit, material (for Martha; Ellis when available), and rich descriptions matching the client’s guidelines.
 - AC-3: A shipping and returns page (or equivalent section) clearly documents standard shipping (199 NOK domestic/international), statutory 14-day right of withdrawal (where applicable), 30-day voluntary returns, conditions, store-credit vs refund options (if offered), and non-refundable costs.
 - AC-4: Footer shows accurate payment icons and links to legal and policy pages.
-- AC-5: Journal page renders correctly using the custom journal block and can be edited via the theme editor.
+- AC-5: Journal article pages render correctly using `sections/journal-article.liquid` and can be edited via the theme editor.
 - AC-6: Storefront works across common modern browsers on mobile and desktop without layout breakage.
 
 This PRD should be updated as the product line grows beyond 3 products and as To Ellis expands into additional categories or markets.

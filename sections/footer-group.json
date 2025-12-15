@@ -20,7 +20,7 @@
             "icon": "shopify://shop_images/customer_service.svg",
             "title": "Customer Service",
             "popup_title": "Customer Service",
-"popup_text": "<p>Vi er her for å hjelpe deg med spørsmål om bestilling, levering og retur.<br/><br/>Kontakt oss på <a href=\\"mailto:hello@toellis.com\\">hello@toellis.com</a> eller via kontaktsiden: <a href=\\"/pages/contact\\">Kontakt oss</a>.</p>"
+            "popup_text": "<p>Vi er her for å hjelpe deg med spørsmål om bestilling, levering og retur.<br/><br/>Kontakt oss på <a href=\"mailto:hello@toellis.com\">hello@toellis.com</a> eller via kontaktsiden: <a href=\"/pages/contact\">Kontakt oss</a>.</p>"
           }
         },
         "trust_item_JAwEiU": {
@@ -29,7 +29,7 @@
             "icon": "shopify://shop_images/free_returns.svg",
             "title": "Easy Returns",
             "popup_title": "Easy Returns",
-"popup_text": "<p>Du har <strong>30 dager</strong> fra du mottar bestillingen til å registrere retur (frivillig returordning).<br/><br/>I tillegg har du som forbruker normalt <strong>14 dagers angrerett</strong> ved nettkjøp.<br/><br/>Retur registreres via ordrebekreftelse/frakt-epost eller ved å logge inn på din To Ellis-konto. For hjelp: <a href=\\"mailto:hello@toellis.com\\">hello@toellis.com</a>.</p>"
+            "popup_text": "<p>Du har <strong>30 dager</strong> fra du mottar bestillingen til å registrere retur (frivillig returordning).<br/><br/>I tillegg har du som forbruker normalt <strong>14 dagers angrerett</strong> ved nettkjøp.<br/><br/>Retur registreres via ordrebekreftelse/frakt-epost eller ved å logge inn på din To Ellis-konto. For hjelp: <a href=\"mailto:hello@toellis.com\">hello@toellis.com</a>.</p>"
           }
         },
         "trust_item_nwqmib": {

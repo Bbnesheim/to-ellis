@@ -11,7 +11,8 @@ Quiet, intimate, and editorial—romantic without being dramatic, precise withou
 
 ## 2. Primary sources in this repo
 These are the main “source texts” used to infer voice:
-- `templates/blog.journal-to-ellis.json` (journal block demo entry: title/date/excerpt/body/signature)
+- `templates/article.journal.json` + `sections/journal-article.liquid` (journal article layout + seed/default settings)
+- `templates/blog.journal-to-ellis.json` (blog feed layout)
 - `templates/page.about.json` (Our Story copy)
 - `templates/index.json` (homepage straplines like “Discover the soul of To Ellis…”, “Understated elegance…”) 
 

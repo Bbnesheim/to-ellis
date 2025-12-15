@@ -31,7 +31,7 @@ Responsible for:
 - Drafting and maintaining policy pages:
   - Shipping & returns (standard shipping 199 NOK domestic/international, 30-day returns, store-credit vs refund if offered).
   - Legal pages (Terms, Privacy, Cookies/Policy) in line with Shopify’s standard structure.
-- Writing journal content using the `journal` block schema.
+- Writing journal content using the `journal-article` section (template `article.journal`).
 
 Workflow:
 
@@ -61,9 +61,9 @@ Workflow:
 3. Extend existing sections/blocks before adding new ones:
    - Add schema settings for colors, copy, toggles, and layout options rather than forking near-identical components.
 4. For the journal experience:
-   - Treat `templates/blog.journal-to-ellis.json` as auto-generated.
-   - Put structural and styling changes in `blocks/journal.liquid`.
-5. After coding, verify against `PROMPT.md` acceptance tests (AT-1 … AT-6).
+   - Treat `templates/blog.journal-to-ellis.json` and `templates/article.journal.json` as auto-generated.
+   - Put structural and styling changes in `sections/journal-article.liquid`.
+   - Modify `sections/main-blog.liquid` / related assets for the blog feed (e.g. `layout: "flip"`).
 
 ### 2.3 Integration & Settings Agent
 
@@ -136,11 +136,11 @@ Workflow:
 ### 3.3 Adjusting the journal layout or content
 
 1. Content Agent:
-   - Draft or update journal copy (title, date, paragraphs, signature) in the theme editor using the `journal` block.
+   - Draft or update journal content (title, date, body, signature) in the theme editor using the `article.journal` template / `journal-article` section settings.
 2. Theme Agent (if layout change is needed):
-   - Modify `blocks/journal.liquid` for the hero/story layout and styling.
+   - Modify `sections/journal-article.liquid` for the journal article layout and styling.
    - Modify `sections/main-blog.liquid` / related assets for the blog feed (e.g. `layout: "flip"`).
-   - Avoid hand-editing `templates/blog.journal-to-ellis.json` beyond what the editor can safely reproduce.
+   - Avoid hand-editing templates in `templates/` beyond what the editor can safely reproduce.
 3. QA Agent:
    - Verify AT-4 (Journal experience) on mobile and desktop.
 

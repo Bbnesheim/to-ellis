@@ -62,7 +62,7 @@ Pulled from colour schemes and sections:
   - Reserve for special CTAs or seasonal highlights so it doesn’t compete with dusty blue.
 - **Wine / deep plum** – `#6F2634`
   - Present as a full background in one of the custom color schemes (`scheme-221766d3-…`).
-  - Use for editorial/campaign moments sparingly (it’s the heaviest color in the palette). Note: the journal block’s “spine” color is configurable and is currently set via template settings (defaulting to a brown tone in `templates/blog.journal-to-ellis.json`).
+  - Use for editorial/campaign moments sparingly (it’s the heaviest color in the palette).
 
 ### 2.3 Scheme guidance
 
@@ -115,7 +115,7 @@ From `settings_data.color_schemes` (current theme instance):
 
 ## 3. Typography
 
-Typography choices come from `config/settings_data.json`, `blocks/journal.liquid`, the hero banner block, and the header/footer groups.
+Typography choices come from `config/settings_data.json`, `sections/journal-article.liquid`, the hero banner block, and the header/footer groups.
 
 ### 3.1 Typefaces
 

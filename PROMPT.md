@@ -21,9 +21,9 @@ To Ellis is a Norwegian womens dress and clothing brand with a **small, premium 
 2. A storefront that:
    - Highlights **Martha Dress** and **Ellis Dress** (Pure White, Dark Blue) with rich PDPs.
    - Uses the **home hero video banner** and supporting sections for discovery.
-   - Implements a **journal** experience using `templates/blog.journal-to-ellis.json`:
-     - A blog feed rendered by `sections/main-blog.liquid` in `layout: "flip"` mode.
-     - A hero, art-directed story rendered by `blocks/journal.liquid` mounted via an `_blocks` section.
+  - Implements a **journal** experience using:
+     - Blog feed: `templates/blog.journal-to-ellis.json` rendered by `sections/main-blog.liquid` in `layout: "flip"` mode.
+     - Journal article pages: `templates/article.journal.json` rendered by `sections/journal-article.liquid`.
    - Surfaces **shipping & returns** and **legal** information clearly.
 
 Do **not** redesign everything from scratch. Extend and refine what is already in this theme.
@@ -49,8 +49,8 @@ When you change or add code:
    - Keep translation strings (`t:` keys), accessibility attributes, and standard section patterns intact unless you have a compelling reason to change them.
 
 5. **Journal template safety**
-   - `templates/blog.journal-to-ellis.json` is auto-generated and can be overwritten by Shopify.
-   - Structural changes to the journal experience belong in `blocks/journal.liquid`, not in hand-edited JSON that the editor may replace.
+   - `templates/blog.journal-to-ellis.json` and `templates/article.journal.json` are auto-generated and can be overwritten by Shopify.
+   - Structural/styling changes to the journal experience belong in `sections/journal-article.liquid`, not in hand-edited JSON that the editor may replace.
 
 ---
 
@@ -71,12 +71,13 @@ When you change or add code:
   - Use existing blocks (collapsible tabs, custom liquid, complementary products) where helpful.
 
 ### 4.3 Journal page
-- Use `templates/blog.journal-to-ellis.json` + `blocks/journal.liquid` to present a **hero, art-directed story** with:
+- Use `templates/article.journal.json` + `sections/journal-article.liquid` to present a journal-style **article page** with:
   - Title, date, excerpt.
   - Several long-form paragraphs.
   - Signature area (text + optional logo).
-  - Background image, paper texture, subtle animation configured via block settings.
-- The Journal route also includes a standard blog feed rendered by `sections/main-blog.liquid` in `layout: "flip"` mode; changes to the *feed* belong in `sections/main-blog.liquid` / CSS, while changes to the *hero story* belong in `blocks/journal.liquid`.
+  - Background image, paper texture, and subtle animation configured via section settings.
+- The Journal blog route uses `templates/blog.journal-to-ellis.json` rendered by `sections/main-blog.liquid` in `layout: "flip"` mode.
+- Changes to the *feed* belong in `sections/main-blog.liquid` / CSS, while changes to the *article experience* belong in `sections/journal-article.liquid`.
 - Ensure that a non-technical editor can adjust copy, fonts, spacing, and decorative elements via the theme editor.
 
 ### 4.4 Shipping, returns, and policies
@@ -122,9 +123,9 @@ Use these tests to decide if work is complete. They are **observable behaviors**
   - Use search to find Martha or Ellis by name.
 
 ### AT-4: Journal experience
-- Visiting the Journal template (`blog.journal-to-ellis`) shows:
-  - The custom journal layout (background, “book” card, decorative SVG, signature area).
-  - Content matching the structure of `blocks/journal.liquid` (title, date, excerpt, multiple paragraphs, signature).
+- Visiting a Journal article using the `article.journal` template shows:
+  - The custom journal layout (background, “book” card, signature area).
+  - Content rendered by `sections/journal-article.liquid`.
 - Theme editor allows changing at least: title, main body text, background image, and signature text/logo **without code edits**.
 
 ### AT-5: Policies & footer
