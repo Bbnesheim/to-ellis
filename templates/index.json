@@ -707,7 +707,7 @@
             "show_controls": true,
             "heading": "",
             "subheading": "",
-            "button_text": "SIGN UP",
+            "button_text": "",
             "button_link": "shopify://pages/contact",
             "content_position": "bottom-center",
             "horizontal_offset": 5,
